@@ -1,0 +1,460 @@
+/* ==================================================================
+   FONTS — same pairing as Home.css / About.css / Programmes.css.
+   ================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ==================================================================
+   DESIGN TOKENS — identical values across all pages so the site
+   shares one visual language.
+   ================================================================== */
+:root {
+  --color-blue-900: #0c2038;
+  --color-blue-700: #1c5d99;
+  --color-teal-600: #12897f;
+  --color-green-600: #1f9d55;
+
+  --color-text-body: #48657f;
+  --color-text-muted: #64748b;
+  --color-text-faint: #94a3b8;
+  --color-border: #dbe6ef;
+
+  --color-bg-page: #ffffff;
+  --color-bg-alt: #eef6f4;
+  --color-bg-soft: #f5faf9;
+
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: #cfe6df;
+  --color-on-dark-faint: #dcece7;
+
+  --gradient-brand: linear-gradient(120deg, var(--color-blue-700) 0%, var(--color-teal-600) 52%, var(--color-green-600) 100%);
+  --gradient-brand-dark: linear-gradient(135deg, #0e3a63 0%, #0f6b64 55%, #167a44 100%);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  --font-display: "Sora", "Segoe UI", sans-serif;
+  --font-body-face: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --font-h1: clamp(32px, 5vw, 54px);
+  --font-h2: clamp(24px, 3.4vw, 32px);
+  --font-h3: 18px;
+  --font-body: 16px;
+  --font-small: 14px;
+  --font-tiny: 12px;
+
+  --max-width: 1200px;
+  --transition-fast: 0.18s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition-fast: 0s; }
+}
+
+/* ==================================================================
+   BASE / LAYOUT
+   ================================================================== */
+.wam-services {
+  font-family: var(--font-body-face);
+  color: var(--color-blue-900);
+  line-height: 1.6;
+  background-color: var(--color-bg-page);
+}
+
+.wam-services *,
+.wam-services *::before,
+.wam-services *::after {
+  box-sizing: border-box;
+}
+
+.wam-services :focus-visible {
+  outline: 3px solid var(--color-teal-600);
+  outline-offset: 2px;
+}
+
+.wam-services h1,
+.wam-services h2,
+.wam-services h3,
+.wam-services h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container--cta {
+  max-width: 750px;
+}
+
+/* ==================================================================
+   HERO
+   ================================================================== */
+.services-hero {
+  background: var(--gradient-brand-dark);
+  padding: 90px 0 70px;
+}
+
+.services-hero-inner {
+  max-width: 780px;
+}
+
+.services-eyebrow {
+  color: var(--color-on-dark-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: var(--font-small);
+}
+
+.services-hero-title {
+  font-size: var(--font-h1);
+  font-weight: 800;
+  margin: 16px 0;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.services-hero-lead {
+  font-size: 18px;
+  color: var(--color-on-dark-faint);
+  margin: 0;
+}
+
+/* ==================================================================
+   FILTER BAR
+   ================================================================== */
+.filter-bar {
+  padding: 30px 0;
+  background-color: var(--color-bg-soft);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.filter-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-blue-900);
+  font-size: var(--font-small);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--font-small);
+  background-color: #fff;
+  color: var(--color-text-body);
+  box-shadow: 0 2px 4px rgba(12, 32, 56, 0.06);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.filter-btn--active {
+  background: var(--gradient-brand);
+  color: #fff;
+}
+
+.filter-btn:hover:not(.filter-btn--active) {
+  background-color: var(--color-bg-alt);
+}
+
+/* ==================================================================
+   SERVICE CATEGORY BLOCKS
+   ================================================================== */
+.services-list {
+  padding: 70px 0;
+}
+
+.category-blocks {
+  display: grid;
+  gap: 60px;
+}
+
+.category-header {
+  padding-left: 16px;
+  margin-bottom: 32px;
+  border-left: 5px solid var(--color-teal-600);
+}
+
+.category-header--biomedical { border-left-color: var(--color-green-600); }
+.category-header--behavioral { border-left-color: var(--color-blue-700); }
+.category-header--structural { border-left-color: var(--color-teal-600); }
+
+.category-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--font-tiny);
+  letter-spacing: 1px;
+}
+
+.category-label--biomedical { color: var(--color-green-600); }
+.category-label--behavioral { color: var(--color-blue-700); }
+.category-label--structural { color: var(--color-teal-600); }
+
+.category-title {
+  font-size: 28px;
+  color: var(--color-blue-900);
+  margin: 4px 0 8px 0;
+}
+
+.category-desc {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 15px;
+  max-width: 800px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.service-card {
+  background-color: #fff;
+  padding: 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(12, 32, 56, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(12, 32, 56, 0.08);
+}
+
+.service-card-title {
+  font-size: var(--font-h3);
+  color: var(--color-blue-900);
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.service-card-desc {
+  color: var(--color-text-body);
+  font-size: var(--font-small);
+  margin: 0;
+}
+
+.service-card-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.service-card-link {
+  font-size: 13px;
+  color: var(--color-teal-600);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.service-card-link:hover {
+  text-decoration: underline;
+}
+
+/* ==================================================================
+   REFERRAL PATHWAY
+   ================================================================== */
+.referral-section {
+  padding: 80px 0;
+  background-color: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.referral-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.referral-eyebrow {
+  color: var(--color-teal-600);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: var(--font-small);
+}
+
+.referral-header h2 {
+  font-size: var(--font-h2);
+  color: var(--color-blue-900);
+  margin-top: 8px;
+}
+
+.referral-header p {
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.referral-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+
+.referral-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.referral-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(12, 32, 56, 0.08);
+}
+
+.referral-step-number {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.referral-step-title {
+  font-size: 17px;
+  color: var(--color-blue-900);
+  margin: 0 0 8px 0;
+}
+
+.referral-step-desc {
+  color: var(--color-text-body);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* ==================================================================
+   CTA
+   ================================================================== */
+.services-cta {
+  padding: 80px 0;
+  background: var(--gradient-brand-dark);
+  color: #fff;
+  text-align: center;
+}
+
+.services-cta h2 {
+  font-size: var(--font-h2);
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.services-cta p {
+  color: var(--color-on-dark-muted);
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+
+.services-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 32px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: inline-block;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gradient-brand);
+  color: #fff;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-on-dark-muted);
+  color: #fff;
+}
+
+.btn-outline:hover {
+  border-color: #fff;
+}
+
+/* ==================================================================
+   RESPONSIVE ADJUSTMENTS
+   ================================================================== */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    padding: 64px 0 48px;
+  }
+
+  .services-list,
+  .referral-section,
+  .services-cta {
+    padding: 56px 0;
+  }
+
+  .category-blocks {
+    gap: 44px;
+  }
+
+  .filter-bar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-card,
+  .referral-card {
+    padding: 20px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .services-cta-actions .btn,
+  .filter-buttons .filter-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

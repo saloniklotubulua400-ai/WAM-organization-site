@@ -1,0 +1,447 @@
+/* ROOT VARIABLES & BASE STYLES */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #16a34a;
+  --secondary-hover: #15803d;
+  --text-dark: #1f2937;
+  --text-muted: #4b5563;
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --transition: all 0.25s ease-in-out;
+}
+
+.substance-prevention-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.narrow-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  margin-bottom: 2.5rem;
+}
+
+.section-title.text-center {
+  text-align: center;
+}
+
+.section-title h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.section-title p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* 1. HERO SECTION */
+.prevention-hero {
+  background: linear-gradient(135deg, #eff6ff 0%, #dcfce7 100%);
+  padding: 5.5rem 0;
+  text-align: center;
+}
+
+.hero-container {
+  max-width: 800px;
+}
+
+.badge-pill {
+  display: inline-block;
+  background-color: #dbeafe;
+  color: var(--primary-hover);
+  border: 1px solid #bfdbfe;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+}
+
+.prevention-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.prevention-hero p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cta-primary-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.cta-secondary-btn {
+  background-color: #ffffff;
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cta-secondary-btn:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* 2. PILLARS SECTION */
+.pillars-section {
+  background-color: #ffffff;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.prevention-card {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.prevention-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: #bfdbfe;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prevention-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-hover);
+}
+
+.prevention-card p {
+  color: var(--text-muted);
+}
+
+/* 3. RESOURCES SECTION */
+.resources-section {
+  background-color: var(--bg-light);
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.resource-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.resource-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.resource-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--secondary-color);
+  background-color: #dcfce7;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.resource-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+
+  color: var(--text-dark);
+}
+
+.resource-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.file-size {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.download-link {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+/* 4. FAQ ACCORDION */
+.faq-section {
+  background-color: #ffffff;
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--bg-card);
+  transition: var(--transition);
+}
+
+.faq-item.open {
+  border-color: var(--primary-color);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.25rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-icon {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.25rem 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 5. HELPLINE BANNER */
+.helpline-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  padding: 4rem 0;
+  border-top: 4px solid var(--secondary-color);
+}
+
+.banner-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.banner-text h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.banner-text p {
+  color: #94a3b8;
+}
+
+.banner-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.banner-btn:hover {
+  background-color: var(--secondary-hover);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+}
+
+/* 6. MODAL STYLING */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  max-width: 550px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  border-top: 5px solid var(--primary-color);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+
+.modal-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.helpline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.helpline-card {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.helpline-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.helpline-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.phone-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.phone-btn.text-btn {
+  background-color: var(--secondary-color);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .prevention-hero h1 {
+    font-size: 2.25rem;
+  }
+  
+  .banner-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}

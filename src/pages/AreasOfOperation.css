@@ -1,0 +1,316 @@
+/* ROOT PAGE WRAPPER */
+.areas-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #102a43;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* HEADER SECTION */
+.areas-header {
+  background: linear-gradient(135deg, #102a43 0%, #123c69 100%);
+  color: #ffffff;
+  padding: 80px 0 60px;
+  text-align: center;
+}
+
+.header-container {
+  max-width: 780px;
+}
+
+.badge-pill {
+  display: inline-block;
+  background-color: rgba(98, 182, 203, 0.18);
+  color: #62b6cb;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.areas-header h1 {
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.areas-header p {
+  font-size: 17px;
+  color: #d9e2ec;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* MAIN SECTION & FILTERS */
+.areas-section {
+  padding: 60px 0 80px;
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+  background-color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 10px;
+  border: 1px solid #e1e8ed;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #486581;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background-color: #f0f4f8;
+  color: #334e68;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #d9e2ec;
+}
+
+.filter-btn.active {
+  background-color: #123c69;
+  color: #ffffff;
+}
+
+/* COUNTIES CARD GRID */
+.counties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.county-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e1e8ed;
+  box-shadow: 0 4px 12px rgba(16, 42, 67, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.county-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(16, 42, 67, 0.08);
+}
+
+.card-header {
+  padding: 28px 28px 16px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.county-category {
+  font-size: 11px;
+  font-weight: 800;
+  color: #62b6cb;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.card-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #102a43;
+  margin: 0 0 8px 0;
+}
+
+.county-tagline {
+  font-size: 13px;
+  color: #486581;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* STATS BAR */
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f7f9fc;
+  border-bottom: 1px solid #f0f4f8;
+  padding: 12px 28px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 800;
+  color: #123c69;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #627d98;
+}
+
+/* CARD BODY & LIST */
+.card-body {
+  padding: 24px 28px;
+  flex-grow: 1;
+}
+
+.card-body h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #102a43;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.highlights-list {
+  padding-left: 18px;
+  margin: 0;
+  color: #334e68;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.highlights-list li {
+  margin-bottom: 8px;
+}
+
+/* CARD FOOTER & TAGS */
+.card-footer {
+  padding: 16px 28px;
+  background-color: #fafbfc;
+  border-top: 1px solid #f0f4f8;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.initiatives-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #627d98;
+}
+
+.initiative-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.tag-mlinde {
+  background-color: rgba(4, 114, 77, 0.1);
+  color: #04724d;
+}
+
+.tag-mentor {
+  background-color: rgba(98, 182, 203, 0.15);
+  color: #0b69a3;
+}
+
+.tag-wellness {
+  background-color: rgba(217, 119, 6, 0.12);
+  color: #b45309;
+}
+
+/* CTA BANNER */
+.partnership-banner {
+  background: linear-gradient(135deg, #123c69 0%, #102a43 100%);
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.banner-content h3 {
+  font-size: 22px;
+  margin: 0 0 6px 0;
+}
+
+.banner-content p {
+  font-size: 14px;
+  color: #d9e2ec;
+  margin: 0;
+}
+
+.banner-btn {
+  padding: 12px 24px;
+  background-color: #62b6cb;
+  color: #102a43;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.banner-btn:hover {
+  background-color: #82c8d8;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 768px) {
+  .counties-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .partnership-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-btn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

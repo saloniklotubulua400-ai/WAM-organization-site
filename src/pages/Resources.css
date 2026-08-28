@@ -1,0 +1,312 @@
+/* ROOT & BASE STYLES */
+.resources-page {
+  font-family: sans-serif;
+  color: #102a43;
+  line-height: 1.6;
+  background-color: #ffffff;
+}
+
+.resources-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.resources-container-narrow {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.resources-container-cta {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* 1. HERO HEADER WITH SEARCH BAR */
+.resources-hero {
+  background: linear-gradient(135deg, #102a43 0%, #123c69 100%);
+  color: #ffffff;
+  padding: 90px 0 70px;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-subtitle {
+  color: #62b6cb;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 13px;
+}
+
+.resources-hero h1 {
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 800;
+  margin: 16px 0;
+  color: #ffffff;
+}
+
+.hero-description {
+  font-size: 18px;
+  color: #d9e2ec;
+  margin-bottom: 32px;
+}
+
+.search-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* 2. CATEGORY FILTER TABS */
+.filter-section {
+  padding: 30px 0;
+  background-color: #f7f9fc;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  text-align: center;
+}
+
+.filter-label {
+  font-weight: 700;
+  color: #102a43;
+  font-size: 14px;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  background-color: #f0f4f8;
+  color: #486581;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background-color: #123c69;
+  color: #ffffff;
+}
+
+/* 3. RESOURCE CARDS GRID */
+.resources-grid-section {
+  padding: 70px 0;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 0;
+  color: #627d98;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  justify-content: center;
+}
+
+.resource-card {
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.category-badge {
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.resource-date {
+  color: #829ab1;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.resource-card h3 {
+  font-size: 18px;
+  color: #102a43;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.resource-description {
+  color: #486581;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+}
+
+.card-footer {
+  padding-top: 16px;
+  border-top: 1px solid #f0f4f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-info {
+  font-size: 12px;
+  color: #627d98;
+  font-weight: 600;
+}
+
+.download-btn {
+  padding: 8px 16px;
+  background-color: #f4f8f0;
+  color: #123c69;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #e2edd9;
+}
+
+/* 4. FREQUENTLY ASKED QUESTIONS (ACCORDION) */
+.faq-section {
+  padding: 80px 0;
+  background-color: #f7f9fc;
+  border-top: 1px solid #e1e8ed;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.faq-header h2 {
+  font-size: 32px;
+  color: #102a43;
+  margin: 0;
+}
+
+.faq-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.faq-item {
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-toggle-btn {
+  width: 100%;
+  padding: 20px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: #102a43;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  padding: 0 20px 20px 20px;
+  color: #486581;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* 5. CUSTOM DOCUMENT REQUEST CTA */
+.request-cta-section {
+  padding: 80px 0;
+  background-color: #102a43;
+  color: #ffffff;
+  text-align: center;
+}
+
+.request-cta-section h2 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.request-cta-section p {
+  color: #bcccdc;
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+
+.cta-btn-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-link-btn {
+  padding: 14px 32px;
+  background-color: #62b6cb;
+  color: #102a43;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.cta-link-btn:hover {
+  background-color: #82c8d8;
+}
