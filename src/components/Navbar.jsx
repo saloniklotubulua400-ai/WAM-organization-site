@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
+// Import your logo image
+import wamLogo from "../assets/wam-logo.png";
+
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,10 +53,7 @@ export default function Navbar() {
       return;
     }
 
-    // Connect your authentication API service here
     console.log(`Submitting ${authMode} data:`, formData);
-    
-    // Simulating success
     alert(`${authMode === "login" ? "Logged in" : "Signed up"} successfully!`);
     closeAuthModal();
   };
@@ -112,8 +112,17 @@ export default function Navbar() {
       {/* 2. MAIN NAVIGATION NAVBAR */}
       <nav className="main-navbar">
         <div className="container main-nav-container">
-          <Link to="/" className="nav-brand">
-            WAM<span className="brand-dot">.</span>
+          
+          {/* BRAND LOGO WITH TEXT BELOW */}
+          <Link to="/" className="nav-brand-wrapper" aria-label="WAM Organization Homepage">
+            <img 
+              src={wamLogo} 
+              alt="WAM Organization Official Crest" 
+              className="brand-logo-img" 
+            />
+            <span className="brand-text">
+              WAM<span className="brand-dot">.</span>
+            </span>
           </Link>
 
           <button 
@@ -163,7 +172,6 @@ export default function Navbar() {
               <p>{authMode === "login" ? "Access your WAM portal" : "Join the WAM community today"}</p>
             </div>
 
-            {/* Mode Switch Tabs */}
             <div className="auth-tabs">
               <button 
                 className={`tab-btn ${authMode === "login" ? "active" : ""}`}

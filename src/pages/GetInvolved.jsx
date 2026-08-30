@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./GetInvolved.css";
 
 export default function GetInvolved() {
-  const [selectedRole, setSelectedRole] = useState("volunteer");
+  const [selectedRole, setSelectedRole] = useState("all");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -21,11 +22,20 @@ export default function GetInvolved() {
     alert(`Thank you, ${formData.fullName}! Your interest in joining WAM as a ${formData.pathway} has been received.`);
   };
 
+  const handlePathwaySelect = (pathwayTitle) => {
+    setFormData((prev) => ({ ...prev, pathway: pathwayTitle }));
+    const formElement = document.getElementById("application-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   // Strategic Engagement Pathways
   const engagementPathways = [
     {
       id: "volunteer",
       title: "Volunteer & Peer Educator",
+      formValue: "Volunteer / Peer Educator",
       badge: "Community Level",
       badgeColor: "#04724d",
       description: "Join our network of community facilitators driving peer education, health screening outreach, and rights advocacy.",
@@ -40,6 +50,7 @@ export default function GetInvolved() {
     {
       id: "partner",
       title: "Institutional Partnerships",
+      formValue: "Institutional Partner / NGO",
       badge: "Strategic & Donor",
       badgeColor: "#123c69",
       description: "Collaborate with WAM on co-funded community initiatives, public health research, or clinical referral networks.",
@@ -54,8 +65,9 @@ export default function GetInvolved() {
     {
       id: "mentor",
       title: "Youth Mentorship & Training",
+      formValue: "Youth Mentor",
       badge: "Skills & Capacity",
-      badgeColor: "#62b6cb",
+      badgeColor: "#0284c7",
       description: "Share professional expertise, career guidance, and life-skills training with young people in our MENTOR initiative.",
       roles: [
         "Career & Entrepreneurship Mentors",
@@ -76,52 +88,41 @@ export default function GetInvolved() {
   ];
 
   return (
-    <div style={{ fontFamily: "sans-serif", color: "#102a43", lineHeight: "1.6", backgroundColor: "#fff" }}>
+    <div className="get-involved-page">
       
       {/* 1. HERO HEADER */}
-      <section style={{ background: "linear-gradient(135deg, #102a43 0%, #123c69 100%)", color: "#fff", padding: "90px 0 70px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-          <div style={{ maxWidth: "780px" }}>
-            <span style={{ color: "#62b6cb", fontWeight: "700", textTransform: "uppercase", letterSpacing: "1.5px", fontSize: "13px" }}>
-              Join Our Movement
-            </span>
-            <h1 style={{ fontSize: "clamp(36px, 5vw, 54px)", fontWeight: "800", margin: "16px 0", color: "#ffffff" }}>
-              Partner With WAM to Transform Lives
-            </h1>
-            <p style={{ fontSize: "18px", color: "#d9e2ec", margin: 0 }}>
-              Whether you are an individual volunteer, a health professional, a corporate sponsor, or an institutional donor, your contribution creates sustainable community impact.WAM believes communities are key drivers of their own development. We support community-
-led initiatives by strengthening local capacity, mobilizing resources, providing mentorship and
-technical support, and creating opportunities for communities to design and implement solutions
-to their own challenges. We prioritize community ownership, participation, sustainability, and
-locally driven change.
+      <section className="hero-section">
+        <div className="container">
+          <div className="hero-content">
+            <span className="hero-badge">Join Our Movement</span>
+            <h1 className="hero-title">Partner With WAM to Transform Lives</h1>
+            <p className="hero-description">
+              Whether you are an individual volunteer, a health professional, a corporate sponsor, or an institutional donor, your contribution creates sustainable community impact. WAM believes communities are key drivers of their own development. We support community-led initiatives by strengthening local capacity, mobilizing resources, providing mentorship, and creating opportunities for communities to design solutions to their own challenges.
             </p>
           </div>
         </div>
       </section>
 
       {/* 2. ENGAGEMENT PATHWAY SELECTOR */}
-      <section style={{ padding: "70px 0" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <h2 style={{ fontSize: "32px", color: "#102a43" }}>Ways You Can Get Involved</h2>
-            <p style={{ color: "#627d98" }}>Select an engagement model that matches your goals and expertise</p>
+      <section className="engagement-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">Ways You Can Get Involved</h2>
+            <p className="section-subtitle">Select an engagement model that matches your goals and expertise</p>
 
             {/* Filter Buttons */}
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "24px", flexWrap: "wrap" }}>
+            <div className="filter-container">
+              <button
+                onClick={() => setSelectedRole("all")}
+                className={`filter-btn ${selectedRole === "all" ? "active" : ""}`}
+              >
+                All Opportunities
+              </button>
               {engagementPathways.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => setSelectedRole(p.id)}
-                  style={{
-                    padding: "10px 24px",
-                    borderRadius: "20px",
-                    border: "none",
-                    cursor: "pointer",
-                    fontWeight: "700",
-                    fontSize: "14px",
-                    backgroundColor: selectedRole === p.id ? "#123c69" : "#f0f4f8",
-                    color: selectedRole === p.id ? "#fff" : "#486581",
-                  }}
+                  className={`filter-btn ${selectedRole === p.id ? "active" : ""}`}
                 >
                   {p.title}
                 </button>
@@ -130,54 +131,37 @@ locally driven change.
           </div>
 
           {/* Dynamic Cards Grid */}
-          <div style={{ display: "grid", gap: "30px", maxWidth: "900px", margin: "0 auto" }}>
+          <div className="pathway-grid">
             {engagementPathways
               .filter((p) => selectedRole === "all" || p.id === selectedRole)
               .map((path) => (
                 <div
                   key={path.id}
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #e1e8ed",
-                    borderRadius: "12px",
-                    padding: "36px",
-                    boxShadow: "0 4px 15px rgba(0,0,0,0.03)",
-                    borderTop: `5px solid ${path.badgeColor}`,
-                  }}
+                  className="pathway-card"
+                  style={{ borderTop: `5px solid ${path.badgeColor}` }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
-                    <h3 style={{ fontSize: "24px", color: "#102a43", margin: 0 }}>{path.title}</h3>
-                    <span style={{ backgroundColor: path.badgeColor, color: "#fff", padding: "4px 12px", borderRadius: "12px", fontSize: "12px", fontWeight: "700" }}>
+                  <div className="pathway-card-header">
+                    <h3 className="pathway-card-title">{path.title}</h3>
+                    <span className="pathway-badge" style={{ backgroundColor: path.badgeColor }}>
                       {path.badge}
                     </span>
                   </div>
 
-                  <p style={{ color: "#486581", fontSize: "15px", marginBottom: "24px" }}>{path.description}</p>
+                  <p className="pathway-description">{path.description}</p>
 
-                  <div style={{ backgroundColor: "#f7f9fc", padding: "20px", borderRadius: "8px", marginBottom: "24px" }}>
-                    <h4 style={{ color: "#102a43", marginTop: 0, marginBottom: "12px", fontSize: "15px" }}>Available Opportunities:</h4>
-                    <ul style={{ paddingLeft: "20px", margin: 0, color: "#334e68", fontSize: "14px" }}>
+                  <div className="pathway-roles-box">
+                    <h4 className="pathway-roles-title">Available Opportunities:</h4>
+                    <ul className="pathway-roles-list">
                       {path.roles.map((r, idx) => (
-                        <li key={idx} style={{ marginBottom: "8px" }}>{r}</li>
+                        <li key={idx}>{r}</li>
                       ))}
                     </ul>
                   </div>
 
                   <a
                     href="#application-form"
-                    onClick={() => {
-                      setFormData({ ...formData, pathway: path.title });
-                    }}
-                    style={{
-                      display: "inline-block",
-                      padding: "12px 28px",
-                      backgroundColor: "#123c69",
-                      color: "#fff",
-                      textDecoration: "none",
-                      borderRadius: "6px",
-                      fontWeight: "700",
-                      fontSize: "14px",
-                    }}
+                    onClick={() => handlePathwaySelect(path.formValue)}
+                    className="pathway-cta-btn"
                   >
                     {path.ctaText} &rarr;
                   </a>
@@ -188,24 +172,20 @@ locally driven change.
       </section>
 
       {/* 3. WHERE YOUR CONTRIBUTION GOES */}
-      <section style={{ padding: "80px 0", backgroundColor: "#f7f9fc", borderTop: "1px solid #e1e8ed", borderBottom: "1px solid #e1e8ed" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-          <div style={{ textAlign: "center", marginBottom: "50px" }}>
-            <span style={{ color: "#123c69", fontWeight: "700", textTransform: "uppercase", letterSpacing: "1px", fontSize: "13px" }}>
-              Direct Impact
-            </span>
-            <h2 style={{ fontSize: "32px", color: "#102a43", marginTop: "8px" }}>Where Your Time & Support Go</h2>
-            <p style={{ color: "#627d98" }}>Supporting direct health and social protection interventions in local communities</p>
+      <section className="impact-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="impact-badge">Direct Impact</span>
+            <h2 className="section-title">Where Your Time & Support Go</h2>
+            <p className="section-subtitle">Supporting direct health and social protection interventions in local communities</p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "24px" }}>
+          <div className="impact-grid">
             {impactAreas.map((item) => (
-              <div key={item.number} style={{ backgroundColor: "#fff", padding: "28px", borderRadius: "8px", border: "1px solid #e1e8ed" }}>
-                <span style={{ fontSize: "28px", fontWeight: "800", color: "#62b6cb", display: "block", marginBottom: "10px" }}>
-                  {item.number}
-                </span>
-                <h4 style={{ fontSize: "18px", color: "#102a43", margin: "0 0 8px 0" }}>{item.title}</h4>
-                <p style={{ color: "#486581", fontSize: "13px", margin: 0 }}>{item.desc}</p>
+              <div key={item.number} className="impact-card">
+                <span className="impact-number">{item.number}</span>
+                <h4 className="impact-title">{item.title}</h4>
+                <p className="impact-desc">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -213,17 +193,17 @@ locally driven change.
       </section>
 
       {/* 4. INTEGRATED APPLICATION & INTEREST FORM */}
-      <section id="application-form" style={{ padding: "80px 0", backgroundColor: "#fff" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 20px" }}>
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <h2 style={{ fontSize: "32px", color: "#102a43" }}>Express Your Interest</h2>
-            <p style={{ color: "#627d98" }}>Fill out the form below and our coordination team will contact you</p>
+      <section id="application-form" className="form-section">
+        <div className="container form-wrapper">
+          <div className="section-header">
+            <h2 className="section-title">Express Your Interest</h2>
+            <p className="section-subtitle">Fill out the form below and our coordination team will contact you</p>
           </div>
 
-          <form onSubmit={handleSubmit} style={{ backgroundColor: "#f7f9fc", padding: "36px", borderRadius: "12px", border: "1px solid #e1e8ed" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "20px" }}>
+          <form onSubmit={handleSubmit} className="application-form">
+            <div className="form-row">
               <div>
-                <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>Full Name *</label>
+                <label className="form-label">Full Name *</label>
                 <input
                   type="text"
                   name="fullName"
@@ -231,12 +211,12 @@ locally driven change.
                   value={formData.fullName}
                   onChange={handleInputChange}
                   placeholder="e.g. Jane Doe"
-                  style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", boxSizing: "border-box" }}
+                  className="form-input"
                 />
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>Email Address *</label>
+                <label className="form-label">Email Address *</label>
                 <input
                   type="email"
                   name="email"
@@ -244,14 +224,14 @@ locally driven change.
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="e.g. jane@example.com"
-                  style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", boxSizing: "border-box" }}
+                  className="form-input"
                 />
               </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "20px" }}>
+            <div className="form-row">
               <div>
-                <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>Phone Number *</label>
+                <label className="form-label">Phone Number *</label>
                 <input
                   type="tel"
                   name="phone"
@@ -259,33 +239,33 @@ locally driven change.
                   value={formData.phone}
                   onChange={handleInputChange}
                   placeholder="e.g. +254 700 000 000"
-                  style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", boxSizing: "border-box" }}
+                  className="form-input"
                 />
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>Engagement Pathway *</label>
+                <label className="form-label">Engagement Pathway *</label>
                 <select
                   name="pathway"
                   value={formData.pathway}
                   onChange={handleInputChange}
-                  style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", backgroundColor: "#fff", boxSizing: "border-box" }}
+                  className="form-select"
                 >
                   <option value="Volunteer / Peer Educator">Volunteer / Peer Educator</option>
-                  <option value="Institutional Partner">Institutional Partner / NGO</option>
+                  <option value="Institutional Partner / NGO">Institutional Partner / NGO</option>
                   <option value="Youth Mentor">Youth Mentor</option>
                   <option value="Corporate / CSR Partner">Corporate / CSR Partner</option>
                 </select>
               </div>
             </div>
 
-            <div style={{ marginBottom: "24px" }}>
-              <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>County / Location</label>
+            <div className="form-group">
+              <label className="form-label">County / Location</label>
               <select
                 name="county"
                 value={formData.county}
                 onChange={handleInputChange}
-                style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", backgroundColor: "#fff", boxSizing: "border-box" }}
+                className="form-select"
               >
                 <option value="Nairobi">Nairobi County</option>
                 <option value="Machakos">Machakos County</option>
@@ -295,32 +275,19 @@ locally driven change.
               </select>
             </div>
 
-            <div style={{ marginBottom: "24px" }}>
-              <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#102a43", marginBottom: "8px" }}>Brief Note or Background</label>
+            <div className="form-group">
+              <label className="form-label">Brief Note or Background</label>
               <textarea
                 name="message"
                 rows="4"
                 value={formData.message}
                 onChange={handleInputChange}
                 placeholder="Tell us about your background, skills, or proposed partnership area..."
-                style={{ width: "100%", padding: "12px", borderRadius: "6px", border: "1px solid #bcccdc", fontSize: "14px", outline: "none", boxSizing: "border-box" }}
+                className="form-textarea"
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              style={{
-                width: "100%",
-                padding: "14px",
-                backgroundColor: "#123c69",
-                color: "#fff",
-                border: "none",
-                borderRadius: "6px",
-                fontSize: "16px",
-                fontWeight: "700",
-                cursor: "pointer",
-              }}
-            >
+            <button type="submit" className="submit-btn">
               Submit Application
             </button>
           </form>
@@ -328,13 +295,13 @@ locally driven change.
       </section>
 
       {/* 5. DIRECT CONTACT PATHWAY */}
-      <section style={{ padding: "60px 0", backgroundColor: "#102a43", color: "#fff", textAlign: "center" }}>
-        <div style={{ maxWidth: "750px", margin: "0 auto", padding: "0 20px" }}>
-          <h3 style={{ fontSize: "24px", color: "#fff", marginBottom: "12px" }}>Prefer Direct Communication?</h3>
-          <p style={{ color: "#bcccdc", fontSize: "15px", marginBottom: "24px" }}>
+      <section className="contact-section">
+        <div className="container contact-wrapper">
+          <h3 className="contact-title">Prefer Direct Communication?</h3>
+          <p className="contact-text">
             Reach out directly to our Partnership & Engagement Directorate.
           </p>
-          <Link to="/contact" style={{ padding: "12px 28px", backgroundColor: "#62b6cb", color: "#102a43", textDecoration: "none", borderRadius: "6px", fontWeight: "700", fontSize: "14px" }}>
+          <Link to="/contact" className="contact-btn">
             Contact Directorate
           </Link>
         </div>

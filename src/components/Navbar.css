@@ -159,7 +159,7 @@ a {
    3. MAIN NAVIGATION BAR
    ========================================================================== */
 .main-navbar {
-  padding: 14px 0;
+  padding: 10px 0;
 }
 
 .main-nav-container {
@@ -168,16 +168,20 @@ a {
   justify-content: space-between;
 }
 
-/* Brand Logo */
+/* Brand Logo (Global Styling) */
 .nav-brand {
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  color: #0f172a;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 2px 0;
 }
 
-.brand-dot {
-  color: #16a34a;
+.brand-logo-img {
+  height: 40px;
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 /* Nav Links */
@@ -395,6 +399,11 @@ a {
    5. RESPONSIVE BREAKPOINTS (Mobile Menu)
    ========================================================================== */
 @media (max-width: 880px) {
+  .brand-logo-img {
+    height: 34px;
+    max-height: 34px;
+  }
+
   .top-search-wrapper {
     display: none; /* Collapses search bar on smaller screens */
   }
@@ -414,7 +423,7 @@ a {
 
   .nav-links {
     position: fixed;
-    top: 105px;
+    top: 90px;
     left: 0;
     width: 100%;
     background-color: #ffffff;

@@ -236,7 +236,7 @@
 
 .btn-highlight {
   background: linear-gradient(120deg, var(--color-blue-700) 0%, var(--color-teal-600) 100%);
-  color: #fff;
+  color: hwb(135 10% 7%);
 }
 .btn-highlight:hover { filter: brightness(1.08); box-shadow: 0 8px 18px rgba(28, 93, 153, 0.28); }
 
@@ -273,7 +273,7 @@
   right: -100px;
   width: 450px;
   height: 450px;
-  background: rgba(18, 137, 127, 0.12);
+  background: #eff7f6fa;
   border-radius: 50%;
   filter: blur(90px);
   pointer-events: none;
@@ -312,8 +312,8 @@
   height: clamp(320px, 35vw, 440px);
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 20px 40px -15px rgba(12, 32, 56, 0.16),
-              0 0 0 1px rgba(18, 137, 127, 0.15);
+  box-shadow: 0 20px 40px -15px #0465dbf3,
+              0 0 0 1px rgba(236, 241, 241, 0.986);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -322,7 +322,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(12, 32, 56, 0) 65%, rgba(12, 32, 56, 0.25) 100%);
+  background: linear-gradient(180deg, #f3f5fafa 65%, #e6eaeef5 100%);
   pointer-events: none;
 }
 
@@ -338,7 +338,7 @@
 
 .hero-image-wrapper:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 56px -20px rgba(12, 32, 56, 0.24),
+  box-shadow: 0 28px 56px -20px #eef0f1f8,
               0 0 0 1px var(--color-teal-600);
 }
 

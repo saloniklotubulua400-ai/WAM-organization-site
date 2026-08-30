@@ -19,6 +19,137 @@
   --transition: all 0.25s ease-in-out;
 }
 
+/* Base Page Setup */
+.partnerships-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* HERO SECTION (Single Unified Block) */
+.programmes-hero,
+.partnerships-hero {
+  position: relative;
+  min-height: 480px;
+  padding: 6.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Replace URL below with your actual local or hosted image path */
+  background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+}
+
+/* Translucent overlay allows the photo to show clearly while supporting text readability */
+.programmes-hero::before,
+.partnerships-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(15, 23, 42, 0.35) 0%, 
+    rgba(15, 23, 42, 0.55) 100%
+  );
+  z-index: 1;
+}
+
+.programmes-hero-inner,
+.hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.badge-pill,
+.programmes-eyebrow {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.programmes-hero-title,
+.partnerships-hero h1 {
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.programmes-hero-lead,
+.partnerships-hero p {
+  font-size: 1.25rem;
+  color: #f8fafc;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cta-primary-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cta-primary-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+/* SECTION TITLES */
+.section-title {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.section-title p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* PROGRAMME CARDS */
 .programme-card {
   display: flex;
   flex-direction: column;
@@ -38,7 +169,7 @@
 .programme-image-wrapper {
   position: relative;
   width: 100%;
-  height: 320px; /* Expanded image area for clear visibility */
+  height: 320px;
   overflow: hidden;
   background-color: #e2e8f0;
 }
@@ -51,7 +182,6 @@
   display: block;
 }
 
-/* Reduced gradient density so card image stays clearly visible */
 .programme-image-overlay {
   position: absolute;
   inset: 0;
@@ -80,21 +210,6 @@
   z-index: 2;
 }
 
-.partnerships-page {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: var(--text-dark);
-  line-height: 1.6;
-  text-align: center;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
-}
-
-/* Styling for programme key area checkmarks */
 .programme-key-area {
   display: flex;
   align-items: flex-start;
@@ -108,7 +223,7 @@
   flex-shrink: 0;
 }
 
-/* Styling for service matrix checkmark lists */
+/* SERVICE CHECKLIST */
 .service-checklist {
   list-style: none;
   padding: 0;
@@ -128,130 +243,16 @@
   flex-shrink: 0;
 }
 
-.section-title {
-  margin-bottom: 2.5rem;
-  text-align: center;
-}
-
-.section-title.text-center {
-  text-align: center;
-}
-
-.section-title h2 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--text-dark);
-}
-
-.section-title p {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  max-width: 650px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* EXPANDED HERO SECTION WITH COVER IMAGE VISIBILITY FIX */
-.programmes-hero,
-.partnerships-hero {
-  position: relative;
-  min-height: 480px;
-  padding: 6.5rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #ffffff;
-}
-
-.programmes-hero::before,
-.partnerships-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.6); /* Soft dark layer ensuring readable hero text over image */
-  z-index: 1;
-}
-
-.programmes-hero-inner,
-.hero-container {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.badge-pill,
-.programmes-eyebrow {
-  display: inline-block;
-  background-color: rgba(219, 234, 254, 0.9);
-  color: var(--primary-hover);
-  border: 1px solid #bfdbfe;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 6px 18px;
-  border-radius: var(--radius-full);
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.programmes-hero-title,
-.partnerships-hero h1 {
-  font-size: 3.25rem;
-  font-weight: 800;
-  line-height: 1.25;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-}
-
-.programmes-hero-lead,
-.partnerships-hero p {
-  font-size: 1.25rem;
-  color: #f1f5f9;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-primary-btn {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: 600;
-  font-size: 1.125rem;
-  padding: 14px 28px;
-  border: none;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--transition);
-  margin: 0 auto;
-}
-
-.cta-primary-btn:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-}
-
 /* VALUES SECTION */
 .values-section {
   padding: 5rem 0;
   background-color: #ffffff;
-  text-align: center;
 }
 
 .values-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  justify-content: center;
 }
 
 .value-card {
@@ -259,7 +260,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 2.5rem 2rem;
-  text-align: center;
+  text-align: left;
   transition: var(--transition);
 }
 
@@ -288,7 +289,6 @@
 .stakeholders-section {
   padding: 5rem 0;
   background-color: var(--bg-light);
-  text-align: center;
 }
 
 .stakeholder-tabs {
@@ -327,7 +327,6 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  align-items: center;
 }
 
 .category-group {
@@ -338,14 +337,12 @@
   box-shadow: var(--shadow-sm);
   width: 100%;
   box-sizing: border-box;
-  text-align: center;
 }
 
 .category-header {
   margin-bottom: 1.5rem;
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 1rem;
-  text-align: center;
 }
 
 .category-header h3 {
@@ -361,7 +358,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  justify-content: center;
 }
 
 .partner-card {
@@ -369,13 +365,12 @@
   border-top: 4px solid var(--secondary-color);
   border-radius: var(--radius-md);
   padding: 1.25rem;
-  text-align: center;
+  text-align: left;
 }
 
 .partner-card-header {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   margin-bottom: 0.5rem;
 }
@@ -398,14 +393,12 @@
 .roadmap-section {
   padding: 5rem 0;
   background-color: #ffffff;
-  text-align: center;
 }
 
 .roadmap-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1.5rem;
-  justify-content: center;
 }
 
 .step-card {
@@ -414,7 +407,7 @@
   padding: 2rem 1.5rem;
   position: relative;
   border-top: 3px solid var(--primary-color);
-  text-align: center;
+  text-align: left;
 }
 
 .step-number {
@@ -442,16 +435,13 @@
   color: white;
   padding: 4rem 0;
   border-top: 4px solid var(--secondary-color);
-  text-align: center;
 }
 
 .cta-banner-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
-  text-align: center;
+  gap: 2rem;
 }
 
 .banner-text h2 {
@@ -474,7 +464,6 @@
   cursor: pointer;
   white-space: nowrap;
   transition: var(--transition);
-  margin: 0 auto;
 }
 
 .banner-btn:hover {
@@ -506,7 +495,6 @@
   position: relative;
   box-shadow: var(--shadow-lg);
   border-top: 5px solid var(--primary-color);
-  text-align: center;
 }
 
 .modal-close-btn {
@@ -522,7 +510,7 @@
 
 .modal-header {
   margin-bottom: 1.5rem;
-  text-align: center;
+  text-align: left;
 }
 
 .modal-header h3 {
@@ -540,7 +528,12 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  align-items: center;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .form-group {
@@ -548,20 +541,13 @@
   flex-direction: column;
   gap: 6px;
   width: 100%;
-  text-align: center;
-}
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
 }
 
 .form-group label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-dark);
-  text-align: center;
+  text-align: left;
 }
 
 .form-group input,
@@ -575,7 +561,8 @@
   outline: none;
   transition: var(--transition);
   box-sizing: border-box;
-  text-align: center;
+  text-align: left;
+  font-family: inherit;
 }
 
 .form-group input:focus,
@@ -639,8 +626,7 @@
   }
   
   .form-row {
-    flex-direction: column;
-    gap: 1.25rem;
+    grid-template-columns: 1fr;
   }
   
   .cta-banner-container {

@@ -241,7 +241,7 @@
 }
 
 .about-badge {
-  background: rgba(255, 255, 255, 0.15);
+  background: #f5efeff6;
   color: var(--color-on-dark-faint);
   font-size: var(--font-tiny);
   padding: 4px 12px;
