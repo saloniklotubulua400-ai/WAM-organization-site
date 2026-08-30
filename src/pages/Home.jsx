@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
-// Correct relative path: move up from src/pages to src/assets
+// Relative path: src/pages to src/assets
 import wamo1 from "../assets/wamo1.png";
 import wamo2 from "../assets/wamo2.png";
 import wamo3 from "../assets/wamo3.png";
@@ -10,6 +10,7 @@ import wamo4 from "../assets/wamo4.png";
 import wamo5 from "../assets/wamo5.png";
 import wamo6 from "../assets/wamo6.png";
 import wamo7 from "../assets/wamo7.png";
+import wamo14 from "../assets/wamo14.png";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("all");
@@ -121,10 +122,10 @@ export default function Home() {
   };
 
   const impactStats = [
-    { number: "15,000+", label: "Youth & Children Reached" },
+    { number: "2500+", label: "Youth & Children Reached" },
     { number: "4", label: "Counties of Operation" },
-    { number: "1,200+", label: "Referrals & Health Linkages" },
-    { number: "50+", label: "Community Support Groups" },
+    { number: "120+", label: "Referrals & Health Linkages" },
+    { number: "24+", label: "Community Support Groups" },
   ];
 
   const resources = [
@@ -167,52 +168,35 @@ export default function Home() {
 
   return (
     <div className="wam-page">
-      {/* HERO SECTION WITH WAMO1 IMAGE */}
-    {/* HERO SECTION WITH INTEGRATED WAMO1 IMAGE */}
-      <section className="hero">
+      {/* HERO SECTION WITH WAMO14 BACKGROUND FRAME ONLY */}
+      <section
+        className="hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${wamo14})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="hero-bg-overlay"></div>
         <div className="container">
-          <div className="hero-grid">
-            <div className="hero-inner">
-              <span className="eyebrow">Wellness Approach Mentors (WAM)</span>
-              <h1 className="hero-title">
-                Transforming Lives Through <span className="text-highlight">Wellness Services</span>
-              </h1>
-              <p className="hero-lead">
-                WAM is a Kenyan non-governmental organization working with children, youth, and vulnerable
-                communities to promote holistic wellbeing and improve access to health, psychosocial, and
-                community support.
-              </p>
-              <div className="hero-actions">
-                <Link to="/about" className="btn btn-primary">Learn About Us &rarr;</Link>
-                <Link to="/programmes" className="btn btn-secondary">Our Programmes</Link>
-              </div>
-            </div>
-
-            <div className="hero-media-container">
-              <div className="hero-image-wrapper">
-                <img
-                  src={wamo1}
-                  alt="WAM mentors conducting a community wellbeing workshop"
-                  className="hero-image"
-                  loading="eager"
-                  onError={(e) => {
-                    // Fallback to prevent broken image icon if path or load fails
-                    e.target.onerror = null;
-                    e.target.style.display = "none";
-                  }}
-                />
-                <div className="hero-image-overlay"></div>
-              </div>
-
-              {/* Floating feature badge attached to the image frame */}
-              <div className="hero-stat-badge">
-                <span className="badge-icon">🌱</span>
-                <div className="badge-text">
-                  <strong>SDG 3 Aligned</strong>
-                  <small>Good Health & Wellbeing</small>
-                </div>
-              </div>
+          <div className="hero-inner" style={{ maxWidth: "850px", margin: "0 auto", textAlign: "center" }}>
+            <span className="eyebrow">Wellness Approach Mentors (WAM)</span>
+            <h1 className="hero-title">
+              Transforming Lives Through <span className="text-highlight">Wellness Services</span>
+            </h1>
+            <p className="hero-lead">
+              WAM works alongside individuals, families, young people, and communities to identify
+              challenges, unlock local potential, strengthen resilience, and develop practical solutions that
+              create lasting impact. We recognize that communities possess valuable knowledge, resources,
+              creativity, and experience. Our role is to listen, mentor, empower, connect and support
+              communities to lead meaningful change and build sustainable futures. WAM is a Kenyan non-governmental organization working with children, youth, and vulnerable
+              communities to promote holistic wellbeing and improve access to health, psychosocial, and
+              community support.
+            </p>
+            <div className="hero-actions" style={{ justifyContent: "center" }}>
+              <Link to="/about" className="btn btn-primary">Learn About Us &rarr;</Link>
+              <Link to="/programmes" className="btn btn-secondary">Our Programmes</Link>
             </div>
           </div>
         </div>
@@ -246,13 +230,12 @@ export default function Home() {
             <div className="mission-vision">
               <div className="statement-card">
                 <h3>OUR MISSION</h3>
-                <p>&ldquo;Transforming lives through wellness services.&rdquo;</p>
+                <p>&ldquo;Transformed, Healthy and Resilient Communities.&rdquo;</p>
               </div>
               <div className="statement-card statement-card--accent">
                 <h3>OUR VISION</h3>
                 <p>
-                  &ldquo;To actively support in transforming human lives in achieving wellness of physical,
-                  social, mental, psychological, emotional, economical and spiritual wellbeing.&rdquo;
+                  &ldquo;To Enhance Equitable Access to Quality Wellness Services for All, Contributing to Sustainable Health Outcomes and Healthier Communities.&rdquo;
                 </p>
               </div>
             </div>

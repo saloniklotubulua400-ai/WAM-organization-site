@@ -89,7 +89,11 @@ export default function GetInvolved() {
               Partner With WAM to Transform Lives
             </h1>
             <p style={{ fontSize: "18px", color: "#d9e2ec", margin: 0 }}>
-              Whether you are an individual volunteer, a health professional, a corporate sponsor, or an institutional donor, your contribution creates sustainable community impact.
+              Whether you are an individual volunteer, a health professional, a corporate sponsor, or an institutional donor, your contribution creates sustainable community impact.WAM believes communities are key drivers of their own development. We support community-
+led initiatives by strengthening local capacity, mobilizing resources, providing mentorship and
+technical support, and creating opportunities for communities to design and implement solutions
+to their own challenges. We prioritize community ownership, participation, sustainability, and
+locally driven change.
             </p>
           </div>
         </div>

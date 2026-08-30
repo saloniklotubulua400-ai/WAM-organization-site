@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 
+// Updated import paths to go up one folder level:
+import wamo8Img from "../assets/wamo8.png";
+import wamo9Img from "../assets/wamo9.png";
+import wamo10Img from "../assets/wamo10.png";
+import wamo11Img from "../assets/wamo11.png";
+
 export default function About() {
   const [activeTab, setActiveTab] = useState("board");
 
@@ -10,6 +16,9 @@ export default function About() {
     { num: "02", title: "Children & Youth Support", desc: "Comprehensive counselling, mentorship, life-skills training, and psychosocial services for young people." },
     { num: "03", title: "Personal & Community Development", desc: "Empowering individuals through capacity development, skill-building, and localized resilience initiatives." },
     { num: "04", title: "Positive Societal Systems", desc: "Partnering with stakeholders and institutions to build responsive, equitable, and sustainable community systems." },
+    { num: "08", title: "wamo8", desc: "Description for strategic pillar wamo8.", img: wamo8Img },
+    { num: "09", title: "wamo9", desc: "Description for strategic pillar wamo9.", img: wamo9Img },
+    { num: "10", title: "wamo10", desc: "Description for strategic pillar wamo10.", img: wamo10Img },
   ];
 
   const values = [
@@ -36,15 +45,26 @@ export default function About() {
 
   return (
     <div className="wam-about">
-      {/* 1. HERO SECTION */}
-      <section className="about-hero">
+      {/* 1. HERO SECTION WITH WAMO11 COVER IMAGE */}
+      <section
+        className="about-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${wamo11Img})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="container">
           <div className="about-hero-inner">
             <span className="about-badge">About WAM</span>
             <h1 className="about-hero-title">Empowering Communities. Promoting Holistic Wellbeing.</h1>
             <p className="about-hero-lead">
               Wellness Approach Mentors (WAM) is a Kenyan NGO dedicated to supporting children, youth, and
-              vulnerable populations across health, psychosocial, and structural dimensions.
+              vulnerable populations across health, psychosocial, and structural dimensions.WAM is committed to ensuring that all people have fair and meaningful opportunities to access
+wellness services and participate in development initiatives, regardless of their circumstances.
+We promote equality, reduce barriers to inclusion, and uphold high standards of quality,
+effectiveness, safety, and accountability in all our programmes and services.
             </p>
           </div>
         </div>
@@ -88,16 +108,15 @@ export default function About() {
               <div className="statement-card">
                 <h3>OUR MISSION</h3>
                 <p>
-                  &ldquo;Transforming lives through wellness services by facilitating direct access to health,
-                  psychosocial, and structural community support.&rdquo;
+                  &ldquo;Transformed, Healthy and Resilient Communities.&rdquo;
                 </p>
               </div>
 
               <div className="statement-card statement-card--accent">
                 <h3>OUR VISION</h3>
                 <p>
-                  &ldquo;To actively support and transform human lives in achieving full physical, social,
-                  mental, psychological, emotional, economic, and spiritual wellbeing.&rdquo;
+                  &ldquo;To Enhance Equitable Access to Quality Wellness Services for All, Contributing to
+Sustainable Health Outcomes and Healthier Communities.&rdquo;
                 </p>
               </div>
             </div>
@@ -116,6 +135,13 @@ export default function About() {
           <div className="grid grid--min-sm">
             {pillars.map((p) => (
               <div key={p.num} className="pillar-card">
+                {p.img && (
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className="pillar-image"
+                  />
+                )}
                 <span className="pillar-number">{p.num}</span>
                 <h3 className="pillar-title">{p.title}</h3>
                 <p className="pillar-desc">{p.desc}</p>

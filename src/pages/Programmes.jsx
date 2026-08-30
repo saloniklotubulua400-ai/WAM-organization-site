@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Programmes.css";
 
+// Relative path: move up from src/pages to src/assets
+import wamo5 from "../assets/wamo5.png";
+import wamo11 from "../assets/wamo11.png";
+import wamo12 from "../assets/wamo12.png";
+import wamo13 from "../assets/wamo13.png";
+
 export default function Programmes() {
   const [selectedProgramme, setSelectedProgramme] = useState("all");
 
-  // Detailed Data for WAM Core Programmes
+  // Detailed Data for WAM Core Programmes with assigned images
   const programmesData = [
     {
       id: "mlinde",
@@ -13,6 +19,7 @@ export default function Programmes() {
       subtitle: "Protecting Children. Building Healthier Futures.",
       targetAudience: "Children aged 8–17 years",
       accent: "mlinde",
+      image: wamo11,
       summary:
         "MLINDE focuses on child rights, protection, early health interventions, life skills, and comprehensive psychosocial wellbeing.",
       keyAreas: [
@@ -32,6 +39,7 @@ export default function Programmes() {
       subtitle: "Empowering Young People Through Knowledge, Skills and Health",
       targetAudience: "Young people aged 14–35 years",
       accent: "mentor",
+      image: wamo12,
       summary:
         "MENTOR supports youth capacity building, reproductive health, disease prevention, HIV testing, and referral networks.",
       keyAreas: [
@@ -50,6 +58,7 @@ export default function Programmes() {
       subtitle: "Supporting Vulnerable Communities to Thrive",
       targetAudience: "Vulnerable groups, girls, women & community members",
       accent: "wellness",
+      image: wamo13,
       summary:
         "The WELLNESS programme delivers targeted interventions addressing substance use, gender-based violence (GBV), human rights, and mental health.",
       keyAreas: [
@@ -109,14 +118,25 @@ export default function Programmes() {
   return (
     <div className="wam-programmes">
 
-      {/* 1. PAGE HERO HEADER */}
-      <section className="programmes-hero">
+      {/* 1. PAGE HERO HEADER WITH WAMO5 BACKGROUND COVER */}
+      <section
+        className="programmes-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(10, 25, 47, 0.75), rgba(10, 25, 47, 0.75)), url(${wamo5})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="container programmes-hero-inner">
           <span className="programmes-eyebrow">Our Interventions</span>
           <h1 className="programmes-hero-title">WAM Core Programmes & Services</h1>
           <p className="programmes-hero-lead">
             We design and execute evidence-based interventions tailored for children, youth, women, and
-            vulnerable populations across Kenya.
+            vulnerable populations across Kenya. WAM promotes openness, transparency, active listening, and constructive engagement. We
+            value feedback from communities, beneficiaries, staff, partners, and other stakeholders and use it
+            to improve our programmes, strengthen accountability, identify emerging needs, and ensure that
+            our interventions remain relevant and responsive.
           </p>
         </div>
       </section>
@@ -155,37 +175,52 @@ export default function Programmes() {
           <div className="programmes-grid">
             {displayedProgrammes.map((p) => (
               <div key={p.id} id={p.id} className="programme-card">
-                <div className="programme-card-head">
-                  <div>
-                    <span className={`programme-audience-badge programme-audience-badge--${p.accent}`}>
-                      Target: {p.targetAudience}
-                    </span>
-                    <h2 className="programme-title">{p.title}</h2>
-                    <h4 className="programme-subtitle">{p.subtitle}</h4>
-                  </div>
-                </div>
-
-                <p className="programme-summary">{p.summary}</p>
-
-                <div className="programme-focus-box">
-                  <h4>Key Focus & Components:</h4>
-                  <div className="programme-key-areas">
-                    {p.keyAreas.map((area, idx) => (
-                      <div key={idx} className="programme-key-area">
-                        <span className={`programme-key-area-bullet programme-key-area-bullet--${p.accent}`}>•</span> {area}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="programme-footer">
-                  <span className="programme-goal">
-                    <strong>Goal:</strong> {p.impactFocus}
+                
+                {/* PROGRAMME FEATURE IMAGE BANNER */}
+                <div className="programme-image-wrapper">
+                  <img
+                    src={p.image}
+                    alt={`${p.title} Programme Banner`}
+                    className="programme-card-image"
+                    loading="lazy"
+                  />
+                  <div className="programme-image-overlay"></div>
+                  <span className={`programme-audience-badge programme-audience-badge--${p.accent}`}>
+                    Target: {p.targetAudience}
                   </span>
-                  <Link to="/contact" className="programme-cta">
-                    Partner on {p.title} &rarr;
-                  </Link>
                 </div>
+
+                <div className="programme-card-body">
+                  <div className="programme-card-head">
+                    <div>
+                      <h2 className="programme-title">{p.title}</h2>
+                      <h4 className="programme-subtitle">{p.subtitle}</h4>
+                    </div>
+                  </div>
+
+                  <p className="programme-summary">{p.summary}</p>
+
+                  <div className="programme-focus-box">
+                    <h4>Key Focus & Components:</h4>
+                    <div className="programme-key-areas">
+                      {p.keyAreas.map((area, idx) => (
+                        <div key={idx} className="programme-key-area">
+                          <span className="programme-key-area-check">✓</span> {area}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="programme-footer">
+                    <span className="programme-goal">
+                      <strong>Goal:</strong> {p.impactFocus}
+                    </span>
+                    <Link to="/contact" className="programme-cta">
+                      Partner on {p.title} &rarr;
+                    </Link>
+                  </div>
+                </div>
+
               </div>
             ))}
           </div>
@@ -205,9 +240,11 @@ export default function Programmes() {
               <div key={i} className="service-matrix-card">
                 <h3>{sec.title}</h3>
                 <p>{sec.description}</p>
-                <ul>
+                <ul className="service-checklist">
                   {sec.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <li key={idx}>
+                      <span className="service-checklist-icon">✓</span> {item}
+                    </li>
                   ))}
                 </ul>
               </div>

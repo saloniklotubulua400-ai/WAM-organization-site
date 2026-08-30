@@ -1,48 +1,223 @@
-/* MAIN FOOTER WRAPPER */
+/* ==========================================================================
+   NGO FOOTER STYLES
+   ========================================================================== */
 .footer {
-  background-color: #102a43;
-  color: #bcccdc;
-  font-family: sans-serif;
+  background-color: #0f172a; /* Slate 900 */
+  color: #94a3b8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.footer a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* TOP NEWSLETTER SECTION */
-.footer-newsletter-section {
-  background-color: #123c69;
-  padding: 40px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.footer a:hover {
+  color: #16a34a;
 }
 
-.newsletter-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.newsletter-text h3 {
+/* 1. Top Call to Action Banner */
+.footer-cta-banner {
+  background-color: #16a34a;
   color: #ffffff;
-  font-size: 22px;
-  margin: 0 0 6px 0;
+  padding: 28px 0;
 }
 
-.newsletter-text p {
-  color: #d9e2ec;
+.cta-banner-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-banner-text h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
 }
 
-.newsletter-form-wrapper {
-  flex-grow: 1;
-  max-width: 500px;
+.cta-banner-text p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #f0fdf4;
+}
+
+.cta-banner-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-footer-donate,
+.btn-footer-volunteer {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-footer-donate {
+  background-color: #ffffff;
+  color: #15803d !important;
+}
+
+.btn-footer-donate:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.btn-footer-volunteer {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-footer-volunteer:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 2. Main Footer Grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  padding: 50px 20px;
+}
+
+.footer-logo {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff !important;
+  letter-spacing: -0.5px;
+}
+
+.logo-dot {
+  color: #16a34a;
+}
+
+.brand-description {
+  margin: 12px 0 16px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.ngo-reg-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icons a {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  transition: all 0.2s ease;
+}
+
+.social-icons a:hover {
+  background-color: #16a34a;
+  color: #ffffff;
+}
+
+.social-icons svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Footer Columns */
+.footer-column h4 {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-column ul li a {
+  font-size: 13px;
+}
+
+.contact-detail {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.emergency-callout {
+  background-color: #1e293b;
+  border-left: 3px solid #16a34a;
+  padding: 12px;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.emergency-title {
+  display: block;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.emergency-callout p {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* 3. Newsletter Section */
+.footer-newsletter-row {
+  border-top: 1px solid #1e293b;
+  border-bottom: 1px solid #1e293b;
+  padding: 24px 0;
+  background-color: #0b1120;
+}
+
+.newsletter-row-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.newsletter-info h5 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.newsletter-info p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #64748b;
 }
 
 .newsletter-form {
@@ -51,173 +226,102 @@
 }
 
 .newsletter-form input {
-  flex: 1;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 6px;
-  border: 1px solid #bcccdc;
+  border: 1px solid #334155;
+  background-color: #1e293b;
+  color: #ffffff;
+  font-size: 13px;
   outline: none;
-  font-size: 14px;
+  min-width: 240px;
+}
+
+.newsletter-form input:focus {
+  border-color: #16a34a;
 }
 
 .newsletter-form button {
-  padding: 12px 24px;
-  background-color: #62b6cb;
-  color: #102a43;
+  background-color: #16a34a;
+  color: #ffffff;
   border: none;
+  padding: 10px 18px;
   border-radius: 6px;
   font-weight: 700;
+  font-size: 13px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .newsletter-form button:hover {
-  background-color: #82c8d8;
+  background-color: #15803d;
 }
 
 .newsletter-success {
-  color: #62b6cb;
-  font-weight: 700;
+  color: #4ade80;
+  font-size: 13px;
+  font-weight: 600;
   margin: 0;
 }
 
-/* MAIN GRID CONTENT */
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: 40px;
-  padding: 70px 20px 50px 20px;
-}
-
-.footer-logo {
-  font-size: 28px;
-  font-weight: 800;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.logo-dot {
-  color: #62b6cb;
-}
-
-.brand-description {
-  margin: 16px 0 24px 0;
-  color: #d9e2ec;
-  font-size: 14px;
-  max-width: 340px;
-}
-
-/* COUNTY BADGES */
-.operating-counties {
-  margin-top: 16px;
-}
-
-.county-title {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #62b6cb;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
-}
-
-.county-badges {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.county-badges span {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #d9e2ec;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* FOOTER COLUMNS & LINKS */
-.footer-column h4 {
-  color: #ffffff;
-  font-size: 16px;
-  margin: 0 0 20px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.footer-column a {
-  display: block;
-  color: #bcccdc;
-  text-decoration: none;
-  margin-bottom: 12px;
-  transition: color 0.2s ease;
-}
-
-.footer-column a:hover {
-  color: #62b6cb;
-}
-
-.contact-item {
-  margin: 0 0 10px 0;
-  color: #d9e2ec;
-  font-size: 13px;
-}
-
-.contact-item strong {
-  color: #ffffff;
-}
-
-/* BOTTOM BAR */
+/* 4. Bottom Legal Bar */
 .footer-bottom {
-  background-color: #0b1d2e;
   padding: 20px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 13px;
 }
 
 .footer-bottom-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-}
-
-.copyright-text {
-  margin: 0;
-  color: #829ab1;
-}
-
-.safeguarding-text {
-  margin: 0;
-  color: #627d98;
   font-size: 12px;
+  color: #64748b;
 }
 
-/* RESPONSIVE LAYOUT */
+.legal-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legal-links a {
+  color: #64748b;
+}
+
+.legal-links a:hover {
+  color: #94a3b8;
+}
+
+.divider {
+  color: #334155;
+}
+
+/* Responsiveness */
 @media (max-width: 900px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .newsletter-container {
+  .cta-banner-container,
+  .newsletter-row-container,
+  .footer-bottom-container {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .newsletter-form {
-    flex-direction: column;
     width: 100%;
   }
 
-  .footer-bottom-container {
-    flex-direction: column;
-    text-align: center;
+  .newsletter-form input {
+    flex: 1;
+    min-width: 0;
   }
 }

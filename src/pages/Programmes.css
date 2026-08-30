@@ -19,6 +19,67 @@
   --transition: all 0.25s ease-in-out;
 }
 
+.programme-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  margin-bottom: 2.5rem;
+}
+
+.programme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.programme-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px; /* Expanded image area for clear visibility */
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.programme-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Reduced gradient density so card image stays clearly visible */
+.programme-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+}
+
+.programme-card-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.programme-audience-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
 .partnerships-page {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color: var(--text-dark);
@@ -31,6 +92,40 @@
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
+}
+
+/* Styling for programme key area checkmarks */
+.programme-key-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.programme-key-area-check {
+  color: var(--secondary-color);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Styling for service matrix checkmark lists */
+.service-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.service-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.service-checklist-icon {
+  color: var(--secondary-color);
+  font-weight: bold;
+  flex-shrink: 0;
 }
 
 .section-title {
@@ -57,42 +152,73 @@
   text-align: center;
 }
 
-/* HERO SECTION - Blue to Green Soft Gradient */
+/* EXPANDED HERO SECTION WITH COVER IMAGE VISIBILITY FIX */
+.programmes-hero,
 .partnerships-hero {
-  background: linear-gradient(135deg, #eff6ff 0%, #dcfce7 100%);
-  padding: 5rem 0;
+  position: relative;
+  min-height: 480px;
+  padding: 6.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
 }
 
+.programmes-hero::before,
+.partnerships-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6); /* Soft dark layer ensuring readable hero text over image */
+  z-index: 1;
+}
+
+.programmes-hero-inner,
 .hero-container {
-  max-width: 800px;
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
 
-.badge-pill {
+.badge-pill,
+.programmes-eyebrow {
   display: inline-block;
-  background-color: #dbeafe;
+  background-color: rgba(219, 234, 254, 0.9);
   color: var(--primary-hover);
   border: 1px solid #bfdbfe;
   font-weight: 600;
   font-size: 0.875rem;
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: var(--radius-full);
   margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
+.programmes-hero-title,
 .partnerships-hero h1 {
-  font-size: 3rem;
+  font-size: 3.25rem;
   font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
 }
 
+.programmes-hero-lead,
 .partnerships-hero p {
   font-size: 1.25rem;
-  color: var(--text-muted);
+  color: #f1f5f9;
+  line-height: 1.7;
   margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-primary-btn {
@@ -238,7 +364,6 @@
   justify-content: center;
 }
 
-/* Top Border Accent (replaces left border to match center alignment) */
 .partner-card {
   background-color: var(--bg-light);
   border-top: 4px solid var(--secondary-color);
@@ -311,7 +436,7 @@
   color: var(--text-muted);
 }
 
-/* BOTTOM CTA BANNER - Gradient Dark Blue to Green Accent */
+/* BOTTOM CTA BANNER */
 .partnership-cta-banner {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   color: white;
@@ -504,8 +629,13 @@
 }
 
 @media (max-width: 768px) {
+  .programmes-hero-title,
   .partnerships-hero h1 {
     font-size: 2.25rem;
+  }
+
+  .programme-image-wrapper {
+    height: 220px;
   }
   
   .form-row {
