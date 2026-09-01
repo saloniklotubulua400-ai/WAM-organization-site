@@ -31,14 +31,14 @@ a {
 }
 
 /* ==========================================================================
-   2. TOP UTILITY BAR
+   2. TOP UTILITY BAR (DEEP BLUE BACKGROUND)
    ========================================================================== */
 .top-utility-bar {
-  background-color: #0f172a; /* Slate 900 */
-  color: #94a3b8;
+  background-color: #0f3a63; /* Deep Blue Background */
+  color: #d0e2ec;
   font-size: 13px;
   padding: 8px 0;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 1px solid #1c5d99;
 }
 
 .top-bar-container {
@@ -57,11 +57,11 @@ a {
 
 .top-bar-label {
   font-weight: 500;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .top-social-links a {
-  color: #94a3b8;
+  color: #d0e2ec;
   display: flex;
   align-items: center;
   transition: color 0.2s ease;
@@ -76,7 +76,7 @@ a {
   height: 15px;
 }
 
-/* Search Bar */
+/* Search Bar (WHITE BACKGROUND) */
 .top-search-wrapper {
   flex: 1;
   max-width: 360px;
@@ -90,12 +90,12 @@ a {
 
 .top-search-form input {
   width: 100%;
-  background-color: #1e293b;
-  border: 1px solid #334155;
+  background-color: #ffffff; /* Pure White Background */
+  border: 1px solid #cbd5e1;
   border-radius: 20px;
   padding: 6px 36px 6px 14px;
   font-size: 12px;
-  color: #ffffff;
+  color: #0f172a;
   outline: none;
   transition: all 0.2s ease;
 }
@@ -105,14 +105,14 @@ a {
 }
 
 .top-search-form input:focus {
-  border-color: #16a34a;
-  background-color: #0f172a;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .top-search-form button {
   position: absolute;
   right: 10px;
-  color: #94a3b8;
+  color: #64748b;
   display: flex;
   align-items: center;
 }
@@ -129,22 +129,27 @@ a {
   gap: 10px;
 }
 
+/* WHITE LOGIN BUTTON */
 .btn-login {
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 13px;
-  padding: 5px 12px;
-  transition: color 0.2s ease;
+  background-color: #ffffff;
+  color: #0f3a63;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  transition: all 0.2s ease;
 }
 
 .btn-login:hover {
-  color: #16a34a;
+  background-color: #f1f5f9;
+  color: #0f172a;
 }
 
+/* GREEN SIGNUP BUTTON */
 .btn-signup {
   background-color: #16a34a;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 12px;
   padding: 6px 14px;
   border-radius: 16px;
@@ -156,10 +161,12 @@ a {
 }
 
 /* ==========================================================================
-   3. MAIN NAVIGATION BAR
+   3. MAIN NAVIGATION BAR (GREEN BACKGROUND)
    ========================================================================== */
 .main-navbar {
+  background-color: #16a34a; /* Full Green Navbar Background */
   padding: 10px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .main-nav-container {
@@ -168,12 +175,20 @@ a {
   justify-content: space-between;
 }
 
-/* Brand Logo (Global Styling) */
+/* Enhanced Logo Container for Maximum Visibility */
 .nav-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 2px 0;
+  padding: 6px 14px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.nav-brand:hover {
+  transform: scale(1.02);
 }
 
 .brand-logo-img {
@@ -197,29 +212,29 @@ a {
 .nav-links a {
   font-size: 14px;
   font-weight: 600;
-  color: #334155;
-  transition: color 0.2s ease;
+  color: #ffffff;
+  transition: opacity 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: #16a34a;
+  opacity: 0.85;
 }
 
-/* Main CTA Button */
+/* Main BLUE CTA Button */
 .btn-get-involved {
-  background-color: #16a34a;
+  background-color: #1c5d99;
   color: #ffffff !important;
   font-weight: 700 !important;
   font-size: 13px;
   padding: 9px 18px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 3px 10px rgba(28, 93, 153, 0.3);
   transition: all 0.2s ease;
 }
 
 .btn-get-involved:hover {
-  background-color: #15803d;
-  box-shadow: 0 5px 14px rgba(22, 163, 74, 0.35);
+  background-color: #0f3a63;
+  box-shadow: 0 5px 14px rgba(28, 93, 153, 0.45);
   transform: translateY(-1px);
 }
 
@@ -345,25 +360,26 @@ a {
 }
 
 .form-group input:focus {
-  border-color: #16a34a;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+  border-color: #1c5d99;
+  box-shadow: 0 0 0 3px rgba(28, 93, 153, 0.15);
 }
 
+/* BLUE SUBMIT BUTTON */
 .auth-submit-btn {
-  background-color: #16a34a;
+  background-color: #1c5d99;
   color: #ffffff;
   padding: 12px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   margin-top: 6px;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 4px 12px rgba(28, 93, 153, 0.25);
   transition: all 0.2s ease;
 }
 
 .auth-submit-btn:hover {
-  background-color: #15803d;
-  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+  background-color: #0f3a63;
+  box-shadow: 0 6px 16px rgba(28, 93, 153, 0.35);
   transform: translateY(-1px);
 }
 
@@ -375,7 +391,7 @@ a {
 }
 
 .auth-switch-link {
-  color: #16a34a;
+  color: #1c5d99;
   font-weight: 700;
   cursor: pointer;
 }
@@ -405,7 +421,7 @@ a {
   }
 
   .top-search-wrapper {
-    display: none; /* Collapses search bar on smaller screens */
+    display: none;
   }
 
   .mobile-toggle {
@@ -417,7 +433,7 @@ a {
   .mobile-toggle .bar {
     width: 22px;
     height: 2px;
-    background-color: #0f172a;
+    background-color: #ffffff;
     transition: all 0.3s ease;
   }
 
@@ -426,7 +442,7 @@ a {
     top: 90px;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #16a34a;
     flex-direction: column;
     align-items: stretch;
     padding: 24px;
@@ -456,7 +472,7 @@ a {
     gap: 10px;
     margin-top: 12px;
     padding-top: 16px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .mobile-btn-login,
@@ -469,7 +485,7 @@ a {
   }
 
   .mobile-btn-login {
-    background-color: #f1f5f9;
+    background-color: #ffffff;
     color: #0f172a;
   }
 

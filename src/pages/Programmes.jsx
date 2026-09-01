@@ -11,7 +11,6 @@ import wamo13 from "../assets/wamo13.png";
 export default function Programmes() {
   const [selectedProgramme, setSelectedProgramme] = useState("all");
 
-  // Detailed Data for WAM Core Programmes with assigned images
   const programmesData = [
     {
       id: "mlinde",
@@ -73,7 +72,6 @@ export default function Programmes() {
     },
   ];
 
-  // Comprehensive Service Pathways
   const serviceCategories = [
     {
       title: "Behavioural & Community Services",
@@ -110,6 +108,23 @@ export default function Programmes() {
     },
   ];
 
+  const coreValues = [
+    { name: "Professionalism", desc: "We uphold high standards of excellence, competence, and accountability in everything we do." },
+    { name: "Loyalty", desc: "We remain committed to the people, communities, partners, and purpose we serve." },
+    { name: "Integrity", desc: "We act with honesty, transparency, responsibility, and ethical conduct." },
+    { name: "Service to Humanity", desc: "We place people and communities at the heart of our work." },
+    { name: "Empathy", desc: "We listen, understand, respect, and respond to people's experiences with compassion." },
+    { name: "Confidentiality", desc: "We protect the dignity, privacy, and trust of the people we serve." }
+  ];
+
+  const guidingPrinciples = [
+    { title: "Innovation & Creativity", desc: "Promoting innovative thinking and continuous learning to develop locally appropriate solutions." },
+    { title: "Equity & Quality", desc: "Ensuring fair access to wellness services while upholding the highest standards of safety and care." },
+    { title: "Coordination & Networking", desc: "Building strong multi-stakeholder partnerships to maximize collective community impact." },
+    { title: "Openness & Feedback", desc: "Valuing transparent engagement and using community feedback to continually improve intervention quality." },
+    { title: "Supporting Local Initiatives", desc: "Strengthening local capacity and prioritizing community ownership for long-term sustainability." }
+  ];
+
   const displayedProgrammes =
     selectedProgramme === "all"
       ? programmesData
@@ -118,30 +133,74 @@ export default function Programmes() {
   return (
     <div className="wam-programmes">
 
-      {/* 1. PAGE HERO HEADER WITH WAMO5 BACKGROUND COVER */}
-      <section
-        className="programmes-hero"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 25, 47, 0.75), rgba(10, 25, 47, 0.75)), url(${wamo5})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      {/* 1. HERO SECTION */}
+      <section className="programmes-hero">
+        <div className="programmes-hero-bg-wrapper">
+          <img src={wamo5} alt="WAM Interventions Cover" className="programmes-hero-bg" />
+          <div className="programmes-hero-overlay"></div>
+        </div>
         <div className="container programmes-hero-inner">
-          <span className="programmes-eyebrow">Our Interventions</span>
-          <h1 className="programmes-hero-title">WAM Core Programmes & Services</h1>
+          <span className="programmes-eyebrow">Wellness Approach Mentors (WAM)</span>
+          <h1 className="programmes-hero-title">Empowering Communities, Transforming Lives</h1>
           <p className="programmes-hero-lead">
-            We design and execute evidence-based interventions tailored for children, youth, women, and
-            vulnerable populations across Kenya. WAM promotes openness, transparency, active listening, and constructive engagement. We
-            value feedback from communities, beneficiaries, staff, partners, and other stakeholders and use it
-            to improve our programmes, strengthen accountability, identify emerging needs, and ensure that
-            our interventions remain relevant and responsive.
+            At WAM, we believe lasting development begins with healthy, empowered, and resilient people. We work alongside individuals, families, young people, and communities to unlock local potential, strengthen resilience, and build sustainable futures.
           </p>
         </div>
       </section>
 
-      {/* 2. PROGRAMME FILTERING CONTROL */}
+      {/* 2. VISION & MISSION BAR */}
+      <section className="vision-mission-section">
+        <div className="container vision-mission-grid">
+          <div className="vm-card">
+            <h3>Our Vision</h3>
+            <p>“Transformed, Healthy and Resilient Communities.”</p>
+          </div>
+          <div className="vm-card">
+            <h3>Our Mission</h3>
+            <p>“To Enhance Equitable Access to Quality Wellness Services for All, Contributing to Sustainable Health Outcomes and Healthier Communities.”</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CORE VALUES & GUIDING PRINCIPLES */}
+      <section className="foundations-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">Our Organizational Foundations</h2>
+            <p className="section-subtitle">Guiding principles and core values that drive our mission forward</p>
+          </div>
+
+          <div className="foundations-grid">
+            {/* Core Values */}
+            <div className="foundations-column">
+              <h3 className="column-title">Six Core Values</h3>
+              <div className="values-list">
+                {coreValues.map((val, idx) => (
+                  <div key={idx} className="value-item">
+                    <strong>{val.name}</strong>
+                    <span>{val.desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Guiding Principles */}
+            <div className="foundations-column">
+              <h3 className="column-title">Guiding Principles</h3>
+              <div className="principles-list">
+                {guidingPrinciples.map((prin, idx) => (
+                  <div key={idx} className="principle-item">
+                    <strong>{prin.title}</strong>
+                    <p>{prin.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. PROGRAMME FILTER BAR */}
       <section className="filter-bar">
         <div className="container filter-bar-inner">
           <span className="filter-label">Filter Initiative:</span>
@@ -169,14 +228,13 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 3. PROGRAMMES DETAILED GRID */}
+      {/* 5. PROGRAMMES GRID */}
       <section className="programmes-list">
         <div className="container">
           <div className="programmes-grid">
             {displayedProgrammes.map((p) => (
               <div key={p.id} id={p.id} className="programme-card">
                 
-                {/* PROGRAMME FEATURE IMAGE BANNER */}
                 <div className="programme-image-wrapper">
                   <img
                     src={p.image}
@@ -201,7 +259,7 @@ export default function Programmes() {
                   <p className="programme-summary">{p.summary}</p>
 
                   <div className="programme-focus-box">
-                    <h4>Key Focus & Components:</h4>
+                    <h4 className="programme-focus-title">Key Focus &amp; Components:</h4>
                     <div className="programme-key-areas">
                       {p.keyAreas.map((area, idx) => (
                         <div key={idx} className="programme-key-area">
@@ -227,22 +285,24 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 4. THREE-PILLAR SERVICES MATRIX */}
+      {/* 6. SERVICES MATRIX */}
       <section className="service-matrix">
         <div className="container">
           <div className="service-matrix-header">
-            <h2>Integrated Service Delivery Pathways</h2>
-            <p>How WAM connects communities to health, psychosocial, and legal support</p>
+            <h2 className="service-matrix-title">Integrated Service Delivery Pathways</h2>
+            <p className="service-matrix-subtitle">
+              How WAM connects communities to health, psychosocial, and legal support
+            </p>
           </div>
 
           <div className="service-matrix-grid">
             {serviceCategories.map((sec, i) => (
               <div key={i} className="service-matrix-card">
-                <h3>{sec.title}</h3>
-                <p>{sec.description}</p>
+                <h3 className="service-card-title">{sec.title}</h3>
+                <p className="service-card-desc">{sec.description}</p>
                 <ul className="service-checklist">
                   {sec.items.map((item, idx) => (
-                    <li key={idx}>
+                    <li key={idx} className="service-checklist-item">
                       <span className="service-checklist-icon">✓</span> {item}
                     </li>
                   ))}
@@ -253,13 +313,12 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION */}
+      {/* 7. CALL TO ACTION */}
       <section className="programmes-cta">
         <div className="container container--cta">
-          <h2>Support Our Community Work</h2>
-          <p>
-            Help us expand MLINDE, MENTOR, and WELLNESS to reach more children, youth, and families across
-            Nairobi, Machakos, Kitui, and Makueni.
+          <h2 className="cta-heading">Partner With Us</h2>
+          <p className="cta-lead">
+            We welcome donors, development partners, government agencies, private sector organizations, and volunteers to join WAM in expanding access to wellness services across Nairobi, Machakos, Kitui, and Makueni.
           </p>
           <div className="programmes-cta-actions">
             <Link to="/contact" className="btn btn-primary">Get Involved</Link>

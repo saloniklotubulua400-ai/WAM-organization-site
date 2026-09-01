@@ -1,34 +1,33 @@
 /* ==================================================================
-   FONTS — same pairing as Home.css / About.css / Programmes.css.
+   FONTS — consistent pairing across the site
    ================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ==================================================================
-   DESIGN TOKENS — identical values across all pages so the site
-   shares one visual language.
+   DESIGN TOKENS — Green & Blue Theme Palette
    ================================================================== */
 :root {
-  --color-blue-900: #0c2038;
-  --color-blue-700: #1c5d99;
-  --color-teal-600: #12897f;
-  --color-green-600: #1f9d55;
+  /* Brand Theme Colors */
+  --color-green-title: #1f9d55;   /* Bold Green for Titles & Main Headings */
+  --color-blue-subtitle: #1c5d99; /* Deep Blue for Subtitles, Accents & Links */
+  --color-navy-dark: #0c2038;     /* Dark Background Tint */
+  --color-navy-deep: #061121;     /* Deep Hero & CTA Background */
 
+  /* Text & Border Colors */
   --color-text-body: #48657f;
   --color-text-muted: #64748b;
-  --color-text-faint: #94a3b8;
   --color-border: #dbe6ef;
 
+  /* Surfaces */
   --color-bg-page: #ffffff;
-  --color-bg-alt: #eef6f4;
-  --color-bg-soft: #f5faf9;
+  --color-bg-alt: #f4f7f6;
+  --color-bg-soft: #eef4f8;
 
-  --color-on-dark: #ffffff;
-  --color-on-dark-muted: #cfe6df;
-  --color-on-dark-faint: #dcece7;
+  /* Gradients */
+  --gradient-brand: linear-gradient(120deg, var(--color-blue-subtitle) 0%, var(--color-green-title) 100%);
+  --gradient-brand-dark: linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy-dark) 100%);
 
-  --gradient-brand: linear-gradient(120deg, var(--color-blue-700) 0%, var(--color-teal-600) 52%, var(--color-green-600) 100%);
-  --gradient-brand-dark: linear-gradient(135deg, #0e3a63 0%, #0f6b64 55%, #167a44 100%);
-
+  /* Typography & Layout */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-pill: 999px;
@@ -39,7 +38,6 @@
   --font-h1: clamp(32px, 5vw, 54px);
   --font-h2: clamp(24px, 3.4vw, 32px);
   --font-h3: 18px;
-  --font-body: 16px;
   --font-small: 14px;
   --font-tiny: 12px;
 
@@ -56,7 +54,7 @@
    ================================================================== */
 .wam-services {
   font-family: var(--font-body-face);
-  color: var(--color-blue-900);
+  color: var(--color-navy-dark);
   line-height: 1.6;
   background-color: var(--color-bg-page);
 }
@@ -68,7 +66,7 @@
 }
 
 .wam-services :focus-visible {
-  outline: 3px solid var(--color-teal-600);
+  outline: 3px solid var(--color-green-title);
   outline-offset: 2px;
 }
 
@@ -103,7 +101,7 @@
 }
 
 .services-eyebrow {
-  color: var(--color-on-dark-muted);
+  color: var(--color-blue-subtitle);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -114,13 +112,13 @@
   font-size: var(--font-h1);
   font-weight: 800;
   margin: 16px 0;
-  color: #fff;
+  color: var(--color-green-title); /* Green Title */
   line-height: 1.15;
 }
 
 .services-hero-lead {
   font-size: 18px;
-  color: var(--color-on-dark-faint);
+  color: #e2e8f0;
   margin: 0;
 }
 
@@ -144,7 +142,7 @@
 .filter-label {
   font-family: var(--font-display);
   font-weight: 700;
-  color: var(--color-blue-900);
+  color: var(--color-blue-subtitle); /* Blue Label */
   font-size: var(--font-small);
 }
 
@@ -157,24 +155,20 @@
 .filter-btn {
   padding: 8px 20px;
   border-radius: var(--radius-pill);
-  border: none;
+  border: 2px solid var(--color-blue-subtitle);
   cursor: pointer;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--font-small);
-  background-color: #fff;
-  color: var(--color-text-body);
-  box-shadow: 0 2px 4px rgba(12, 32, 56, 0.06);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  background-color: transparent;
+  color: var(--color-blue-subtitle);
+  transition: all var(--transition-fast);
 }
 
-.filter-btn--active {
-  background: var(--gradient-brand);
-  color: #fff;
-}
-
-.filter-btn:hover:not(.filter-btn--active) {
-  background-color: var(--color-bg-alt);
+.filter-btn--active,
+.filter-btn:hover {
+  background-color: var(--color-blue-subtitle);
+  color: #ffffff;
 }
 
 /* ==================================================================
@@ -192,32 +186,25 @@
 .category-header {
   padding-left: 16px;
   margin-bottom: 32px;
-  border-left: 5px solid var(--color-teal-600);
+  border-left: 5px solid var(--color-green-title);
 }
-
-.category-header--biomedical { border-left-color: var(--color-green-600); }
-.category-header--behavioral { border-left-color: var(--color-blue-700); }
-.category-header--structural { border-left-color: var(--color-teal-600); }
 
 .category-label {
   font-weight: 700;
   text-transform: uppercase;
   font-size: var(--font-tiny);
   letter-spacing: 1px;
+  color: var(--color-blue-subtitle); /* Blue Subtitle */
 }
-
-.category-label--biomedical { color: var(--color-green-600); }
-.category-label--behavioral { color: var(--color-blue-700); }
-.category-label--structural { color: var(--color-teal-600); }
 
 .category-title {
   font-size: 28px;
-  color: var(--color-blue-900);
+  color: var(--color-green-title); /* Green Title */
   margin: 4px 0 8px 0;
 }
 
 .category-desc {
-  color: var(--color-text-muted);
+  color: var(--color-text-body);
   margin: 0;
   font-size: 15px;
   max-width: 800px;
@@ -230,7 +217,7 @@
 }
 
 .service-card {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
@@ -248,7 +235,7 @@
 
 .service-card-title {
   font-size: var(--font-h3);
-  color: var(--color-blue-900);
+  color: var(--color-green-title); /* Green Title */
   margin-top: 0;
   margin-bottom: 12px;
 }
@@ -267,12 +254,13 @@
 
 .service-card-link {
   font-size: 13px;
-  color: var(--color-teal-600);
+  color: var(--color-blue-subtitle); /* Blue Subtitle / Action */
   font-weight: 700;
   text-decoration: none;
 }
 
 .service-card-link:hover {
+  color: var(--color-green-title);
   text-decoration: underline;
 }
 
@@ -292,7 +280,7 @@
 }
 
 .referral-eyebrow {
-  color: var(--color-teal-600);
+  color: var(--color-blue-subtitle); /* Blue Subtitle */
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -301,7 +289,7 @@
 
 .referral-header h2 {
   font-size: var(--font-h2);
-  color: var(--color-blue-900);
+  color: var(--color-green-title); /* Green Title */
   margin-top: 8px;
 }
 
@@ -318,10 +306,11 @@
 }
 
 .referral-card {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 30px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
+  border-top: 4px solid var(--color-green-title);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -334,22 +323,19 @@
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 800;
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-green-title);
   display: block;
   margin-bottom: 12px;
 }
 
 .referral-step-title {
   font-size: 17px;
-  color: var(--color-blue-900);
+  color: var(--color-green-title); /* Green Title */
   margin: 0 0 8px 0;
 }
 
 .referral-step-desc {
-  color: var(--color-text-body);
+  color: var(--color-blue-subtitle); /* Blue Subtitle Description */
   font-size: 13px;
   margin: 0;
 }
@@ -360,18 +346,18 @@
 .services-cta {
   padding: 80px 0;
   background: var(--gradient-brand-dark);
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 
 .services-cta h2 {
   font-size: var(--font-h2);
-  color: #fff;
+  color: var(--color-green-title); /* Green Title */
   margin-bottom: 16px;
 }
 
 .services-cta p {
-  color: var(--color-on-dark-muted);
+  color: var(--color-blue-subtitle); /* Blue Subtitle */
   font-size: 17px;
   margin-bottom: 32px;
 }
@@ -398,18 +384,22 @@
 }
 
 .btn-primary {
-  background: var(--gradient-brand);
-  color: #fff;
+  background-color: var(--color-green-title);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #178044;
 }
 
 .btn-outline {
   background-color: transparent;
-  border: 1px solid var(--color-on-dark-muted);
-  color: #fff;
+  border: 2px solid var(--color-blue-subtitle);
+  color: #ffffff;
 }
 
 .btn-outline:hover {
-  border-color: #fff;
+  background-color: var(--color-blue-subtitle);
 }
 
 /* ==================================================================
