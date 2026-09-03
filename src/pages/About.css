@@ -1,17 +1,22 @@
 /* ==================================================================
-   FONTS — same pairing as Home.css so both pages share one voice.
+   FONTS — Fraunces for headings (same as Home.css) paired with Inter
+   for body copy and buttons, so both pages share one visual voice.
    ================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ==================================================================
-   DESIGN TOKENS — identical values to Home.css so both pages share
-   one visual language (same palette, spacing, radius, type scale).
+   DESIGN TOKENS — identical brand colors to Home.css so both pages
+   share one visual language (same green/blue, spacing, radius, type).
    ================================================================== */
 :root {
   --color-blue-900: #0c2038;
   --color-blue-700: #1c5d99;
   --color-teal-600: #12897f;
-  --color-green-600: #1f9d55;
+  --color-green-600: #1c7a4c;   /* matches Home.css --color-green-primary */
+  --color-green-700: #14603a;   /* matches Home.css --color-green-primary-dark */
+  --color-green-bright: #22c55e; /* accent for titles on dark backgrounds */
+  --color-blue-300: #93c5fd;    /* accent for body copy on dark backgrounds */
+  --color-blue-400: #60a5fa;    /* accent for intro text on dark backgrounds */
 
   --color-text-body: #48657f;
   --color-text-muted: #64748b;
@@ -36,7 +41,7 @@
   --radius-md: 12px;
   --radius-pill: 999px;
 
-  --font-display: "Sora", "Segoe UI", sans-serif;
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body-face: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --font-h1: clamp(32px, 5vw, 54px);
@@ -62,12 +67,18 @@
   color: var(--color-blue-900);
   line-height: 1.6;
   background-color: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
 }
 
 .wam-about *,
 .wam-about *::before,
 .wam-about *::after {
   box-sizing: border-box;
+}
+
+.wam-about ::selection {
+  background: var(--color-bg-alt);
+  color: var(--color-green-700);
 }
 
 .wam-about :focus-visible {
@@ -79,7 +90,7 @@
 .wam-about h2,
 .wam-about h3,
 .wam-about h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   letter-spacing: -0.01em;
   color: var(--color-green-600); /* TITLE RULE: GREEN */
 }
@@ -129,7 +140,7 @@
   margin-bottom: 48px;
 }
 
-/* SUBTITLE RULE: BLUE */
+/* SUBTITLE RULE: BLUE — a quiet tag with a leading dot, matching Home.css's eyebrow */
 .section-eyebrow {
   color: var(--color-blue-700);
   font-weight: 700;
@@ -138,6 +149,17 @@
   font-size: var(--font-small);
   text-align: center;
   display: block;
+}
+
+.section-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
 }
 
 /* TITLE RULE: GREEN */
@@ -150,7 +172,7 @@
 }
 
 .section-heading--onDark {
-  color: #22c55e; /* Bright Green for Dark Section Titles */
+  color: var(--color-green-bright);
 }
 
 /* SUBTITLE / INTRO RULE: BLUE */
@@ -163,7 +185,7 @@
 }
 
 .section-intro--onDark {
-  color: #60a5fa; /* Light Blue for Dark Background Subtitles */
+  color: var(--color-blue-400);
 }
 
 .section-intro--cta {
@@ -186,12 +208,12 @@
 .grid--min-lg { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
 /* ==================================================================
-   BUTTONS
+   BUTTONS — pill-shaped, matching Home.css's button language
    ================================================================== */
 .btn {
   padding: 14px 30px;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-display);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body-face);
   font-weight: 700;
   font-size: var(--font-body);
   text-decoration: none;
@@ -207,13 +229,18 @@
   box-shadow: 0 8px 20px rgba(16, 42, 67, 0.18);
 }
 
+.btn:active {
+  transform: scale(0.97);
+}
+
 .btn-primary {
   background: var(--color-green-600);
   color: #fff;
+  box-shadow: 0 10px 24px rgba(28, 122, 76, 0.22);
 }
 
 .btn-primary:hover {
-  background-color: #15803d;
+  background-color: var(--color-green-700);
 }
 
 .btn-secondary {
@@ -261,19 +288,20 @@
   display: inline-block;
 }
 
-/* TITLE RULE: GREEN */
+/* TITLE RULE: GREEN (bright variant for legibility on the dark hero) */
 .about-hero-title {
+  font-family: var(--font-heading);
   font-size: var(--font-h1);
   font-weight: 800;
   margin: 16px 0;
   line-height: 1.15;
-  color: #22c55e;
+  color: var(--color-green-bright);
 }
 
 /* SUBTITLE RULE: BLUE */
 .about-hero-lead {
   font-size: 18px;
-  color: #93c5fd;
+  color: var(--color-blue-300);
   max-width: 660px;
   margin: 0 auto;
 }
@@ -355,6 +383,8 @@
   color: var(--color-blue-700);
   font-weight: 500;
   font-size: var(--font-body);
+  font-family: var(--font-heading);
+  font-style: italic;
 }
 
 /* ==================================================================
@@ -367,16 +397,17 @@
   border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .pillar-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px rgba(16, 42, 67, 0.1);
+  border-color: var(--color-green-600);
 }
 
 .pillar-number {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 800;
   color: var(--color-blue-700);
@@ -441,12 +472,16 @@
   border-radius: var(--radius-pill);
   border: none;
   cursor: pointer;
-  font-family: var(--font-display);
+  font-family: var(--font-body-face);
   font-weight: 700;
   font-size: var(--font-small);
   background-color: rgba(255, 255, 255, 0.12);
   color: #fff;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.toggle-btn:active {
+  transform: scale(0.96);
 }
 
 .toggle-btn--active {
@@ -484,7 +519,7 @@
 
 /* TITLE RULE: GREEN */
 .gov-card-header h3 {
-  color: #22c55e;
+  color: var(--color-green-bright);
   margin: 0;
   font-size: var(--font-h3);
 }
@@ -500,7 +535,7 @@
 
 /* SUBTITLE RULE: BLUE */
 .gov-desc {
-  color: #93c5fd;
+  color: var(--color-blue-300);
   margin: 0;
   font-size: var(--font-small);
 }

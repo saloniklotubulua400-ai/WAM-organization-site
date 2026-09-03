@@ -1,20 +1,70 @@
+/* ==========================================================================
+   WAM — Programmes page
+   Same design system as Home.css / About.css: forest green for titles,
+   ocean blue for sub-copy, Fraunces for headings paired with a clean
+   system sans for body copy. Each of the three programmes (MLINDE,
+   MENTOR, WELLNESS) carries its own accent color drawn from the same
+   brand palette — green, blue, and teal — so the page reads as one
+   family while still telling the three programmes apart at a glance.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap");
+
 :root {
-  --color-green-title: #1f9d55;
-  --color-blue-subtitle: #1c5d99;
-  --color-navy-dark: #0a192f;
-  --color-navy-deep: #061121;
-  --color-text-body: #333333;
+  --color-green-primary: #1c7a4c;
+  --color-green-primary-dark: #14603a;
+  --color-green-tint: #e6f2ea;
+  --color-blue-secondary: #1c5d99;
+  --color-blue-secondary-dark: #154a7c;
+  --color-blue-tint: #e8f0f8;
+  --color-teal-accent: #12897f;
+  --color-teal-tint: #e3f2f0;
+  --color-navy-dark: #0f2744;
+
+  --color-text-dark: #1c2624;
+  --color-text-muted: #5c6b68;
   --color-bg-light: #ffffff;
-  --color-bg-alt: #f4f7f6;
-  --color-bg-soft: #eef4f8;
-  --color-border: #e2e8f0;
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-bg-alt: #f6f8f5;
+  --color-bg-soft: #eef4f2;
+  --color-border-soft: #e1e8e3;
+
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  --shadow-sm: 0 2px 10px rgba(15, 39, 68, 0.06);
+  --shadow-md: 0 10px 28px rgba(15, 39, 68, 0.09);
+  --shadow-green: 0 12px 26px rgba(28, 122, 76, 0.2);
+  --shadow-blue: 0 12px 26px rgba(28, 93, 153, 0.2);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+.wam-programmes * {
+  box-sizing: border-box;
 }
 
 .wam-programmes {
   font-family: var(--font-family-base);
-  color: var(--color-text-body);
-  line-height: 1.6;
+  color: var(--color-text-dark);
+  line-height: 1.65;
+  background-color: var(--color-bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wam-programmes ::selection {
+  background: var(--color-green-tint);
+  color: var(--color-green-primary-dark);
+}
+
+.wam-programmes :focus-visible {
+  outline: 2px solid var(--color-blue-secondary);
+  outline-offset: 3px;
 }
 
 .container {
@@ -24,412 +74,611 @@
 }
 
 .container--cta {
-  max-width: 800px;
-  text-align: center;
+  max-width: 700px;
 }
 
-/* 1. Hero Section */
+/* Buttons (shared with the rest of the site's pill language) */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.65rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-primary {
+  background-color: var(--color-green-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-green);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-green-primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Reused section header (Foundations + Programmes grid) */
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  color: var(--color-green-primary);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ==========================================================================
+   1. Hero
+   ========================================================================== */
 .programmes-hero {
   position: relative;
-  padding: 5rem 0;
-  color: #ffffff;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background-color: var(--color-navy-dark);
 }
 
 .programmes-hero-bg-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  inset: 0;
+  z-index: 0;
 }
 
 .programmes-hero-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .programmes-hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 25, 47, 0.82);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 39, 68, 0.78) 0%,
+    rgba(15, 39, 68, 0.72) 55%,
+    rgba(15, 39, 68, 0.88) 100%
+  );
 }
 
 .programmes-hero-inner {
   position: relative;
-  z-index: 2;
-  max-width: 900px;
+  z-index: 1;
+  padding: 5.5rem 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .programmes-eyebrow {
-  display: inline-block;
-  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #7dd3fc;
-  margin-bottom: 0.5rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.programmes-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .programmes-hero-title {
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: #34d399;
-  margin: 0 0 1.25rem 0;
+  font-family: var(--font-heading);
+  color: #ffffff;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 1rem 0;
 }
 
 .programmes-hero-lead {
-  font-size: 1.125rem;
-  color: #e2e8f0;
-  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+  max-width: 620px;
+  margin: 0 auto;
 }
 
-/* 2. Vision & Mission Bar */
+/* ==========================================================================
+   2. Vision & Mission
+   ========================================================================== */
 .vision-mission-section {
-  background-color: var(--color-navy-deep);
-  padding: 2.5rem 0;
+  padding: 4.5rem 0;
+  background-color: var(--color-bg-alt);
 }
 
 .vision-mission-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.75rem;
 }
 
 .vm-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid var(--color-green-title);
-  padding: 1.5rem;
-  border-radius: 8px;
+  background: #ffffff;
+  padding: 2.25rem;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-green-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vm-card:nth-child(2) {
+  border-left-color: var(--color-blue-secondary);
+}
+
+.vm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 .vm-card h3 {
-  color: var(--color-green-title);
-  margin-top: 0;
-  font-size: 1.25rem;
+  font-family: var(--font-heading);
+  color: var(--color-green-primary);
+  font-size: 1.1rem;
+  margin: 0 0 0.6rem;
+}
+
+.vm-card:nth-child(2) h3 {
+  color: var(--color-blue-secondary);
 }
 
 .vm-card p {
-  color: #e2e8f0;
-  margin: 0;
+  font-family: var(--font-heading);
   font-style: italic;
-}
-
-/* 3. Core Values & Principles */
-.foundations-section {
-  padding: 4rem 0;
-  background-color: var(--color-bg-light);
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.section-title {
-  color: var(--color-green-title);
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin: 0 0 0.5rem 0;
-}
-
-.section-subtitle {
-  color: var(--color-blue-subtitle);
   font-size: 1.1rem;
+  color: var(--color-text-dark);
   margin: 0;
+}
+
+/* ==========================================================================
+   3. Foundations — Core Values & Guiding Principles
+   ========================================================================== */
+.foundations-section {
+  padding: 5rem 0;
 }
 
 .foundations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-}
-
-.foundations-column {
-  background: var(--color-bg-alt);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
+  gap: 3rem;
 }
 
 .column-title {
-  color: var(--color-green-title);
-  font-size: 1.4rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--color-green-title);
-  padding-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  color: var(--color-blue-secondary);
+  font-size: 1.15rem;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-border-soft);
 }
 
-.values-list, .principles-list {
+.values-list,
+.principles-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.25rem;
 }
 
-.value-item strong {
-  display: block;
-  color: var(--color-blue-subtitle);
-  font-size: 1rem;
+.value-item,
+.principle-item {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.value-item span {
-  font-size: 0.9rem;
-  color: var(--color-text-body);
-}
-
-.principle-item strong {
-  color: var(--color-blue-subtitle);
-  font-size: 1rem;
-}
-
-.principle-item p {
-  margin: 0.25rem 0 0 0;
-  font-size: 0.9rem;
-}
-
-/* 4. Filter Bar */
-.filter-bar {
+.value-item:hover,
+.principle-item:hover {
   background-color: var(--color-bg-alt);
-  border-y: 1px solid var(--color-border);
-  padding: 1.25rem 0;
+  transform: translateX(4px);
+}
+
+.value-item strong,
+.principle-item strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--color-green-primary);
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.value-item span,
+.principle-item p {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* ==========================================================================
+   4. Filter Bar
+   ========================================================================== */
+.filter-bar {
+  padding: 2rem 0;
+  background-color: var(--color-bg-soft);
+  border-top: 1px solid var(--color-border-soft);
+  border-bottom: 1px solid var(--color-border-soft);
 }
 
 .filter-bar-inner {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .filter-label {
   font-weight: 700;
-  color: var(--color-blue-subtitle);
+  color: var(--color-navy-dark);
+  font-size: 0.9rem;
 }
 
 .filter-buttons {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .filter-btn {
-  padding: 0.6rem 1.25rem;
-  border-radius: 30px;
-  border: 2px solid var(--color-blue-subtitle);
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-blue-secondary);
   background: transparent;
-  color: var(--color-blue-subtitle);
+  color: var(--color-blue-secondary);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
-.filter-btn--active, .filter-btn:hover {
-  background-color: var(--color-blue-subtitle);
+.filter-btn:hover {
+  background: var(--color-blue-tint);
+}
+
+.filter-btn:active {
+  transform: scale(0.96);
+}
+
+.filter-btn--active {
+  background: var(--color-blue-secondary);
   color: #ffffff;
+  border-color: var(--color-blue-secondary);
 }
 
-/* 5. Programmes List */
+/* ==========================================================================
+   5. Programmes Grid — the big feature cards
+   ========================================================================== */
 .programmes-list {
-  padding: 4rem 0;
+  padding: 5rem 0;
+  background-color: var(--color-bg-alt);
 }
 
 .programmes-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+  display: grid;
+  gap: 2.5rem;
 }
 
 .programme-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 400px 1fr;
+  border: 1px solid var(--color-border-soft);
+  border-top: 5px solid var(--color-green-primary);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media (max-width: 960px) {
+.programme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+#mentor.programme-card {
+  border-top-color: var(--color-blue-secondary);
+}
+
+#wellness.programme-card {
+  border-top-color: var(--color-teal-accent);
+}
+
+@media (min-width: 900px) {
   .programme-card {
-    grid-template-columns: 1fr;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .programme-image-wrapper {
+    width: 38%;
+    flex-shrink: 0;
+  }
+
+  .programme-card-body {
+    width: 62%;
   }
 }
 
 .programme-image-wrapper {
   position: relative;
-  min-height: 280px;
+  min-height: 240px;
+  overflow: hidden;
 }
 
 .programme-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.programme-card:hover .programme-card-image {
+  transform: scale(1.06);
 }
 
 .programme-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 39, 68, 0) 40%,
+    rgba(15, 39, 68, 0.7) 100%
+  );
+  pointer-events: none;
 }
 
 .programme-audience-badge {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: var(--color-navy-dark);
+  bottom: 14px;
+  left: 14px;
+  z-index: 1;
   color: #ffffff;
-  padding: 0.4rem 0.85rem;
-  font-size: 0.8rem;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.programme-audience-badge--mlinde { border-left: 4px solid #10b981; }
-.programme-audience-badge--mentor { border-left: 4px solid #3b82f6; }
-.programme-audience-badge--wellness { border-left: 4px solid #8b5cf6; }
+.programme-audience-badge--mlinde {
+  background: rgba(28, 122, 76, 0.85);
+  border-color: rgba(28, 122, 76, 0.9);
+}
+
+.programme-audience-badge--mentor {
+  background: rgba(28, 93, 153, 0.85);
+  border-color: rgba(28, 93, 153, 0.9);
+}
+
+.programme-audience-badge--wellness {
+  background: rgba(18, 137, 127, 0.85);
+  border-color: rgba(18, 137, 127, 0.9);
+}
 
 .programme-card-body {
-  padding: 2.25rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .programme-title {
-  color: var(--color-green-title);
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--color-green-primary);
+  font-size: 1.6rem;
+  margin: 0 0 0.3rem;
+}
+
+#mentor .programme-title {
+  color: var(--color-blue-secondary);
+}
+
+#wellness .programme-title {
+  color: var(--color-teal-accent);
 }
 
 .programme-subtitle {
-  color: var(--color-blue-subtitle);
-  font-size: 1.1rem;
+  color: var(--color-blue-secondary);
   font-weight: 600;
-  margin: 0.35rem 0 1rem 0;
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
 }
 
 .programme-summary {
-  font-size: 1.05rem;
-  margin-bottom: 1.5rem;
+  color: var(--color-text-muted);
+  margin: 0 0 1.25rem;
 }
 
 .programme-focus-box {
-  background-color: var(--color-bg-soft);
-  padding: 1.25rem 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.75rem;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1.5rem;
 }
 
 .programme-focus-title {
-  color: var(--color-green-title);
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 0 0 0.85rem 0;
+  font-family: var(--font-heading);
+  color: var(--color-navy-dark);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
 }
 
 .programme-key-areas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.65rem 1rem;
+  gap: 0.5rem 1rem;
 }
 
 .programme-key-area {
-  font-size: 0.925rem;
-  color: var(--color-blue-subtitle);
-  font-weight: 500;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-dark);
 }
 
 .programme-key-area-check {
-  color: var(--color-green-title);
-  font-weight: bold;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--color-green-primary);
+  border-radius: 50%;
+  margin-top: 1px;
 }
 
 .programme-footer {
   margin-top: auto;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-soft);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .programme-goal {
-  font-size: 0.95rem;
-  color: var(--color-blue-subtitle);
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
 }
 
 .programme-goal strong {
-  color: var(--color-green-title);
+  color: var(--color-text-dark);
 }
 
 .programme-cta {
-  color: var(--color-blue-subtitle);
+  color: var(--color-green-primary);
   font-weight: 700;
   text-decoration: none;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.2s ease, color 0.2s ease;
 }
 
 .programme-cta:hover {
-  color: var(--color-green-title);
-  text-decoration: underline;
+  gap: 0.55rem;
+  color: var(--color-green-primary-dark);
 }
 
-/* 6. Service Matrix */
+/* ==========================================================================
+   6. Service Delivery Matrix
+   ========================================================================== */
 .service-matrix {
   padding: 5rem 0;
-  background-color: var(--color-bg-alt);
 }
 
 .service-matrix-header {
   text-align: center;
-  margin-bottom: 3rem;
+  max-width: 680px;
+  margin: 0 auto 3rem;
 }
 
 .service-matrix-title {
-  color: var(--color-green-title);
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin: 0 0 0.5rem 0;
+  font-family: var(--font-heading);
+  color: var(--color-green-primary);
+  font-size: 2rem;
+  margin: 0 0 0.75rem;
 }
 
 .service-matrix-subtitle {
-  color: var(--color-blue-subtitle);
-  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
   margin: 0;
 }
 
 .service-matrix-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 .service-matrix-card {
   background: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  border-top: 4px solid var(--color-green-title);
+  border: 1px solid var(--color-border-soft);
+  border-top: 3px solid var(--color-green-primary);
+  border-radius: var(--radius-md);
+  padding: 1.85rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-matrix-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.service-matrix-card:nth-child(2) {
+  border-top-color: var(--color-blue-secondary);
+}
+
+.service-matrix-card:nth-child(3) {
+  border-top-color: var(--color-teal-accent);
 }
 
 .service-card-title {
-  color: var(--color-green-title);
-  font-size: 1.35rem;
-  margin: 0 0 0.5rem 0;
+  font-family: var(--font-heading);
+  color: var(--color-navy-dark);
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
 }
 
 .service-card-desc {
-  color: var(--color-blue-subtitle);
-  font-size: 0.95rem;
-  margin-bottom: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  margin: 0 0 1.1rem;
 }
 
 .service-checklist {
@@ -438,62 +687,148 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .service-checklist-item {
-  font-size: 0.925rem;
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: var(--color-text-dark);
 }
 
 .service-checklist-icon {
-  color: var(--color-green-title);
-  font-weight: bold;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--color-green-primary);
+  border: 1.5px solid var(--color-green-primary);
+  border-radius: 50%;
+  margin-top: 1px;
 }
 
-/* 7. CTA Section */
+/* ==========================================================================
+   7. Call To Action
+   ========================================================================== */
 .programmes-cta {
-  background-color: var(--color-navy-deep);
-  color: #ffffff;
   padding: 5rem 0;
+  background: var(--color-navy-dark);
+  background-image: radial-gradient(
+    circle at 20% 20%,
+    rgba(28, 122, 76, 0.3),
+    transparent 45%
+  ),
+  radial-gradient(
+    circle at 85% 80%,
+    rgba(28, 93, 153, 0.3),
+    transparent 45%
+  );
+  color: #ffffff;
+  text-align: center;
 }
 
 .cta-heading {
-  color: var(--color-green-title);
-  font-size: 2.25rem;
-  font-weight: 800;
-  margin: 0 0 1rem 0;
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  margin: 0 0 1rem;
+  color: #ffffff;
 }
 
 .cta-lead {
-  color: var(--color-blue-subtitle);
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+  margin: 0 0 2rem;
 }
 
 .programmes-cta-actions {
   display: flex;
+  gap: 1rem;
   justify-content: center;
-  gap: 1.25rem;
   flex-wrap: wrap;
 }
 
-.btn {
-  padding: 0.85rem 1.75rem;
-  border-radius: 8px;
-  font-weight: 700;
-  text-decoration: none;
-  display: inline-block;
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 900px) {
+  .programme-key-areas {
+    grid-template-columns: 1fr;
+  }
 }
 
-.btn-primary {
-  background-color: var(--color-green-title);
-  color: #ffffff;
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .programmes-hero-inner {
+    padding: 4rem 1.25rem;
+  }
+
+  .section-title,
+  .service-matrix-title {
+    font-size: 1.65rem;
+  }
+
+  .foundations-grid {
+    gap: 2rem;
+  }
+
+  .filter-bar-inner {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .programme-card-body {
+    padding: 1.5rem;
+  }
 }
 
-.btn-outline {
-  border: 2px solid #ffffff;
-  color: #ffffff;
+@media (max-width: 480px) {
+  .programmes-hero-title {
+    font-size: 1.85rem;
+  }
+
+  .programmes-hero-lead {
+    font-size: 1rem;
+  }
+
+  .vm-card,
+  .service-matrix-card {
+    padding: 1.5rem;
+  }
+
+  .programme-focus-box {
+    padding: 1rem;
+  }
+
+  .programme-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .programmes-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .vm-card,
+  .value-item,
+  .principle-item,
+  .filter-btn,
+  .programme-card,
+  .programme-card-image,
+  .service-matrix-card,
+  .programme-cta {
+    transition: none !important;
+  }
 }

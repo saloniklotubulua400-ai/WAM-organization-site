@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import "./Partnerships.css";
 
-// Relative assets import
-import wamo10 from "../assets/wamo10.png";
-import wamo1 from "../assets/wamo1.png";
-import wamo2 from "../assets/wamo2.png";
-import wamo3 from "../assets/wamo3.png";
-import wamo4 from "../assets/wamo4.png";
-
 export default function Partnerships() {
   const [activeTab, setActiveTab] = useState("all");
   const [showModal, setShowModal] = useState(false);
@@ -25,8 +18,8 @@ export default function Partnerships() {
     {
       id: "community",
       category: "Grassroots & Community",
+      tag: "Direct Impact",
       description: "Building frontline capacity and direct community-driven initiatives.",
-      image: wamo1,
       partners: [
         { name: "Youth Groups", role: "Peer mentorship, SRH outreach, and youth-led advocacy." },
         { name: "Faith-Based Organizations", role: "Values-aligned health awareness and psychosocial support." },
@@ -36,8 +29,8 @@ export default function Partnerships() {
     {
       id: "institutions",
       category: "Education & Training",
+      tag: "Capacity Building",
       description: "Integrating mental health, life-skills, and protection into learning spaces.",
-      image: wamo2,
       partners: [
         { name: "Vocational Training Institutions", role: "Technical skills training and adolescent wellbeing." },
         { name: "Colleges & Universities", role: "Campus mental health initiatives and peer counselor networks." },
@@ -46,8 +39,8 @@ export default function Partnerships() {
     {
       id: "government",
       category: "Government & Authorities",
+      tag: "Policy Alignment",
       description: "Aligning strategies with public policy and county health frameworks.",
-      image: wamo3,
       partners: [
         { name: "National Government", role: "Policy alignment and health/education technical working groups." },
         { name: "County Governments", role: "Local health facility linkages, GBV response, and school clubs." },
@@ -57,8 +50,8 @@ export default function Partnerships() {
     {
       id: "civil-society",
       category: "Civil Society & Development",
+      tag: "Strategic Network",
       description: "Expanding service delivery, joint funding, and technical excellence.",
-      image: wamo4,
       partners: [
         { name: "Local & International NGOs", role: "Consortium project delivery, referrals, and joint advocacy." },
         { name: "Other Relevant Stakeholders", role: "Private sector, research entities, and philanthropic partners." },
@@ -94,14 +87,8 @@ export default function Partnerships() {
 
   return (
     <div className="partnerships-page">
-      
-      {/* 1. HERO SECTION WITH FULL-WIDTH BACKGROUND IMAGE */}
-      <section 
-        className="partnerships-hero hero-full-bg"
-        style={{
-          backgroundImage: `linear-gradient(rgba(16, 42, 67, 0.82), rgba(16, 42, 67, 0.88)), url(${wamo10})`,
-        }}
-      >
+      {/* 1. HERO SECTION */}
+      <section className="partnerships-hero">
         <div className="container hero-container text-center">
           <span className="badge-pill">Collaborative Impact</span>
           <h1>Working Together for Greater Impact</h1>
@@ -118,8 +105,6 @@ export default function Partnerships() {
         </div>
       </section>
 
-          
-
       {/* 2. CORE PARTNERSHIP VALUES */}
       <section className="values-section">
         <div className="container">
@@ -130,17 +115,35 @@ export default function Partnerships() {
 
           <div className="values-grid">
             <div className="value-card">
-              <div className="value-icon">🤝</div>
+              <div className="value-icon-wrapper">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
               <h3>Community-Led Ownership</h3>
               <p>We work directly with local leadership to ensure interventions are culturally grounded and sustained over time.</p>
             </div>
+
             <div className="value-card">
-              <div className="value-icon">📈</div>
+              <div className="value-icon-wrapper">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
               <h3>Measurable Outcomes</h3>
               <p>Every partnership leverages structured monitoring, evaluation, and reporting frameworks to track real impact.</p>
             </div>
+
             <div className="value-card">
-              <div className="value-icon">⚡</div>
+              <div className="value-icon-wrapper">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
               <h3>Holistic Service Integration</h3>
               <p>Connecting health promotion, child protection, and psychosocial support through established referral pathways.</p>
             </div>
@@ -148,10 +151,10 @@ export default function Partnerships() {
         </div>
       </section>
 
-      {/* 3. STAKEHOLDER CATEGORIES & TABS WITH CATEGORY CARDS */}
+      {/* 3. STAKEHOLDER CATEGORIES & TABS */}
       <section className="stakeholders-section">
         <div className="container">
-          <div className="section-title">
+          <div className="section-title text-center">
             <h2>Our Stakeholders & Collaborative Network</h2>
             <p>Exploring the diverse sectors where WAM builds strategic relationships.</p>
           </div>
@@ -190,18 +193,14 @@ export default function Partnerships() {
             </button>
           </div>
 
-          {/* STAKEHOLDER CARDS DISPLAY WITH VISUAL MEDIA */}
+          {/* STAKEHOLDER CARDS DISPLAY */}
           <div className="categories-stack">
             {filteredCategories.map((cat) => (
               <div key={cat.id} className="category-group">
-                <div className="category-header-with-img">
-                  <div className="category-text">
-                    <h3>{cat.category}</h3>
-                    <p>{cat.description}</p>
-                  </div>
-                  <div className="category-img-frame">
-                    <img src={cat.image} alt={cat.category} />
-                  </div>
+                <div className="category-header-clean">
+                  <span className="category-tag-badge">{cat.tag}</span>
+                  <h3>{cat.category}</h3>
+                  <p>{cat.description}</p>
                 </div>
 
                 <div className="partners-grid">
@@ -254,16 +253,9 @@ export default function Partnerships() {
         </div>
       </section>
 
-      {/* 5. BOTTOM INVITATION BANNER WITH BACKGROUND */}
-      <section 
-        className="partnership-cta-banner"
-        style={{
-          backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)), url(${wamo3})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="container cta-banner-container">
+      {/* 5. BOTTOM INVITATION BANNER */}
+      <section className="partnership-cta-banner">
+        <div className="container cta-banner-container text-center">
           <div className="banner-text">
             <h2>Ready to collaborate with WAM?</h2>
             <p>Let’s join hands to improve mental health, child safety, and community resilience.</p>

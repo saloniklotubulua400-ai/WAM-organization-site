@@ -20,7 +20,7 @@ export default function Programmes() {
       accent: "mlinde",
       image: wamo11,
       summary:
-        "MLINDE focuses on child rights, protection, early health interventions, life skills, and comprehensive psychosocial wellbeing.",
+        "MLINDE puts children's rights, safety, and wellbeing first — combining early health interventions, life-skills education, and psychosocial support to help every child grow up protected and thriving.",
       keyAreas: [
         "Child-rights awareness & advocacy",
         "Child protection & prevention of abuse",
@@ -40,7 +40,7 @@ export default function Programmes() {
       accent: "mentor",
       image: wamo12,
       summary:
-        "MENTOR supports youth capacity building, reproductive health, disease prevention, HIV testing, and referral networks.",
+        "MENTOR equips young people with the knowledge, skills, and health services they need to make informed choices — from life-skills training to direct HIV testing, counselling, and referral pathways.",
       keyAreas: [
         "Life-skills training & capacity building",
         "Sexual & Reproductive Health (SRH)",
@@ -59,7 +59,7 @@ export default function Programmes() {
       accent: "wellness",
       image: wamo13,
       summary:
-        "The WELLNESS programme delivers targeted interventions addressing substance use, gender-based violence (GBV), human rights, and mental health.",
+        "WELLNESS walks alongside vulnerable community members through counselling, peer support, and advocacy — addressing substance use, gender-based violence, and mental health with compassion and consistency.",
       keyAreas: [
         "Substance-use prevention & early support",
         "Individual & group counselling",
@@ -143,7 +143,7 @@ export default function Programmes() {
           <span className="programmes-eyebrow">Wellness Approach Mentors (WAM)</span>
           <h1 className="programmes-hero-title">Empowering Communities, Transforming Lives</h1>
           <p className="programmes-hero-lead">
-            At WAM, we believe lasting development begins with healthy, empowered, and resilient people. We work alongside individuals, families, young people, and communities to unlock local potential, strengthen resilience, and build sustainable futures.
+            Lasting development starts with healthy, empowered, resilient people. Our programmes work alongside individuals, families, young people, and communities to unlock local potential and build futures that last.
           </p>
         </div>
       </section>
@@ -167,7 +167,7 @@ export default function Programmes() {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">Our Organizational Foundations</h2>
-            <p className="section-subtitle">Guiding principles and core values that drive our mission forward</p>
+            <p className="section-subtitle">The values and principles that shape how we show up for every community we serve</p>
           </div>
 
           <div className="foundations-grid">
@@ -203,7 +203,7 @@ export default function Programmes() {
       {/* 4. PROGRAMME FILTER BAR */}
       <section className="filter-bar">
         <div className="container filter-bar-inner">
-          <span className="filter-label">Filter Initiative:</span>
+          <span className="filter-label">Browse by Programme:</span>
           <div className="filter-buttons" role="tablist" aria-label="Filter programmes">
             <button
               role="tab"
@@ -231,6 +231,13 @@ export default function Programmes() {
       {/* 5. PROGRAMMES GRID */}
       <section className="programmes-list">
         <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">Our Core Programmes</h2>
+            <p className="section-subtitle">
+              Three flagship interventions, each tailored to a different life stage — grounded in evidence, community partnership, and dignity.
+            </p>
+          </div>
+
           <div className="programmes-grid">
             {displayedProgrammes.map((p) => (
               <div key={p.id} id={p.id} className="programme-card">
@@ -291,7 +298,7 @@ export default function Programmes() {
           <div className="service-matrix-header">
             <h2 className="service-matrix-title">Integrated Service Delivery Pathways</h2>
             <p className="service-matrix-subtitle">
-              How WAM connects communities to health, psychosocial, and legal support
+              How WAM connects communities to health, psychosocial, and structural support — no wrong door, every pathway leads to care.
             </p>
           </div>
 

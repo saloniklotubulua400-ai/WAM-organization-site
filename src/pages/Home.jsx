@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
@@ -12,11 +12,126 @@ import wamo6 from "../assets/wamo6.png";
 import wamo7 from "../assets/wamo7.png";
 import wamo14 from "../assets/wamo14.png";
 
+/* ----------------------------------------------------------------
+   Small interaction helpers (added, nothing below removes or
+   changes any existing markup/classes — they only layer behavior
+   on top of what was already there).
+------------------------------------------------------------------*/
+
+// Counts a number up from 0 to target once it scrolls into view.
+// Keeps the original string formatting (commas, "+", etc.) intact.
+function useCountUp(rawValue, active) {
+  const [display, setDisplay] = useState(rawValue.replace(/[0-9]/g, "0"));
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!active || hasRun.current) return;
+    hasRun.current = true;
+
+    const match = rawValue.match(/[\d,]+/);
+    if (!match) {
+      setDisplay(rawValue);
+      return;
+    }
+    const target = parseInt(match[0].replace(/,/g, ""), 10);
+    const prefix = rawValue.slice(0, match.index);
+    const suffix = rawValue.slice(match.index + match[0].length);
+    const duration = 1200;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+      const current = Math.round(target * eased);
+      setDisplay(`${prefix}${current.toLocaleString()}${suffix}`);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [active, rawValue]);
+
+  return display;
+}
+
+// Fires once when the referenced element enters the viewport.
+function useInView(options) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        observer.disconnect();
+      }
+    }, options);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [options]);
+
+  return [ref, inView];
+}
+
+// A sliding pill that tracks whichever button is marked data-active="true"
+// inside the given container ref. Used for both tab rows.
+function SlidingIndicator({ containerRef, activeKey }) {
+  const [style, setStyle] = useState({ opacity: 0 });
+
+  const measure = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const activeEl = container.querySelector('[data-active="true"]');
+    if (!activeEl) return;
+    const containerRect = container.getBoundingClientRect();
+    const rect = activeEl.getBoundingClientRect();
+    setStyle({
+      opacity: 1,
+      width: rect.width,
+      height: rect.height,
+      transform: `translate(${rect.left - containerRect.left}px, ${
+        rect.top - containerRect.top
+      }px)`,
+    });
+  }, [containerRef]);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure, activeKey]);
+
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        borderRadius: "999px",
+        background: "rgba(255,255,255,0.14)",
+        transition:
+          "transform 0.35s cubic-bezier(0.65,0,0.35,1), width 0.35s cubic-bezier(0.65,0,0.35,1), opacity 0.2s ease",
+        pointerEvents: "none",
+        zIndex: 0,
+        ...style,
+      }}
+    />
+  );
+}
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState("all");
   const [activeServiceTab, setActiveServiceTab] = useState("behavioural");
   const [openFaq, setOpenFaq] = useState(null);
   const [selectedProgramme, setSelectedProgramme] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [heroTilt, setHeroTilt] = useState({ x: 0, y: 0 });
+
+  const tabRowRef = useRef(null);
+  const serviceTabRowRef = useRef(null);
+  const faqRefs = useRef({});
 
   const coreValues = [
     {
@@ -194,8 +309,88 @@ export default function Home() {
 
   const toggleFaq = (index) => setOpenFaq(openFaq === index ? null : index);
 
+  // Stats: animate counters once the impact section scrolls into view.
+  const [statsRef, statsInView] = useInView({ threshold: 0.4 });
+
+  // Programme quick-preview modal: mount/unmount with a small delay so the
+  // scale-and-fade transition has time to play in both directions.
+  const openProgrammeModal = (programme) => {
+    setSelectedProgramme(programme);
+    requestAnimationFrame(() => setModalVisible(true));
+  };
+  const closeProgrammeModal = () => {
+    setModalVisible(false);
+    setTimeout(() => setSelectedProgramme(null), 200);
+  };
+
+  // Back-to-top visibility.
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () =>
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Subtle hero image tilt that follows the cursor — one deliberate moment
+  // rather than scattered hover effects across the page.
+  const handleHeroMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    setHeroTilt({ x: px * -6, y: py * 6 });
+  };
+  const resetHeroTilt = () => setHeroTilt({ x: 0, y: 0 });
+
   return (
     <div className="wam-page">
+      {/* Extra styling for the interactive additions below. Scoped so it
+          only adds to Home.css rather than overriding anything in it. */}
+      <style>{`
+        .wam-tab-row-relative { position: relative; }
+        .wam-faq-answer-wrap {
+          overflow: hidden;
+          transition: max-height 0.35s ease, opacity 0.3s ease;
+        }
+        .wam-modal-overlay-anim {
+          transition: opacity 0.2s ease;
+        }
+        .wam-modal-card-anim {
+          transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+        }
+        .wam-back-to-top {
+          position: fixed;
+          right: 24px;
+          bottom: 24px;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          z-index: 40;
+          transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .wam-hero-img-tilt {
+          transition: transform 0.15s ease-out;
+          will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .wam-faq-answer-wrap,
+          .wam-modal-overlay-anim,
+          .wam-modal-card-anim,
+          .wam-back-to-top,
+          .wam-hero-img-tilt {
+            transition: none !important;
+          }
+        }
+      `}</style>
+
       {/* HERO SECTION */}
       <section className="hero hero--split">
         <div className="container">
@@ -220,11 +415,18 @@ export default function Home() {
             </div>
 
             <div className="hero-media-wrapper">
-              <div className="hero-image-card">
+              <div
+                className="hero-image-card"
+                onMouseMove={handleHeroMouseMove}
+                onMouseLeave={resetHeroTilt}
+              >
                 <img
                   src={wamo14}
                   alt="WAM Mentorship in action"
-                  className="hero-img"
+                  className="hero-img wam-hero-img-tilt"
+                  style={{
+                    transform: `rotateX(${heroTilt.y}deg) rotateY(${heroTilt.x}deg)`,
+                  }}
                 />
               </div>
             </div>
@@ -344,16 +546,24 @@ export default function Home() {
               Targeted initiatives designed for maximum social impact
             </p>
 
-            <div className="tab-row" role="tablist" aria-label="Filter programmes">
+            <div
+              className="tab-row wam-tab-row-relative"
+              role="tablist"
+              aria-label="Filter programmes"
+              ref={tabRowRef}
+            >
+              <SlidingIndicator containerRef={tabRowRef} activeKey={activeTab} />
               {["all", "children", "youth", "community"].map((tab) => (
                 <button
                   key={tab}
                   role="tab"
                   aria-selected={activeTab === tab}
+                  data-active={activeTab === tab}
                   onClick={() => setActiveTab(tab)}
                   className={`pill-tab ${
                     activeTab === tab ? "pill-tab--active" : ""
                   }`}
+                  style={{ position: "relative", zIndex: 1 }}
                 >
                   {tab.toUpperCase()}
                 </button>
@@ -379,7 +589,7 @@ export default function Home() {
                   </ul>
                   <div className="programme-actions">
                     <button
-                      onClick={() => setSelectedProgramme(p)}
+                      onClick={() => openProgrammeModal(p)}
                       className="btn btn-secondary btn-sm"
                     >
                       Quick Preview
@@ -398,16 +608,21 @@ export default function Home() {
       {/* QUICK PREVIEW MODAL */}
       {selectedProgramme && (
         <div
-          className="modal-overlay"
-          onClick={() => setSelectedProgramme(null)}
+          className="modal-overlay wam-modal-overlay-anim"
+          style={{ opacity: modalVisible ? 1 : 0 }}
+          onClick={closeProgrammeModal}
         >
           <div
-            className="modal-card"
+            className="modal-card wam-modal-card-anim"
+            style={{
+              opacity: modalVisible ? 1 : 0,
+              transform: modalVisible ? "scale(1)" : "scale(0.94)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               className="modal-close-btn"
-              onClick={() => setSelectedProgramme(null)}
+              onClick={closeProgrammeModal}
             >
               &times;
             </button>
@@ -423,7 +638,7 @@ export default function Home() {
               <Link
                 to={selectedProgramme.link}
                 className="btn btn-primary"
-                onClick={() => setSelectedProgramme(null)}
+                onClick={closeProgrammeModal}
               >
                 Full Programme Page &rarr;
               </Link>
@@ -440,19 +655,26 @@ export default function Home() {
           </div>
 
           <div
-            className="service-tab-row"
+            className="service-tab-row wam-tab-row-relative"
             role="tablist"
             aria-label="Service categories"
+            ref={serviceTabRowRef}
           >
+            <SlidingIndicator
+              containerRef={serviceTabRowRef}
+              activeKey={activeServiceTab}
+            />
             {Object.keys(services).map((key) => (
               <button
                 key={key}
                 role="tab"
                 aria-selected={activeServiceTab === key}
+                data-active={activeServiceTab === key}
                 onClick={() => setActiveServiceTab(key)}
                 className={`tab-btn ${
                   activeServiceTab === key ? "tab-btn--active" : ""
                 }`}
+                style={{ position: "relative", zIndex: 1 }}
               >
                 {services[key].title}
               </button>
@@ -475,7 +697,7 @@ export default function Home() {
       </section>
 
       {/* IMPACT METRICS */}
-      <section className="section section--navy">
+      <section className="section section--navy" ref={statsRef}>
         <div className="container">
           <div className="section-header">
             <h2 className="section-heading section-heading--onDark">
@@ -487,10 +709,7 @@ export default function Home() {
           </div>
           <div className="grid grid--min-sm stats-grid">
             {impactStats.map((stat, idx) => (
-              <div key={idx} className="stat-item interactive-card">
-                <h3 className="stat-number">{stat.number}</h3>
-                <p className="stat-label">{stat.label}</p>
-              </div>
+              <StatItem key={idx} stat={stat} active={statsInView} />
             ))}
           </div>
         </div>
@@ -536,28 +755,40 @@ export default function Home() {
           </div>
 
           <div className="faq-list">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`faq-item ${
-                  openFaq === index ? "faq-item--open" : ""
-                }`}
-              >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="faq-question"
-                  aria-expanded={openFaq === index}
+            {faqs.map((faq, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={index}
+                  className={`faq-item ${isOpen ? "faq-item--open" : ""}`}
                 >
-                  <span>{faq.q}</span>
-                  <span className="faq-icon">
-                    {openFaq === index ? "−" : "+"}
-                  </span>
-                </button>
-                {openFaq === index && (
-                  <div className="faq-answer">{faq.a}</div>
-                )}
-              </div>
-            ))}
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="faq-question"
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.q}</span>
+                    <span className="faq-icon">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div
+                    className="wam-faq-answer-wrap"
+                    style={{
+                      maxHeight: isOpen
+                        ? `${faqRefs.current[index]?.scrollHeight || 300}px`
+                        : "0px",
+                      opacity: isOpen ? 1 : 0,
+                    }}
+                  >
+                    <div
+                      className="faq-answer"
+                      ref={(el) => (faqRefs.current[index] = el)}
+                    >
+                      {faq.a}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -589,6 +820,31 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* BACK TO TOP */}
+      <button
+        className="wam-back-to-top btn btn-primary"
+        onClick={scrollToTop}
+        aria-label="Back to top"
+        style={{
+          opacity: showBackToTop ? 1 : 0,
+          transform: showBackToTop ? "translateY(0)" : "translateY(12px)",
+          pointerEvents: showBackToTop ? "auto" : "none",
+        }}
+      >
+        ↑
+      </button>
+    </div>
+  );
+}
+
+// Renders a single impact stat with the count-up animation applied.
+function StatItem({ stat, active }) {
+  const display = useCountUp(stat.number, active);
+  return (
+    <div className="stat-item interactive-card">
+      <h3 className="stat-number">{display}</h3>
+      <p className="stat-label">{stat.label}</p>
     </div>
   );
 }
