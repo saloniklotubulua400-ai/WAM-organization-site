@@ -13,6 +13,7 @@ export default function Contact() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,7 +25,9 @@ export default function Contact() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     setIsSubmitted(true);
+    setIsSubmitting(false);
 
     setTimeout(() => {
       setIsSubmitted(false);
@@ -139,7 +142,7 @@ export default function Contact() {
               <p className="form-subtitle">Complete the inquiry form below and our team will get back to you within 24 to 48 hours.</p>
 
               {isSubmitted ? (
-                <div className="success-alert">
+                <div className="success-alert" role="status" aria-live="polite">
                   <div className="success-icon">✓</div>
                   <h3 className="success-alert-title">Message Sent Successfully!</h3>
                   <p className="success-alert-body">
@@ -150,8 +153,8 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="contact-form">
                   <div className="form-row">
                     <div className="form-group">
-                      <label className="form-label">Inquiry Category *</label>
-                      <select name="inquiryType" value={formData.inquiryType} onChange={handleChange} className="form-select">
+                      <label className="form-label" htmlFor="inquiryType">Inquiry Category *</label>
+                      <select id="inquiryType" name="inquiryType" value={formData.inquiryType} onChange={handleChange} className="form-select">
                         <option value="General Enquiry">General Enquiry</option>
                         <option value="Programme Referral">Client / Beneficiary Referral</option>
                         <option value="Institutional Partnership">Institutional Partnership / Donor</option>
@@ -160,8 +163,8 @@ export default function Contact() {
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label">Location / County *</label>
-                      <select name="county" value={formData.county} onChange={handleChange} className="form-select">
+                      <label className="form-label" htmlFor="county">Location / County *</label>
+                      <select id="county" name="county" value={formData.county} onChange={handleChange} className="form-select">
                         <option value="Nairobi">Nairobi County</option>
                         <option value="Machakos">Machakos County</option>
                         <option value="Kitui">Kitui County</option>
@@ -198,8 +201,8 @@ export default function Contact() {
                     <textarea id="message" name="message" rows="4" value={formData.message} onChange={handleChange} required placeholder="Write your message here..." className="form-textarea" />
                   </div>
 
-                  <button type="submit" className="btn-submit">
-                    Send Message
+                  <button type="submit" className="btn-submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Send Message"}
                     <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>

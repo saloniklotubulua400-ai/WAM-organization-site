@@ -155,7 +155,7 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-heading">Our Core Values</h2>
+            <h2 className="section-heading">Community Engagement — What Guides Us</h2>
             <p className="section-intro">Guiding our principles and community engagements</p>
           </div>
 
