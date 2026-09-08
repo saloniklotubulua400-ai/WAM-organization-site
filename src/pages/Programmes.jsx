@@ -2,116 +2,120 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Programmes.css";
 
-// Ensure asset filenames match exact casing in src/assets/
+// Asset imports (Ensure filenames match exact casing in src/assets/)
 import wamo5 from "../assets/wamo5.png";
 import wamo11 from "../assets/wamo11.png";
 import wamo12 from "../assets/wamo12.png";
 import wamo13 from "../assets/wamo13.png";
 
+const PROGRAMMES_DATA = [
+  {
+    id: "mlinde",
+    title: "MLINDE",
+    subtitle: "Protecting Children. Building Healthier Futures.",
+    targetAudience: "Children aged 8–17 years",
+    accent: "mlinde",
+    image: wamo11,
+    summary:
+      "MLINDE puts children's rights, safety, and wellbeing first — combining early health interventions, life-skills education, and psychosocial support to help every child grow up protected and thriving.",
+    keyAreas: [
+      "Child-rights awareness & advocacy",
+      "Child protection & prevention of abuse",
+      "Life-skills education & guidance",
+      "Mental health & psychosocial support",
+      "Children's health clubs",
+      "Mentorship & peer support networks",
+      "Community & family awareness",
+    ],
+    impactFocus: "Early intervention, safe spaces, and rights awareness for children.",
+  },
+  {
+    id: "mentor",
+    title: "MENTOR",
+    subtitle: "Empowering Young People Through Knowledge, Skills and Health",
+    targetAudience: "Young people aged 14–35 years",
+    accent: "mentor",
+    image: wamo12,
+    summary:
+      "MENTOR equips young people with the knowledge, skills, and health services they need to make informed choices — from life-skills training to direct HIV testing, counselling, and referral pathways.",
+    keyAreas: [
+      "Life-skills training & capacity building",
+      "Sexual & Reproductive Health (SRH)",
+      "HIV prevention, testing & counselling",
+      "Direct linkage and health service referral",
+      "Disease prevention education",
+      "Community mobilization & youth leadership",
+    ],
+    impactFocus: "Youth empowerment, informed health choices, and direct clinical linkages.",
+  },
+  {
+    id: "wellness",
+    title: "WELLNESS",
+    subtitle: "Supporting Vulnerable Communities to Thrive",
+    targetAudience: "Vulnerable groups, girls, women & community members",
+    accent: "wellness",
+    image: wamo13,
+    summary:
+      "WELLNESS walks alongside vulnerable community members through counselling, peer support, and advocacy — addressing substance use, gender-based violence, and mental health with compassion and consistency.",
+    keyAreas: [
+      "Substance-use prevention & early support",
+      "Individual & group counselling",
+      "Psychosocial support groups",
+      "Gender-Based Violence (GBV) prevention & response",
+      "Human-rights awareness & community sensitization",
+      "Peer education & referral pathways",
+    ],
+    impactFocus: "Community resilience, trauma support, and stigma reduction.",
+  },
+];
+
+const SERVICE_CATEGORIES = [
+  {
+    title: "Behavioural & Community Services",
+    description: "Promoting healthy choices, risk reduction, and community-led resilience.",
+    items: [
+      "Community mobilization & outreach forums",
+      "Peer counselling & education sessions",
+      "Risk assessment & reduction counselling",
+      "Substance-use prevention forums",
+      "Community advocacy & structural dialogue",
+    ],
+  },
+  {
+    title: "Biomedical & Health Services",
+    description: "Direct access pathways to clinical health services and support.",
+    items: [
+      "HIV testing & counselling (HTC)",
+      "STI screening & treatment linkage",
+      "HIV care & treatment linkages",
+      "Alcohol & substance-use screening",
+      "Family planning, PEP & PrEP access",
+    ],
+  },
+  {
+    title: "Structural & Systems Services",
+    description: "Strengthening community environments and advocacy networks.",
+    items: [
+      "Stakeholder sensitization & local working groups",
+      "Sexual violence prevention & emergency response",
+      "Behavior-change & psychosocial support groups",
+      "Linkages to alternative livelihoods",
+      "Institutional partnerships & capacity building",
+    ],
+  },
+];
+
 export default function Programmes() {
   const [selectedProgramme, setSelectedProgramme] = useState("all");
 
-  const programmesData = [
-    {
-      id: "mlinde",
-      title: "MLINDE",
-      subtitle: "Protecting Children. Building Healthier Futures.",
-      targetAudience: "Children aged 8–17 years",
-      accent: "mlinde",
-      image: wamo11,
-      summary:
-        "MLINDE puts children's rights, safety, and wellbeing first — combining early health interventions, life-skills education, and psychosocial support to help every child grow up protected and thriving.",
-      keyAreas: [
-        "Child-rights awareness & advocacy",
-        "Child protection & prevention of abuse",
-        "Life-skills education & guidance",
-        "Mental health & psychosocial support",
-        "Children's health clubs",
-        "Mentorship & peer support networks",
-        "Community & family awareness",
-      ],
-      impactFocus: "Early intervention, safe spaces, and rights awareness for children.",
-    },
-    {
-      id: "mentor",
-      title: "MENTOR",
-      subtitle: "Empowering Young People Through Knowledge, Skills and Health",
-      targetAudience: "Young people aged 14–35 years",
-      accent: "mentor",
-      image: wamo12,
-      summary:
-        "MENTOR equips young people with the knowledge, skills, and health services they need to make informed choices — from life-skills training to direct HIV testing, counselling, and referral pathways.",
-      keyAreas: [
-        "Life-skills training & capacity building",
-        "Sexual & Reproductive Health (SRH)",
-        "HIV prevention, testing & counselling",
-        "Direct linkage and health service referral",
-        "Disease prevention education",
-        "Community mobilization & youth leadership",
-      ],
-      impactFocus: "Youth empowerment, informed health choices, and direct clinical linkages.",
-    },
-    {
-      id: "wellness",
-      title: "WELLNESS",
-      subtitle: "Supporting Vulnerable Communities to Thrive",
-      targetAudience: "Vulnerable groups, girls, women & community members",
-      accent: "wellness",
-      image: wamo13,
-      summary:
-        "WELLNESS walks alongside vulnerable community members through counselling, peer support, and advocacy — addressing substance use, gender-based violence, and mental health with compassion and consistency.",
-      keyAreas: [
-        "Substance-use prevention & early support",
-        "Individual & group counselling",
-        "Psychosocial support groups",
-        "Gender-Based Violence (GBV) prevention & response",
-        "Human-rights awareness & community sensitization",
-        "Peer education & referral pathways",
-      ],
-      impactFocus: "Community resilience, trauma support, and stigma reduction.",
-    },
-  ];
-
-  const serviceCategories = [
-    {
-      title: "Behavioural & Community Services",
-      description: "Promoting healthy choices, risk reduction, and community-led resilience.",
-      items: [
-        "Community mobilization & outreach forums",
-        "Peer counselling & education sessions",
-        "Risk assessment & reduction counselling",
-        "Substance-use prevention forums",
-        "Community advocacy & structural dialogue",
-      ],
-    },
-    {
-      title: "Biomedical & Health Services",
-      description: "Direct access pathways to clinical health services and support.",
-      items: [
-        "HIV testing & counselling (HTC)",
-        "STI screening & treatment linkage",
-        "HIV care & treatment linkages",
-        "Alcohol & substance-use screening",
-        "Family planning, PEP & PrEP access",
-      ],
-    },
-    {
-      title: "Structural & Systems Services",
-      description: "Strengthening community environments and advocacy networks.",
-      items: [
-        "Stakeholder sensitization & local working groups",
-        "Sexual violence prevention & emergency response",
-        "Behavior-change & psychosocial support groups",
-        "Linkages to alternative livelihoods",
-        "Institutional partnerships & capacity building",
-      ],
-    },
-  ];
-
   const displayedProgrammes =
     selectedProgramme === "all"
-      ? programmesData
-      : programmesData.filter((p) => p.id === selectedProgramme);
+      ? PROGRAMMES_DATA
+      : PROGRAMMES_DATA.filter((p) => p.id === selectedProgramme);
+
+  const handleImageError = (e) => {
+    e.currentTarget.parentElement.style.display = "none";
+  };
 
   return (
     <div className="wam-programmes">
@@ -131,9 +135,7 @@ export default function Programmes() {
                 src={wamo5}
                 alt="WAM Interventions Cover"
                 className="programmes-hero-image"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
+                onError={handleImageError}
               />
             </div>
           </div>
@@ -168,7 +170,7 @@ export default function Programmes() {
             >
               All Programmes
             </button>
-            {programmesData.map((p) => (
+            {PROGRAMMES_DATA.map((p) => (
               <button
                 key={p.id}
                 type="button"
@@ -196,16 +198,14 @@ export default function Programmes() {
 
           <div className="programmes-grid">
             {displayedProgrammes.map((p) => (
-              <div key={p.id} id={p.id} className="programme-card">
+              <article key={p.id} id={p.id} className="programme-card">
                 <div className="programme-image-wrapper">
                   <img
                     src={p.image}
                     alt={`${p.title} Programme Banner`}
                     className="programme-card-image"
                     loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
+                    onError={handleImageError}
                   />
                   <div className="programme-image-overlay"></div>
                   <span className={`programme-audience-badge programme-audience-badge--${p.accent}`}>
@@ -215,23 +215,22 @@ export default function Programmes() {
 
                 <div className="programme-card-body">
                   <div className="programme-card-head">
-                    <div>
-                      <h2 className="programme-title">{p.title}</h2>
-                      <h4 className="programme-subtitle">{p.subtitle}</h4>
-                    </div>
+                    <h3 className="programme-title">{p.title}</h3>
+                    <p className="programme-subtitle">{p.subtitle}</p>
                   </div>
 
                   <p className="programme-summary">{p.summary}</p>
 
                   <div className="programme-focus-box">
                     <h4 className="programme-focus-title">Key Focus &amp; Components:</h4>
-                    <div className="programme-key-areas">
+                    <ul className="programme-key-areas">
                       {p.keyAreas.map((area) => (
-                        <div key={area} className="programme-key-area">
-                          <span className="programme-key-area-check">✓</span> {area}
-                        </div>
+                        <li key={area} className="programme-key-area">
+                          <span className="programme-key-area-check" aria-hidden="true">✓</span>
+                          <span>{area}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <div className="programme-footer">
@@ -243,7 +242,7 @@ export default function Programmes() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
@@ -260,14 +259,15 @@ export default function Programmes() {
           </div>
 
           <div className="service-matrix-grid">
-            {serviceCategories.map((sec) => (
+            {SERVICE_CATEGORIES.map((sec) => (
               <div key={sec.title} className="service-matrix-card">
                 <h3 className="service-card-title">{sec.title}</h3>
                 <p className="service-card-desc">{sec.description}</p>
                 <ul className="service-checklist">
                   {sec.items.map((item) => (
                     <li key={item} className="service-checklist-item">
-                      <span className="service-checklist-icon">✓</span> {item}
+                      <span className="service-checklist-icon" aria-hidden="true">✓</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
