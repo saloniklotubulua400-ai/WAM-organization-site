@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Programmes.css";
 
-// Relative paths to assets (Ensure filenames match exact case on Linux build servers)
+// Ensure asset filenames match exact casing in src/assets/
 import wamo5 from "../assets/wamo5.png";
 import wamo11 from "../assets/wamo11.png";
 import wamo12 from "../assets/wamo12.png";
@@ -127,7 +127,14 @@ export default function Programmes() {
               </p>
             </div>
             <div className="programmes-hero-image-wrapper">
-              <img src={wamo5} alt="WAM Interventions Cover" className="programmes-hero-image" />
+              <img
+                src={wamo5}
+                alt="WAM Interventions Cover"
+                className="programmes-hero-image"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
             </div>
           </div>
         </div>
@@ -196,6 +203,9 @@ export default function Programmes() {
                     alt={`${p.title} Programme Banner`}
                     className="programme-card-image"
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
                   />
                   <div className="programme-image-overlay"></div>
                   <span className={`programme-audience-badge programme-audience-badge--${p.accent}`}>
