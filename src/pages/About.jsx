@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 
@@ -6,6 +6,10 @@ import wamo11Img from "../assets/wamo11.png";
 
 export default function About() {
   const [activeTab, setActiveTab] = useState("board");
+  const boardTabId = useId();
+  const opsTabId = useId();
+  const boardPanelId = useId();
+  const opsPanelId = useId();
 
   const pillars = [
     { num: "01", title: "Healthcare & Linkages", desc: "Improving access to health information, direct services, referrals, and care pathways across local communities." },
@@ -19,27 +23,27 @@ export default function About() {
     { title: "Confidentiality", desc: "Protecting beneficiary rights, privacy, and personal health narratives in all operations." },
     { title: "Inclusion & Equality", desc: "Ensuring equal access to health and psychosocial resources for vulnerable populations." },
     { title: "Accountability", desc: "Maintaining transparent monitoring, routine data quality, and institutional reporting." },
-    { title: "Partnership & Collaboration", desc: "Working hand-in-hand with communities, government agencies, and civil society." },
+    { title: "Partnership & Collaboration", desc: "Working hand-in-hand with communities, government agencies, and civil society." }
   ];
 
   const leadershipData = {
     board: [
       { id: "board-1", role: "Board of Directors", count: "5 Members", desc: "Provides high-level technical oversight, fiduciary governance, policy direction, and institutional accountability." },
-      { id: "board-2", role: "Executive Leadership", count: "Directorate", desc: "Drives organizational strategy, donor relations, overall management, and programmatic expansion." },
+      { id: "board-2", role: "Executive Leadership", count: "Directorate", desc: "Drives organizational strategy, donor relations, overall management, and programmatic expansion." }
     ],
     operations: [
       { id: "ops-1", role: "Programmes & Coordination", desc: "Oversees MLINDE, MENTOR, and WELLNESS field implementations." },
       { id: "ops-2", role: "Finance & Operations", desc: "Manages financial compliance, reporting, human resources, and procurement." },
-      { id: "ops-3", role: "Community Field Network", desc: "Dedicated team of community health volunteers, peer educators, and field officers." },
-    ],
+      { id: "ops-3", role: "Community Field Network", desc: "Dedicated team of community health volunteers, peer educators, and field officers." }
+    ]
   };
 
   const activeLeadership = activeTab === "board" ? leadershipData.board : leadershipData.operations;
 
   return (
-    <div className="wam-about">
+    <article className="wam-about">
       {/* 1. HERO SECTION */}
-      <section className="about-hero">
+      <header className="about-hero">
         <div className="container">
           <div className="grid grid--min-lg grid--gap-lg" style={{ alignItems: "center" }}>
             <div className="about-hero-inner">
@@ -56,17 +60,17 @@ export default function About() {
             <div className="about-hero-image-wrapper">
               <img
                 src={wamo11Img}
-                alt="About WAM Hero"
+                alt="Community members participating in a WAM health and wellness workshop"
                 className="about-hero-image"
-                style={{ width: "100%", height: "auto", borderRadius: "8px", objectFit: "cover" }}
+                loading="eager"
               />
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* 2. REGISTRATION & SDG 3 BANNER */}
-      <section className="reg-banner">
+      <section className="reg-banner" aria-label="Registration and Standards">
         <div className="container reg-banner-inner">
           <div>
             <strong>Official Registration:</strong>
@@ -80,11 +84,11 @@ export default function About() {
       </section>
 
       {/* 3. WHO WE ARE + MISSION / VISION */}
-      <section className="section">
+      <section className="section" aria-labelledby="who-we-are-heading">
         <div className="container">
           <div className="section-header">
             <span className="section-eyebrow">Who We Are</span>
-            <h2 className="section-heading">A Holistic Approach to Community Health & Resilience</h2>
+            <h2 id="who-we-are-heading" className="section-heading">A Holistic Approach to Community Health & Resilience</h2>
           </div>
           <div className="grid grid--min-lg grid--gap-lg">
             <div className="about-copy">
@@ -117,10 +121,10 @@ export default function About() {
       </section>
 
       {/* 4. STRATEGIC PILLARS */}
-      <section className="section section--alt">
+      <section className="section section--alt" aria-labelledby="pillars-heading">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-heading">Our Strategic Pillars</h2>
+            <h2 id="pillars-heading" className="section-heading">Our Strategic Pillars</h2>
             <p className="section-intro">The framework driving our community interventions</p>
           </div>
 
@@ -137,17 +141,17 @@ export default function About() {
       </section>
 
       {/* 5. CORE VALUES */}
-      <section className="section">
+      <section className="section" aria-labelledby="values-heading">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-heading">Community Engagement</h2>
+            <h2 id="values-heading" className="section-heading">Community Engagement</h2>
             <p className="section-intro">What Guides Us</p>
           </div>
 
           <div className="grid grid--min-xs grid--gap-sm">
             {values.map((v) => (
               <div key={v.title} className="value-card">
-                <h4 className="value-title">{v.title}</h4>
+                <h3 className="value-title">{v.title}</h3>
                 <p className="value-desc">{v.desc}</p>
               </div>
             ))}
@@ -156,27 +160,33 @@ export default function About() {
       </section>
 
       {/* 6. GOVERNANCE & ORGANIZATIONAL STRUCTURE */}
-      <section className="section section--dark">
+      <section className="section section--dark" aria-labelledby="governance-heading">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-heading section-heading--onDark">Governance & Organizational Structure</h2>
+            <h2 id="governance-heading" className="section-heading section-heading--onDark">
+              Governance & Organizational Structure
+            </h2>
             <p className="section-intro section-intro--onDark">Technical leadership and operational framework</p>
           </div>
 
-          <div className="toggle-row" role="tablist" aria-label="Governance view">
+          <div className="toggle-row" role="tablist" aria-label="Governance view options">
             <button
+              id={boardTabId}
               type="button"
               role="tab"
               aria-selected={activeTab === "board"}
+              aria-controls={boardPanelId}
               onClick={() => setActiveTab("board")}
               className={`toggle-btn ${activeTab === "board" ? "toggle-btn--active" : ""}`}
             >
               Board & Leadership
             </button>
             <button
+              id={opsTabId}
               type="button"
               role="tab"
               aria-selected={activeTab === "ops"}
+              aria-controls={opsPanelId}
               onClick={() => setActiveTab("ops")}
               className={`toggle-btn ${activeTab === "ops" ? "toggle-btn--active" : ""}`}
             >
@@ -184,7 +194,12 @@ export default function About() {
             </button>
           </div>
 
-          <div className="gov-list">
+          <div
+            id={activeTab === "board" ? boardPanelId : opsPanelId}
+            role="tabpanel"
+            aria-labelledby={activeTab === "board" ? boardTabId : opsTabId}
+            className="gov-list"
+          >
             {activeLeadership.map((item) => (
               <div key={item.id} className="gov-card">
                 <div className="gov-card-header">
@@ -199,9 +214,9 @@ export default function About() {
       </section>
 
       {/* 7. SAFEGUARDING & ETHICAL COMMITMENT */}
-      <section className="section section--compact section--soft section--center">
+      <section className="section section--compact section--soft section--center" aria-labelledby="safeguarding-heading">
         <div className="container container--narrow">
-          <h3 className="safeguard-title">Safeguarding & Confidentiality Commitment</h3>
+          <h2 id="safeguarding-heading" className="safeguard-title">Safeguarding & Confidentiality Commitment</h2>
           <p className="safeguard-text">
             WAM strictly adheres to safeguarding protocols designed to protect children, youth, and
             vulnerable adults. We guarantee confidentiality, non-discrimination, and ethical standards across
@@ -211,9 +226,9 @@ export default function About() {
       </section>
 
       {/* 8. CTA */}
-      <section className="section section--center">
+      <section className="section section--center" aria-labelledby="cta-heading">
         <div className="container container--cta">
-          <h2 className="section-heading">Collaborate With WAM</h2>
+          <h2 id="cta-heading" className="section-heading">Collaborate With WAM</h2>
           <p className="section-intro section-intro--cta">
             We welcome institutional partnerships, donors, volunteers, and community stakeholders aligned
             with our mission.
@@ -224,6 +239,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
