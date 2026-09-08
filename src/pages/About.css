@@ -1,465 +1,324 @@
-/* ==================================================================
-   FONTS — Fraunces for headings (same as Home.css) paired with Inter
-   for body copy and buttons, so both pages share one visual voice.
-   ================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap');
+/* ==========================================================================
+   WAM About Page — Green & Blue Theme
+   ========================================================================== */
 
-/* ==================================================================
-   DESIGN TOKENS — identical brand colors to Home.css so both pages
-   share one visual language (same green/blue, spacing, radius, type).
-   ================================================================== */
-:root {
-  --color-blue-900: #0c2038;
-  --color-blue-700: #1c5d99;
-  --color-teal-600: #12897f;
-  --color-green-600: #1c7a4c;   /* matches Home.css --color-green-primary */
-  --color-green-700: #14603a;   /* matches Home.css --color-green-primary-dark */
-  --color-green-bright: #22c55e; /* accent for titles on dark backgrounds */
-  --color-blue-300: #93c5fd;    /* accent for body copy on dark backgrounds */
-  --color-blue-400: #60a5fa;    /* accent for intro text on dark backgrounds */
-
-  --color-text-body: #48657f;
-  --color-text-muted: #64748b;
-  --color-text-faint: #94a3b8;
-  --color-border: #dbe6ef;
-
-  --color-bg-page: #ffffff;
-  --color-bg-alt: #eef6f4;
-  --color-bg-soft: #f5faf9;
-
-  --color-on-dark: #ffffff;
-  --color-on-dark-muted: #cfe6df;
-  --color-on-dark-faint: #dcece7;
-
-  --gradient-brand: linear-gradient(120deg, var(--color-blue-700) 0%, var(--color-teal-600) 52%, var(--color-green-600) 100%);
-  --gradient-brand-dark: linear-gradient(135deg, #0e3a63 0%, #0f6b64 55%, #167a44 100%);
-
-  --space-section-y: 80px;
-  --space-section-y-compact: 56px;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-pill: 999px;
-
-  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body-face: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-  --font-h1: clamp(32px, 5vw, 54px);
-  --font-h2: clamp(26px, 4vw, 32px);
-  --font-h3: 20px;
-  --font-body: 16px;
-  --font-small: 14px;
-  --font-tiny: 12px;
-
-  --max-width: 1200px;
-  --transition-fast: 0.18s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root { --transition-fast: 0s; }
-}
-
-/* ==================================================================
-   BASE / LAYOUT
-   ================================================================== */
 .wam-about {
-  font-family: var(--font-body-face);
-  color: var(--color-blue-900);
+  --color-green-900: #0b3d2e;
+  --color-green-700: #157a4a;
+  --color-green-600: #1c9257;
+  --color-green-500: #2ea968;
+  --color-green-100: #e3f5ea;
+
+  --color-blue-800: #0d3a66;
+  --color-blue-700: #1457a3;
+  --color-blue-500: #2b7fd6;
+  --color-blue-100: #e6f0fb;
+
+  --color-text: #142a22;
+  --color-text-muted: #4c6459;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f2f8f5;
+
+  --radius: 8px;
+  --shadow-soft: 0 4px 16px rgba(11, 61, 46, 0.08);
+
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
-  background-color: var(--color-bg-page);
-  -webkit-font-smoothing: antialiased;
 }
 
-.wam-about *,
-.wam-about *::before,
-.wam-about *::after {
-  box-sizing: border-box;
-}
-
-.wam-about ::selection {
-  background: var(--color-bg-alt);
-  color: var(--color-green-700);
-}
-
-.wam-about :focus-visible {
-  outline: 3px solid var(--color-green-600);
-  outline-offset: 2px;
-}
-
-.wam-about h1,
-.wam-about h2,
-.wam-about h3,
-.wam-about h4 {
-  font-family: var(--font-heading);
-  letter-spacing: -0.01em;
-  color: var(--color-green-600); /* TITLE RULE: GREEN */
-}
-
-.container {
-  max-width: var(--max-width);
+.wam-about .container {
+  max-width: 1160px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
-.container--narrow {
-  max-width: 900px;
-}
-
-.container--cta {
-  max-width: 700px;
-}
-
-.section {
-  padding: var(--space-section-y) 0;
-  background-color: var(--color-bg-page);
-}
-
-.section--alt {
-  background-color: var(--color-bg-alt);
-}
-
-.section--soft {
-  background-color: var(--color-bg-soft);
-}
-
-.section--compact {
-  padding: var(--space-section-y-compact) 0;
-}
-
-.section--dark {
-  background: var(--gradient-brand-dark);
-  color: var(--color-on-dark);
-}
-
-.section--center {
-  text-align: center;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-/* SUBTITLE RULE: BLUE — a quiet tag with a leading dot, matching Home.css's eyebrow */
-.section-eyebrow {
-  color: var(--color-blue-700);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: var(--font-small);
-  text-align: center;
-  display: block;
-}
-
-.section-eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background: currentColor;
-  vertical-align: middle;
-}
-
-/* TITLE RULE: GREEN */
-.section-heading {
-  font-size: var(--font-h2);
-  font-weight: 700;
-  color: var(--color-green-600);
-  margin: 8px 0 12px;
-  text-align: center;
-}
-
-.section-heading--onDark {
-  color: var(--color-green-bright);
-}
-
-/* SUBTITLE / INTRO RULE: BLUE */
-.section-intro {
-  color: var(--color-blue-700);
-  font-size: var(--font-body);
-  margin: 0;
-  text-align: center;
-  font-weight: 500;
-}
-
-.section-intro--onDark {
-  color: var(--color-blue-400);
-}
-
-.section-intro--cta {
-  margin-bottom: 32px;
-}
-
-/* ==================================================================
-   GRID
-   ================================================================== */
-.grid {
-  display: grid;
-  gap: 24px;
-}
-
-.grid--gap-sm { gap: 20px; }
-.grid--gap-lg { gap: 60px; }
-
-.grid--min-xs { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.grid--min-sm { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.grid--min-lg { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-
-/* ==================================================================
-   BUTTONS — pill-shaped, matching Home.css's button language
-   ================================================================== */
-.btn {
-  padding: 14px 30px;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body-face);
-  font-weight: 700;
-  font-size: var(--font-body);
-  text-decoration: none;
-  display: inline-block;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), filter var(--transition-fast);
-}
-
-.btn:hover,
-.btn:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(16, 42, 67, 0.18);
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
-.btn-primary {
-  background: var(--color-green-600);
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(28, 122, 76, 0.22);
-}
-
-.btn-primary:hover {
-  background-color: var(--color-green-700);
-}
-
-.btn-secondary {
-  background-color: #fff;
-  color: var(--color-blue-700);
-  border: 1px solid var(--color-blue-700);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-bg-alt);
-}
-
-.cta-row {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* ==================================================================
-   HERO
-   ================================================================== */
-.about-hero {
-  background: var(--gradient-brand-dark);
-  color: #fff;
-  padding: clamp(64px, 12vw, 100px) 0 clamp(56px, 8vw, 80px);
-  text-align: center;
-}
-
-.about-hero-inner {
+.wam-about .container--narrow {
   max-width: 760px;
-  margin: 0 auto;
+}
+
+.wam-about .container--cta {
+  max-width: 680px;
   text-align: center;
 }
 
-.about-badge {
-  background: var(--color-blue-700);
-  color: #ffffff;
-  font-size: var(--font-tiny);
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-block;
-}
-
-/* TITLE RULE: GREEN (bright variant for legibility on the dark hero) */
-.about-hero-title {
-  font-family: var(--font-heading);
-  font-size: var(--font-h1);
-  font-weight: 800;
-  margin: 16px 0;
-  line-height: 1.15;
-  color: var(--color-green-bright);
-}
-
-/* SUBTITLE RULE: BLUE */
-.about-hero-lead {
-  font-size: 18px;
-  color: var(--color-blue-300);
-  max-width: 660px;
-  margin: 0 auto;
-}
-
-/* ==================================================================
-   REGISTRATION BANNER
-   ================================================================== */
-.reg-banner {
-  background-color: var(--color-bg-soft);
-  padding: 24px 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.reg-banner-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.reg-banner-inner strong {
-  color: var(--color-green-600);
-}
-
-.reg-banner-inner strong.reg-strong--accent {
-  color: var(--color-blue-700);
-}
-
-.reg-banner-inner span {
-  color: var(--color-text-body);
-  margin-left: 8px;
-}
-
-/* ==================================================================
-   WHO WE ARE / MISSION & VISION
-   ================================================================== */
-.about-copy p {
-  color: var(--color-text-body);
-  margin-bottom: 16px;
-}
-
-.mission-vision {
+/* Grid utilities */
+.wam-about .grid {
   display: grid;
+  gap: 32px;
+}
+
+.wam-about .grid--min-lg {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.wam-about .grid--min-sm {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.wam-about .grid--min-xs {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.wam-about .grid--gap-lg {
+  gap: 48px;
+}
+
+.wam-about .grid--gap-sm {
   gap: 20px;
 }
 
-.statement-card {
-  padding: 30px;
-  background-color: var(--color-bg-alt);
-  border-left: 5px solid var(--color-green-600);
-  border-radius: 0 8px 8px 0;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+/* ==========================================================================
+   1. HERO
+   ========================================================================== */
+
+.wam-about .about-hero {
+  background: linear-gradient(135deg, var(--color-green-100) 0%, var(--color-blue-100) 100%);
+  padding: 72px 0;
 }
 
-.statement-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(16, 42, 67, 0.1);
+.wam-about .about-badge {
+  display: inline-block;
+  background: var(--color-green-700);
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.statement-card--accent {
-  border-left-color: var(--color-blue-700);
+.wam-about .about-hero-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-blue-800);
+  margin: 0 0 20px;
+  line-height: 1.2;
 }
 
-/* TITLE RULE: GREEN */
-.statement-card h3 {
-  margin: 0 0 8px 0;
-  font-size: var(--font-h3);
-  color: var(--color-green-600);
-}
-
-/* SUBTITLE / ACCENT TITLE RULE */
-.statement-card--accent h3 {
-  color: var(--color-green-600);
-}
-
-.statement-card p {
+.wam-about .about-hero-lead {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
   margin: 0;
+}
+
+.wam-about .about-hero-image {
+  box-shadow: var(--shadow-soft);
+  border: 4px solid #ffffff;
+}
+
+/* ==========================================================================
+   2. REGISTRATION BANNER
+   ========================================================================== */
+
+.wam-about .reg-banner {
+  background: var(--color-blue-800);
+  color: #ffffff;
+  padding: 18px 0;
+}
+
+.wam-about .reg-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.wam-about .reg-banner-inner strong {
+  margin-right: 6px;
+  color: var(--color-green-500);
+}
+
+.wam-about .reg-strong--accent {
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   GENERIC SECTIONS
+   ========================================================================== */
+
+.wam-about .section {
+  padding: 72px 0;
+}
+
+.wam-about .section--alt {
+  background: var(--color-bg-alt);
+}
+
+.wam-about .section--compact {
+  padding: 40px 0;
+}
+
+.wam-about .section--soft {
+  background: var(--color-green-100);
+}
+
+.wam-about .section--center {
+  text-align: center;
+}
+
+.wam-about .section--dark {
+  background: var(--color-green-900);
+  color: #ffffff;
+}
+
+.wam-about .section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+
+.wam-about .section-eyebrow {
+  display: inline-block;
   color: var(--color-blue-700);
-  font-weight: 500;
-  font-size: var(--font-body);
-  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.wam-about .section-heading {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-blue-800);
+  margin: 0 0 12px;
+}
+
+.wam-about .section-heading--onDark {
+  color: #ffffff;
+}
+
+.wam-about .section-intro {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.wam-about .section-intro--onDark {
+  color: var(--color-green-100);
+}
+
+.wam-about .section-intro--cta {
+  margin-bottom: 28px;
+}
+
+/* ==========================================================================
+   3. WHO WE ARE + MISSION / VISION
+   ========================================================================== */
+
+.wam-about .about-copy p {
+  color: var(--color-text-muted);
+  margin: 0 0 16px;
+}
+
+.wam-about .mission-vision {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wam-about .statement-card {
+  background: var(--color-blue-100);
+  border-left: 4px solid var(--color-blue-700);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.wam-about .statement-card h3 {
+  color: var(--color-blue-800);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 10px;
+}
+
+.wam-about .statement-card p {
+  margin: 0;
+  color: var(--color-text);
   font-style: italic;
 }
 
-/* ==================================================================
-   PILLARS
-   ================================================================== */
-.pillar-card {
-  background-color: #fff;
-  padding: 32px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+.wam-about .statement-card--accent {
+  background: var(--color-green-100);
+  border-left-color: var(--color-green-700);
 }
 
-.pillar-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(16, 42, 67, 0.1);
-  border-color: var(--color-green-600);
+.wam-about .statement-card--accent h3 {
+  color: var(--color-green-700);
 }
 
-.pillar-number {
-  font-family: var(--font-heading);
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--color-blue-700);
-  margin-bottom: 12px;
-}
+/* ==========================================================================
+   4. STRATEGIC PILLARS
+   ========================================================================== */
 
-/* TITLE RULE: GREEN */
-.pillar-title {
-  font-size: 18px;
-  color: var(--color-green-600);
-  margin-bottom: 12px;
-}
-
-.pillar-desc {
-  color: var(--color-text-body);
-  font-size: var(--font-small);
-  margin: 0;
-}
-
-/* ==================================================================
-   CORE VALUES
-   ================================================================== */
-.value-card {
+.wam-about .pillar-card {
+  background: #ffffff;
+  border: 1px solid var(--color-green-100);
+  border-radius: var(--radius);
   padding: 24px;
-  border-radius: var(--radius-md);
-  background-color: var(--color-bg-alt);
-  border-top: 3px solid var(--color-green-600);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.2s ease;
 }
 
-.value-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(16, 42, 67, 0.1);
+.wam-about .pillar-card:hover {
+  border-color: var(--color-blue-500);
 }
 
-/* TITLE RULE: GREEN */
-.value-title {
-  color: var(--color-green-600);
-  margin: 0 0 8px 0;
-  font-size: 16px;
+.wam-about .pillar-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
 }
 
-.value-desc {
-  color: var(--color-text-body);
-  font-size: 13px;
+.wam-about .pillar-number {
+  display: inline-block;
+  color: var(--color-blue-500);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.wam-about .pillar-title {
+  color: var(--color-green-700);
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+}
+
+.wam-about .pillar-desc {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
   margin: 0;
 }
 
-/* ==================================================================
-   GOVERNANCE
-   ================================================================== */
-.toggle-row {
+/* ==========================================================================
+   5. CORE VALUES
+   ========================================================================== */
+
+.wam-about .value-card {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius);
+  padding: 20px;
+  border-top: 3px solid var(--color-green-600);
+}
+
+.wam-about .value-title {
+  color: var(--color-blue-800);
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.wam-about .value-desc {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   6. GOVERNANCE
+   ========================================================================== */
+
+.wam-about .toggle-row {
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -467,146 +326,137 @@
   flex-wrap: wrap;
 }
 
-.toggle-btn {
-  padding: 10px 24px;
-  border-radius: var(--radius-pill);
-  border: none;
+.wam-about .toggle-btn {
+  background: transparent;
+  border: 1px solid var(--color-green-500);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 999px;
   cursor: pointer;
-  font-family: var(--font-body-face);
-  font-weight: 700;
-  font-size: var(--font-small);
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.toggle-btn:active {
-  transform: scale(0.96);
+.wam-about .toggle-btn:hover {
+  background: rgba(46, 169, 104, 0.15);
 }
 
-.toggle-btn--active {
-  background: var(--color-green-600);
-  color: #fff;
+.wam-about .toggle-btn--active {
+  background: var(--color-blue-500);
+  border-color: var(--color-blue-500);
+  color: #ffffff;
+  font-weight: 600;
 }
 
-.gov-list {
-  max-width: 800px;
-  margin: 0 auto;
+.wam-about .gov-list {
   display: grid;
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.gov-card {
-  padding: 28px;
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  transition: border-color var(--transition-fast);
+.wam-about .gov-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 22px;
 }
 
-.gov-card:hover {
-  border-color: var(--color-green-600);
-}
-
-.gov-card-header {
+.wam-about .gov-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
-/* TITLE RULE: GREEN */
-.gov-card-header h3 {
-  color: var(--color-green-bright);
-  margin: 0;
-  font-size: var(--font-h3);
-}
-
-.gov-count {
-  background-color: var(--color-blue-700);
-  color: #fff;
-  padding: 2px 10px;
-  border-radius: var(--radius-pill);
-  font-size: var(--font-tiny);
-  font-weight: 700;
-}
-
-/* SUBTITLE RULE: BLUE */
-.gov-desc {
-  color: var(--color-blue-300);
-  margin: 0;
-  font-size: var(--font-small);
-}
-
-/* ==================================================================
-   SAFEGUARDING
-   ================================================================== */
-/* TITLE RULE: GREEN */
-.safeguard-title {
-  color: var(--color-green-600);
-  margin: 0 0 12px 0;
-  font-size: 22px;
-}
-
-.safeguard-text {
-  color: var(--color-text-body);
-  font-size: 15px;
+.wam-about .gov-card-header h3 {
+  color: #ffffff;
+  font-size: 1.05rem;
   margin: 0;
 }
 
-/* ==================================================================
-   RESPONSIVE ADJUSTMENTS
-   ================================================================== */
-@media (max-width: 1024px) {
-  .container {
-    padding: 0 24px;
-  }
+.wam-about .gov-count {
+  background: var(--color-blue-500);
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
 }
 
-@media (max-width: 768px) {
-  :root {
-    --space-section-y: 56px;
-    --space-section-y-compact: 40px;
-  }
-
-  .section-header {
-    margin-bottom: 32px;
-  }
-
-  .grid--gap-lg {
-    gap: 32px;
-  }
+.wam-about .gov-desc {
+  color: var(--color-green-100);
+  font-size: 0.9rem;
+  margin: 0;
 }
+
+/* ==========================================================================
+   7. SAFEGUARDING
+   ========================================================================== */
+
+.wam-about .safeguard-title {
+  color: var(--color-green-900);
+  margin: 0 0 12px;
+}
+
+.wam-about .safeguard-text {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   8. CTA
+   ========================================================================== */
+
+.wam-about .cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.wam-about .btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wam-about .btn:hover {
+  transform: translateY(-2px);
+}
+
+.wam-about .btn-primary {
+  background: var(--color-green-700);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(21, 122, 74, 0.3);
+}
+
+.wam-about .btn-secondary {
+  background: var(--color-blue-700);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(20, 87, 163, 0.3);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
 
 @media (max-width: 640px) {
-  .reg-banner-inner {
+  .wam-about .about-hero {
+    padding: 48px 0;
+  }
+
+  .wam-about .about-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .wam-about .section {
+    padding: 48px 0;
+  }
+
+  .wam-about .reg-banner-inner {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .cta-row,
-  .toggle-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cta-row .btn,
-  .toggle-row .toggle-btn {
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .statement-card,
-  .pillar-card,
-  .gov-card {
-    padding: 20px;
-  }
-
-  .container {
-    padding: 0 16px;
   }
 }

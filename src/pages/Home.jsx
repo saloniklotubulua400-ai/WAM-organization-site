@@ -18,61 +18,6 @@ import wamo14 from "../assets/wamo14.png";
    on top of what was already there).
 ------------------------------------------------------------------*/
 
-// Counts a number up from 0 to target once it scrolls into view.
-// Keeps the original string formatting (commas, "+", etc.) intact.
-function useCountUp(rawValue, active) {
-  const [display, setDisplay] = useState(rawValue.replace(/[0-9]/g, "0"));
-  const hasRun = useRef(false);
-
-  useEffect(() => {
-    if (!active || hasRun.current) return;
-    hasRun.current = true;
-
-    const match = rawValue.match(/[\d,]+/);
-    if (!match) {
-      setDisplay(rawValue);
-      return;
-    }
-    const target = parseInt(match[0].replace(/,/g, ""), 10);
-    const prefix = rawValue.slice(0, match.index);
-    const suffix = rawValue.slice(match.index + match[0].length);
-    const duration = 1200;
-    const start = performance.now();
-
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out
-      const current = Math.round(target * eased);
-      setDisplay(`${prefix}${current.toLocaleString()}${suffix}`);
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [active, rawValue]);
-
-  return display;
-}
-
-// Fires once when the referenced element enters the viewport.
-function useInView(options) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setInView(true);
-        observer.disconnect();
-      }
-    }, options);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [options]);
-
-  return [ref, inView];
-}
-
 // A sliding pill that tracks whichever button is marked data-active="true"
 // inside the given container ref. Used for both tab rows.
 function SlidingIndicator({ containerRef, activeKey }) {
@@ -165,13 +110,13 @@ export default function Home() {
       number: "A",
       title: "Encouraging Innovation and Creativity",
       desc: "WAM promotes innovative thinking, creativity, and continuous learning in addressing community challenges. We encourage individuals, communities, staff, and partners to develop new ideas, technologies, approaches, and locally appropriate solutions that improve effectiveness, sustainability, and impact.",
-      image: wamo1,
+      
     },
     {
       number: "B",
       title: "Prioritizing Equity, Equality and Quality",
       desc: "WAM is committed to ensuring that all people have fair and meaningful opportunities to access wellness services and participate in development initiatives, regardless of their circumstances. We promote equality, reduce barriers to inclusion, and uphold high standards of quality, safety, and accountability.",
-      image: wamo2,
+     
     },
     {
       number: "C",
@@ -183,7 +128,7 @@ export default function Home() {
       number: "D",
       title: "Openness and Accepting Feedback",
       desc: "WAM promotes openness, transparency, active listening, and constructive engagement. We value feedback from communities, beneficiaries, staff, partners, and other stakeholders to improve our programmes, strengthen accountability, and ensure our interventions remain relevant and responsive.",
-      image: wamo4,
+      
     },
     {
       number: "E",
@@ -285,13 +230,6 @@ export default function Home() {
     },
   };
 
-  const impactStats = [
-    { number: "2,500+", label: "Youth & Children Reached" },
-    { number: "4", label: "Counties of Operation" },
-    { number: "120+", label: "Referrals & Health Linkages" },
-    { number: "24+", label: "Community Support Groups" },
-  ];
-
   const faqs = [
     {
       q: "Where does WAM operate?",
@@ -308,9 +246,6 @@ export default function Home() {
   ];
 
   const toggleFaq = (index) => setOpenFaq(openFaq === index ? null : index);
-
-  // Stats: animate counters once the impact section scrolls into view.
-  const [statsRef, statsInView] = useInView({ threshold: 0.4 });
 
   // Programme quick-preview modal: mount/unmount with a small delay so the
   // scale-and-fade transition has time to play in both directions.
@@ -398,8 +333,8 @@ export default function Home() {
             <div className="hero-content">
               <span className="eyebrow">Wellness Approach Mentors (WAM)</span>
               <h1 className="hero-title">
-                Building Healthier People &amp;{" "}
-                <span className="text-highlight">Empowered Communities</span>
+                Transformed, Healthy &amp;{" "}
+                <span className="text-highlight">Resilient Communities.</span>
               </h1>
               <p className="hero-lead">
                 At Wellness Approach Mentors (WAM), we believe that lasting development begins with healthy, empowered, and resilient people. We work alongside individuals, families, young people, and communities to unlock local potential and build sustainable futures.
@@ -696,25 +631,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* IMPACT METRICS */}
-      <section className="section section--navy" ref={statsRef}>
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-heading section-heading--onDark">
-              Measuring Our Impact
-            </h2>
-            <p className="section-intro">
-              Creating meaningful, sustainable change across local communities
-            </p>
-          </div>
-          <div className="grid grid--min-sm stats-grid">
-            {impactStats.map((stat, idx) => (
-              <StatItem key={idx} stat={stat} active={statsInView} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* STORIES OF CHANGE */}
       <section className="section">
         <div className="container">
@@ -834,17 +750,6 @@ export default function Home() {
       >
         ↑
       </button>
-    </div>
-  );
-}
-
-// Renders a single impact stat with the count-up animation applied.
-function StatItem({ stat, active }) {
-  const display = useCountUp(stat.number, active);
-  return (
-    <div className="stat-item interactive-card">
-      <h3 className="stat-number">{display}</h3>
-      <p className="stat-label">{stat.label}</p>
     </div>
   );
 }

@@ -89,41 +89,37 @@ export default function Impact() {
       number: "10",
       title: "Empowering Communities Through Health Information",
       body: [
-        "This section is still being written — drop in the rest of the copy here when it's ready.",
+        "Access to accurate, clear, and actionable health information is a fundamental pillar of health equity. WAM delivers community-focused education to demystify complex medical pathways, preventive care, and wellness rights.",
+        "By translating health guidelines into practical, relatable guidance, we equip individuals to advocate for their health, dispel myths, and take early action against preventable conditions.",
       ],
-      incomplete: true,
     },
   ];
 
   return (
     <div className="impact-page">
-      {/* HERO */}
+      {/* IMPROVED HERO SECTION */}
       <section className="impact-hero">
         <div className="impact-container">
-          <p className="hero-kicker">Wellness Approach Mentors</p>
+          <span className="hero-kicker">Our Measurable Real-World Footprint</span>
           <h1 className="hero-title">
-            Reaching people is only the beginning.
+            Reaching People is Just the Beginning — Sustaining Care is Our Mission.
           </h1>
           <p className="hero-lead">
-            What follows a referral, a conversation, or a first point of
-            contact is where WAM's work really lives — in the follow-up,
-            the listening, and the everyday support that keeps people
-            connected to care.
+            At Wellness Approach Mentors (WAM), true impact lives beyond initial contact. We bridge systemic gaps between communities and healthcare institutions through persistent follow-ups, empathetic psychosocial mentorship, and accessible health financing literacy.
           </p>
         </div>
       </section>
 
-      {/* NARRATIVE SECTIONS */}
+      {/* CARD FORMATTED STORY LIST WITH GREEN FRAME */}
       <section className="story-list">
-        <div className="impact-container">
+        <div className="impact-container story-grid">
           {sections.map((s) => (
-            <article
-              key={s.number}
-              className={`story-item${s.incomplete ? " story-item--incomplete" : ""}`}
-            >
-              <div className="story-number">{s.number}</div>
-              <div className="story-copy">
+            <article key={s.number} className="story-card">
+              <div className="story-card-header">
+                <span className="story-number">{s.number}</span>
                 <h2 className="story-title">{s.title}</h2>
+              </div>
+              <div className="story-copy">
                 {s.body.map((para, i) => (
                   <p className="story-paragraph" key={i}>
                     {para}

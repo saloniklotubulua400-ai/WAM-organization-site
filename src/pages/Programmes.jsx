@@ -108,23 +108,6 @@ export default function Programmes() {
     },
   ];
 
-  const coreValues = [
-    { name: "Professionalism", desc: "We uphold high standards of excellence, competence, and accountability in everything we do." },
-    { name: "Loyalty", desc: "We remain committed to the people, communities, partners, and purpose we serve." },
-    { name: "Integrity", desc: "We act with honesty, transparency, responsibility, and ethical conduct." },
-    { name: "Service to Humanity", desc: "We place people and communities at the heart of our work." },
-    { name: "Empathy", desc: "We listen, understand, respect, and respond to people's experiences with compassion." },
-    { name: "Confidentiality", desc: "We protect the dignity, privacy, and trust of the people we serve." }
-  ];
-
-  const guidingPrinciples = [
-    { title: "Innovation & Creativity", desc: "Promoting innovative thinking and continuous learning to develop locally appropriate solutions." },
-    { title: "Equity & Quality", desc: "Ensuring fair access to wellness services while upholding the highest standards of safety and care." },
-    { title: "Coordination & Networking", desc: "Building strong multi-stakeholder partnerships to maximize collective community impact." },
-    { title: "Openness & Feedback", desc: "Valuing transparent engagement and using community feedback to continually improve intervention quality." },
-    { title: "Supporting Local Initiatives", desc: "Strengthening local capacity and prioritizing community ownership for long-term sustainability." }
-  ];
-
   const displayedProgrammes =
     selectedProgramme === "all"
       ? programmesData
@@ -133,18 +116,21 @@ export default function Programmes() {
   return (
     <div className="wam-programmes">
 
-      {/* 1. HERO SECTION */}
-      <section className="programmes-hero">
-        <div className="programmes-hero-bg-wrapper">
-          <img src={wamo5} alt="WAM Interventions Cover" className="programmes-hero-bg" />
-          <div className="programmes-hero-overlay"></div>
-        </div>
-        <div className="container programmes-hero-inner">
-          <span className="programmes-eyebrow">Wellness Approach Mentors (WAM)</span>
-          <h1 className="programmes-hero-title">Empowering Communities, Transforming Lives</h1>
-          <p className="programmes-hero-lead">
-            Lasting development starts with healthy, empowered, resilient people. Our programmes work alongside individuals, families, young people, and communities to unlock local potential and build futures that last.
-          </p>
+      {/* 1. HERO SECTION — dark background, image beside the text */}
+      <section className="programmes-hero programmes-hero--split">
+        <div className="container">
+          <div className="programmes-hero-grid">
+            <div className="programmes-hero-content">
+              <span className="programmes-eyebrow">Wellness Approach Mentors (WAM)</span>
+              <h1 className="programmes-hero-title">Empowering Communities, Transforming Lives</h1>
+              <p className="programmes-hero-lead">
+                Lasting development starts with healthy, empowered, resilient people. Our programmes work alongside individuals, families, young people, and communities to unlock local potential and build futures that last.
+              </p>
+            </div>
+            <div className="programmes-hero-image-wrapper">
+              <img src={wamo5} alt="WAM Interventions Cover" className="programmes-hero-image" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -162,45 +148,7 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 3. CORE VALUES & GUIDING PRINCIPLES */}
-      <section className="foundations-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Our Organizational Foundations</h2>
-            <p className="section-subtitle">The values and principles that shape how we show up for every community we serve</p>
-          </div>
-
-          <div className="foundations-grid">
-            {/* Core Values */}
-            <div className="foundations-column">
-              <h3 className="column-title">Six Core Values</h3>
-              <div className="values-list">
-                {coreValues.map((val, idx) => (
-                  <div key={idx} className="value-item">
-                    <strong>{val.name}</strong>
-                    <span>{val.desc}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Guiding Principles */}
-            <div className="foundations-column">
-              <h3 className="column-title">Guiding Principles</h3>
-              <div className="principles-list">
-                {guidingPrinciples.map((prin, idx) => (
-                  <div key={idx} className="principle-item">
-                    <strong>{prin.title}</strong>
-                    <p>{prin.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PROGRAMME FILTER BAR */}
+      {/* 3. PROGRAMME FILTER BAR */}
       <section className="filter-bar">
         <div className="container filter-bar-inner">
           <span className="filter-label">Browse by Programme:</span>
@@ -228,7 +176,7 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 5. PROGRAMMES GRID */}
+      {/* 4. PROGRAMMES GRID */}
       <section className="programmes-list">
         <div className="container">
           <div className="section-header">
@@ -292,7 +240,7 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 6. SERVICES MATRIX */}
+      {/* 5. SERVICES MATRIX */}
       <section className="service-matrix">
         <div className="container">
           <div className="service-matrix-header">
@@ -320,7 +268,7 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* 7. CALL TO ACTION */}
+      {/* 6. CALL TO ACTION */}
       <section className="programmes-cta">
         <div className="container container--cta">
           <h2 className="cta-heading">Partner With Us</h2>

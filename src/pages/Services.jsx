@@ -1,13 +1,142 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "./Services.css";
 
+const SAVED_KEY = "wam_saved_services";
+
+/* ----------------------------------------------------------------
+   Helpers
+------------------------------------------------------------------*/
+
+// Fires once when the referenced element enters the viewport.
+function useInView(options) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        observer.disconnect();
+      }
+    }, options);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [options]);
+
+  return [ref, inView];
+}
+
+// Counts a number up from 0 to target once active. Keeps suffix/prefix intact.
+function useCountUp(rawValue, active) {
+  const [display, setDisplay] = useState(rawValue.replace(/[0-9]/g, "0"));
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!active || hasRun.current) return;
+    hasRun.current = true;
+
+    const match = rawValue.match(/[\d,]+/);
+    if (!match) {
+      setDisplay(rawValue);
+      return;
+    }
+    const target = parseInt(match[0].replace(/,/g, ""), 10);
+    const prefix = rawValue.slice(0, match.index);
+    const suffix = rawValue.slice(match.index + match[0].length);
+    const duration = 1000;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(target * eased);
+      setDisplay(`${prefix}${current.toLocaleString()}${suffix}`);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [active, rawValue]);
+
+  return display;
+}
+
+// Splits text around a query and wraps matches in <mark>.
+function highlightMatch(text, query) {
+  if (!query.trim()) return text;
+  const escaped = query.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${escaped})`, "ig"));
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.toLowerCase() === query.trim().toLowerCase() ? (
+      <mark key={i} className="search-highlight">
+        {part}
+      </mark>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    )
+  );
+}
+
 export default function Services() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedService, setSelectedService] = useState(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [savedIds, setSavedIds] = useState([]);
+  const [toast, setToast] = useState(null);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+
+  const referralGridRef = useRef(null);
+  const faqRefs = useRef({});
+  const toastTimerRef = useRef(null);
+
+  // Debounce the search input so filtering doesn't run on every keystroke.
+  useEffect(() => {
+    const t = setTimeout(() => setSearchQuery(searchInput), 250);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
+  // Load / persist bookmarks.
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(SAVED_KEY) || "[]");
+      if (Array.isArray(stored)) setSavedIds(stored);
+    } catch {
+      // ignore corrupt storage
+    }
+  }, []);
+
+  const showToast = useCallback((message) => {
+    setToast(message);
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2200);
+  }, []);
+
+  const toggleSaved = useCallback(
+    (serviceId, serviceTitle) => {
+      setSavedIds((prev) => {
+        const next = prev.includes(serviceId)
+          ? prev.filter((id) => id !== serviceId)
+          : [...prev, serviceId];
+        try {
+          localStorage.setItem(SAVED_KEY, JSON.stringify(next));
+        } catch {
+          // storage unavailable — bookmark still works for this session
+        }
+        showToast(
+          prev.includes(serviceId)
+            ? `Removed "${serviceTitle}" from saved services`
+            : `Saved "${serviceTitle}" — find it under the Saved tab`
+        );
+        return next;
+      });
+    },
+    [showToast]
+  );
 
   // Detailed Categorized Services Data
   const serviceCategories = [
@@ -143,29 +272,29 @@ export default function Services() {
 
   // Referral Pathway Steps
   const referralSteps = [
-    { 
-      step: "01", 
-      title: "Identification & Outreach", 
+    {
+      step: "01",
+      title: "Identification & Outreach",
       desc: "Community Health Volunteers (CHVs) and peer educators identify individuals needing health or psychosocial support.",
-      detail: "Outreach teams engage with communities directly in high-density areas, youth hubs, and households to conduct risk assessments and raise awareness."
+      detail: "Outreach teams engage with communities directly in high-density areas, youth hubs, and households to conduct risk assessments and raise awareness.",
     },
-    { 
-      step: "02", 
-      title: "Screening & Counselling", 
+    {
+      step: "02",
+      title: "Screening & Counselling",
       desc: "Initial risk assessments, confidential counselling, and service mapping conducted by WAM staff.",
-      detail: "Trained counsellors evaluate specific health and psychological needs to formulate an individualized, confidential care plan."
+      detail: "Trained counsellors evaluate specific health and psychological needs to formulate an individualized, confidential care plan.",
     },
-    { 
-      step: "03", 
-      title: "Direct Referral", 
+    {
+      step: "03",
+      title: "Direct Referral",
       desc: "Issuance of official referral vouchers to partner health facilities, safe spaces, or legal aid centers.",
-      detail: "Clients receive standardized referral vouchers ensuring rapid, priority attention at partner clinical and legal centers without unnecessary delays."
+      detail: "Clients receive standardized referral vouchers ensuring rapid, priority attention at partner clinical and legal centers without unnecessary delays.",
     },
-    { 
-      step: "04", 
-      title: "Follow-up & Retention", 
+    {
+      step: "04",
+      title: "Follow-up & Retention",
       desc: "Case management and continuous follow-up to ensure complete care loop and beneficiary well-being.",
-      detail: "Dedicated case managers monitor progress through phone check-ins, home visits, and support group integration to guarantee complete continuum of care."
+      detail: "Dedicated case managers monitor progress through phone check-ins, home visits, and support group integration to guarantee complete continuum of care.",
     },
   ];
 
@@ -173,24 +302,50 @@ export default function Services() {
   const faqs = [
     {
       question: "Are WAM services confidential?",
-      answer: "Yes. All testing, counselling, and referral services strictly follow client confidentiality guidelines and protocol regulations."
+      answer: "Yes. All testing, counselling, and referral services strictly follow client confidentiality guidelines and protocol regulations.",
     },
     {
       question: "Do I have to pay for referrals or testing support?",
-      answer: "No. Community-level screening, peer support, and referral services coordinated directly by WAM are provided free of charge."
+      answer: "No. Community-level screening, peer support, and referral services coordinated directly by WAM are provided free of charge.",
     },
     {
       question: "How quickly can I access emergency GBV or PEP services?",
-      answer: "Emergency response for GBV and PEP post-exposure services are prioritized immediately with 24/7 rapid linkage protocols."
+      answer: "Emergency response for GBV and PEP post-exposure services are prioritized immediately with 24/7 rapid linkage protocols.",
     },
     {
       question: "Can I refer a friend or family member?",
-      answer: "Absolutely. You can initiate a referral on behalf of someone else through our online contact form or by contacting a community health volunteer."
-    }
+      answer: "Absolutely. You can initiate a referral on behalf of someone else through our online contact form or by contacting a community health volunteer.",
+    },
   ];
 
-  // Computed Filtered Categories & Search
+  const allServicesFlat = useMemo(
+    () => serviceCategories.flatMap((cat) => cat.services.map((s) => ({ ...s, categoryName: cat.categoryName, accent: cat.accent }))),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  // Computed Filtered Categories & Search (now also supports a "saved" pseudo-category)
   const filteredCategories = useMemo(() => {
+    if (activeCategory === "saved") {
+      const savedServices = allServicesFlat.filter((s) => savedIds.includes(s.id));
+      const query = searchQuery.toLowerCase();
+      const matched = query
+        ? savedServices.filter(
+            (s) => s.title.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query)
+          )
+        : savedServices;
+      if (matched.length === 0) return [];
+      return [
+        {
+          id: "saved",
+          categoryName: "Your Saved Services",
+          accent: "saved",
+          description: "Services you've bookmarked for quick access later.",
+          services: matched,
+        },
+      ];
+    }
+
     return serviceCategories
       .map((cat) => {
         if (activeCategory !== "all" && cat.id !== activeCategory) {
@@ -215,15 +370,198 @@ export default function Services() {
         return null;
       })
       .filter(Boolean);
-  }, [activeCategory, searchQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCategory, searchQuery, savedIds]);
 
   // Total Services Count calculation
   const totalVisibleServices = useMemo(() => {
     return filteredCategories.reduce((acc, cat) => acc + cat.services.length, 0);
   }, [filteredCategories]);
 
+  // Stats: animate counters once the hero metrics scroll into view.
+  const [metricsRef, metricsInView] = useInView({ threshold: 0.5 });
+
+  // Referral pathway: keyboard navigation (left/right arrows) when the grid has focus.
+  const handleReferralKeyDown = (e) => {
+    if (e.key === "ArrowRight") {
+      setIsAutoPlaying(false);
+      setActiveStepIndex((prev) => Math.min(referralSteps.length - 1, prev + 1));
+    } else if (e.key === "ArrowLeft") {
+      setIsAutoPlaying(false);
+      setActiveStepIndex((prev) => Math.max(0, prev - 1));
+    }
+  };
+
+  // Referral pathway: autoplay.
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveStepIndex((prev) => (prev + 1) % referralSteps.length);
+    }, 3200);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAutoPlaying]);
+
+  const copyReferralSummary = async () => {
+    const summary = referralSteps
+      .map((s) => `Step ${s.step} — ${s.title}: ${s.desc}`)
+      .join("\n\n");
+    try {
+      await navigator.clipboard.writeText(summary);
+      showToast("Referral pathway copied to clipboard");
+    } catch {
+      showToast("Couldn't copy — please try manually");
+    }
+  };
+
+  const copyServiceDetails = async (service) => {
+    const text = `${service.title}\n\n${service.details || service.desc}\n\nTarget group: ${
+      service.targetAudience || "—"
+    }\nAvailability: ${service.turnaround || "—"}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Service details copied to clipboard");
+    } catch {
+      showToast("Couldn't copy — please try manually");
+    }
+  };
+
+  // Quick-view modal: Escape to close + lock body scroll while open.
+  useEffect(() => {
+    if (!selectedService) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedService(null);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [selectedService]);
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex((prev) => (prev === index ? null : index));
+  };
+
+  const scrollToCategory = (catId) => {
+    const el = document.getElementById(`cat-${catId}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="wam-services">
+      {/* Scoped styling for the new interactive pieces, additive only. */}
+      <style>{`
+        .search-highlight {
+          background: rgba(28, 122, 76, 0.18);
+          color: inherit;
+          border-radius: 3px;
+          padding: 0 2px;
+        }
+        .wam-toast {
+          position: fixed;
+          left: 50%;
+          bottom: 28px;
+          transform: translate(-50%, 12px);
+          background: #0f2744;
+          color: #ffffff;
+          padding: 12px 20px;
+          border-radius: 999px;
+          font-size: 0.88rem;
+          box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+          z-index: 200;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .wam-toast--visible {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+        .bookmark-btn {
+          border: 1.5px solid rgba(15, 39, 68, 0.15);
+          background: #ffffff;
+          border-radius: 999px;
+          width: 34px;
+          height: 34px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 1rem;
+          line-height: 1;
+          transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+        .bookmark-btn:hover {
+          transform: scale(1.08);
+        }
+        .bookmark-btn--active {
+          background: #1c7a4c;
+          border-color: #1c7a4c;
+          color: #ffffff;
+        }
+        .jump-nav {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 24px;
+        }
+        .jump-nav-btn {
+          border: 1px solid rgba(15, 39, 68, 0.15);
+          background: #ffffff;
+          border-radius: 999px;
+          padding: 6px 14px;
+          font-size: 0.82rem;
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease;
+        }
+        .jump-nav-btn:hover {
+          background: #eef4f2;
+        }
+        .referral-progress-track {
+          height: 4px;
+          background: rgba(15, 39, 68, 0.1);
+          border-radius: 999px;
+          margin: 20px 0 4px;
+          overflow: hidden;
+        }
+        .referral-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #1c7a4c, #1c5d99);
+          border-radius: 999px;
+          transition: width 0.35s ease;
+        }
+        .referral-controls {
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+          margin-bottom: 8px;
+        }
+        .referral-playpause-btn,
+        .referral-copy-btn {
+          border: 1px solid rgba(15, 39, 68, 0.15);
+          background: #ffffff;
+          border-radius: 999px;
+          padding: 6px 14px;
+          font-size: 0.8rem;
+          cursor: pointer;
+        }
+        .referral-playpause-btn:hover,
+        .referral-copy-btn:hover {
+          background: #eef4f2;
+        }
+        .wam-faq-answer-wrap {
+          overflow: hidden;
+          transition: max-height 0.32s ease, opacity 0.28s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .wam-toast, .bookmark-btn, .referral-progress-fill, .wam-faq-answer-wrap {
+            transition: none !important;
+          }
+        }
+      `}</style>
 
       {/* 1. HERO HEADER */}
       <section className="services-hero">
@@ -238,20 +576,11 @@ export default function Services() {
             into lasting solutions, and individual potential into community-wide transformation.
           </p>
 
-          {/* Quick Metrics Bar */}
-          <div className="hero-metrics">
-            <div className="metric-badge">
-              <span className="metric-number">3+</span>
-              <span className="metric-label">Core Pillars</span>
-            </div>
-            <div className="metric-badge">
-              <span className="metric-number">13+</span>
-              <span className="metric-label">Specialized Interventions</span>
-            </div>
-            <div className="metric-badge">
-              <span className="metric-number">100%</span>
-              <span className="metric-label">Confidential Support</span>
-            </div>
+          {/* Quick Metrics Bar — now animated */}
+          <div className="hero-metrics" ref={metricsRef}>
+            <MetricBadge number="3+" label="Core Pillars" active={metricsInView} />
+            <MetricBadge number="13+" label="Specialized Interventions" active={metricsInView} />
+            <MetricBadge number="100%" label="Confidential Support" active={metricsInView} />
           </div>
         </div>
       </section>
@@ -259,21 +588,21 @@ export default function Services() {
       {/* 2. CATEGORY FILTER & SEARCH BAR */}
       <section className="filter-bar">
         <div className="container filter-bar-inner">
-          
+
           {/* Search Box */}
           <div className="search-box">
             <input
               type="text"
               placeholder="Search services by keyword..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className="search-input"
               aria-label="Search services"
             />
-            {searchQuery && (
-              <button 
-                className="search-clear-btn" 
-                onClick={() => setSearchQuery("")}
+            {searchInput && (
+              <button
+                className="search-clear-btn"
+                onClick={() => setSearchInput("")}
                 aria-label="Clear search query"
               >
                 ✕
@@ -304,6 +633,16 @@ export default function Services() {
                   {cat.categoryName.split(" ")[0]} Services
                 </button>
               ))}
+              {savedIds.length > 0 && (
+                <button
+                  role="tab"
+                  aria-selected={activeCategory === "saved"}
+                  onClick={() => setActiveCategory("saved")}
+                  className={`filter-btn ${activeCategory === "saved" ? "filter-btn--active" : ""}`}
+                >
+                  ★ Saved ({savedIds.length})
+                </button>
+              )}
             </div>
           </div>
 
@@ -314,11 +653,11 @@ export default function Services() {
       <div className="container filter-summary-bar">
         <span>Showing <strong>{totalVisibleServices}</strong> service interventions</span>
         {(searchQuery || activeCategory !== "all") && (
-          <button 
+          <button
             className="reset-filters-btn"
             onClick={() => {
               setActiveCategory("all");
-              setSearchQuery("");
+              setSearchInput("");
             }}
           >
             Reset Filters
@@ -329,16 +668,30 @@ export default function Services() {
       {/* 3. DETAILED SERVICES LIST */}
       <section className="services-list">
         <div className="container">
-          
+
+          {activeCategory === "all" && !searchQuery && (
+            <div className="jump-nav" aria-label="Jump to category">
+              {serviceCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  className="jump-nav-btn"
+                  onClick={() => scrollToCategory(cat.id)}
+                >
+                  {cat.categoryName} &darr;
+                </button>
+              ))}
+            </div>
+          )}
+
           {filteredCategories.length === 0 ? (
             <div className="no-results-card">
               <h3>No matching services found</h3>
               <p>We couldn't find any service matching "{searchQuery}". Try searching for another term or reset your category filters.</p>
-              <button 
+              <button
                 className="btn btn-primary"
                 onClick={() => {
                   setActiveCategory("all");
-                  setSearchQuery("");
+                  setSearchInput("");
                 }}
               >
                 View All Services
@@ -347,8 +700,8 @@ export default function Services() {
           ) : (
             <div className="category-blocks">
               {filteredCategories.map((cat) => (
-                <div key={cat.id} className="category-block-item">
-                  
+                <div key={cat.id} id={`cat-${cat.id}`} className="category-block-item">
+
                   {/* Section Header */}
                   <div className={`category-header category-header--${cat.accent}`}>
                     <span className={`category-label category-label--${cat.accent}`}>Service Category</span>
@@ -358,26 +711,42 @@ export default function Services() {
 
                   {/* Services Cards Grid */}
                   <div className="services-grid">
-                    {cat.services.map((service) => (
-                      <div key={service.id || service.title} className="service-card">
-                        <div className="service-card-header">
-                          <span className="card-badge">{cat.categoryName.split(" ")[0]}</span>
+                    {cat.services.map((service) => {
+                      const isSaved = savedIds.includes(service.id);
+                      return (
+                        <div key={service.id || service.title} className="service-card">
+                          <div className="service-card-header">
+                            <span className="card-badge">{cat.categoryName.split(" ")[0]}</span>
+                            <button
+                              className={`bookmark-btn ${isSaved ? "bookmark-btn--active" : ""}`}
+                              onClick={() => toggleSaved(service.id, service.title)}
+                              aria-pressed={isSaved}
+                              aria-label={isSaved ? "Remove from saved services" : "Save this service"}
+                              title={isSaved ? "Remove from saved" : "Save for later"}
+                            >
+                              {isSaved ? "★" : "☆"}
+                            </button>
+                          </div>
+                          <div className="service-card-body">
+                            <h3 className="service-card-title">
+                              {highlightMatch(service.title, searchQuery)}
+                            </h3>
+                            <p className="service-card-desc">
+                              {highlightMatch(service.desc, searchQuery)}
+                            </p>
+                          </div>
+                          <div className="service-card-footer">
+                            <button
+                              className="service-card-info-btn"
+                              onClick={() => setSelectedService(service)}
+                            >
+                              Quick View
+                            </button>
+                            <Link to="/contact" className="service-card-link">Access or Refer &rarr;</Link>
+                          </div>
                         </div>
-                        <div className="service-card-body">
-                          <h3 className="service-card-title">{service.title}</h3>
-                          <p className="service-card-desc">{service.desc}</p>
-                        </div>
-                        <div className="service-card-footer">
-                          <button 
-                            className="service-card-info-btn"
-                            onClick={() => setSelectedService(service)}
-                          >
-                            Quick View
-                          </button>
-                          <Link to="/contact" className="service-card-link">Access or Refer &rarr;</Link>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                 </div>
@@ -400,12 +769,34 @@ export default function Services() {
             </p>
           </div>
 
-          <div className="referral-grid">
+          <div className="referral-controls">
+            <button
+              className="referral-playpause-btn"
+              onClick={() => setIsAutoPlaying((p) => !p)}
+              aria-pressed={isAutoPlaying}
+            >
+              {isAutoPlaying ? "⏸ Pause tour" : "▶ Play tour"}
+            </button>
+            <button className="referral-copy-btn" onClick={copyReferralSummary}>
+              Copy pathway summary
+            </button>
+          </div>
+
+          <div
+            className="referral-grid"
+            ref={referralGridRef}
+            tabIndex={0}
+            onKeyDown={handleReferralKeyDown}
+            aria-label="Referral pathway steps — use left and right arrow keys to navigate"
+          >
             {referralSteps.map((s, idx) => (
-              <div 
-                key={s.step} 
+              <div
+                key={s.step}
                 className={`referral-card ${activeStepIndex === idx ? "referral-card--active" : ""}`}
-                onClick={() => setActiveStepIndex(idx)}
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  setActiveStepIndex(idx);
+                }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setActiveStepIndex(idx)}
@@ -421,6 +812,15 @@ export default function Services() {
             ))}
           </div>
 
+          <div className="referral-progress-track">
+            <div
+              className="referral-progress-fill"
+              style={{
+                width: `${(activeStepIndex / (referralSteps.length - 1)) * 100}%`,
+              }}
+            />
+          </div>
+
           {/* Interactive Step Detail Box */}
           <div className="referral-detail-box">
             <div className="referral-detail-header">
@@ -429,16 +829,22 @@ export default function Services() {
             </div>
             <p className="referral-detail-body">{referralSteps[activeStepIndex].detail}</p>
             <div className="referral-detail-actions">
-              <button 
-                disabled={activeStepIndex === 0} 
-                onClick={() => setActiveStepIndex((prev) => Math.max(0, prev - 1))}
+              <button
+                disabled={activeStepIndex === 0}
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  setActiveStepIndex((prev) => Math.max(0, prev - 1));
+                }}
                 className="btn btn-outline-sm"
               >
                 &larr; Previous Step
               </button>
-              <button 
-                disabled={activeStepIndex === referralSteps.length - 1} 
-                onClick={() => setActiveStepIndex((prev) => Math.min(referralSteps.length - 1, prev + 1))}
+              <button
+                disabled={activeStepIndex === referralSteps.length - 1}
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  setActiveStepIndex((prev) => Math.min(referralSteps.length - 1, prev + 1));
+                }}
                 className="btn btn-primary-sm"
               >
                 Next Step &rarr;
@@ -458,26 +864,35 @@ export default function Services() {
             <p>Everything you need to know about accessing our services and referral networks.</p>
           </div>
           <div className="faq-accordion">
-            {faqs.map((faq, index) => (
-              <div 
-                key={index} 
-                className={`faq-item ${openFaqIndex === index ? "faq-item--open" : ""}`}
-              >
-                <button 
-                  className="faq-question" 
-                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                  aria-expanded={openFaqIndex === index}
+            {faqs.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={index}
+                  className={`faq-item ${isOpen ? "faq-item--open" : ""}`}
                 >
-                  <span>{faq.question}</span>
-                  <span className="faq-icon">{openFaqIndex === index ? "−" : "+"}</span>
-                </button>
-                {openFaqIndex === index && (
-                  <div className="faq-answer">
-                    <p>{faq.answer}</p>
+                  <button
+                    className="faq-question"
+                    onClick={() => toggleFaq(index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.question}</span>
+                    <span className="faq-icon">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div
+                    className="wam-faq-answer-wrap"
+                    style={{
+                      maxHeight: isOpen ? `${faqRefs.current[index]?.scrollHeight || 300}px` : "0px",
+                      opacity: isOpen ? 1 : 0,
+                    }}
+                  >
+                    <div className="faq-answer" ref={(el) => (faqRefs.current[index] = el)}>
+                      <p>{faq.answer}</p>
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -529,6 +944,12 @@ export default function Services() {
               </div>
             </div>
             <div className="modal-footer">
+              <button
+                className="btn btn-outline"
+                onClick={() => copyServiceDetails(selectedService)}
+              >
+                Copy Details
+              </button>
               <Link to="/contact" className="btn btn-primary" onClick={() => setSelectedService(null)}>
                 Proceed to Referral Form
               </Link>
@@ -537,6 +958,22 @@ export default function Services() {
         </div>
       )}
 
+      {/* TOAST */}
+      <div className={`wam-toast ${toast ? "wam-toast--visible" : ""}`} role="status" aria-live="polite">
+        {toast}
+      </div>
+
+    </div>
+  );
+}
+
+// Renders a single animated metric badge.
+function MetricBadge({ number, label, active }) {
+  const display = useCountUp(number, active);
+  return (
+    <div className="metric-badge">
+      <span className="metric-number">{display}</span>
+      <span className="metric-label">{label}</span>
     </div>
   );
 }

@@ -51,6 +51,173 @@
   border-top-left-radius: var(--radius-md);
   border-top-right-radius: var(--radius-md);
 }
+.wam-page .programme-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(11, 61, 46, 0.08);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+}
+ 
+.wam-page .programme-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(11, 61, 46, 0.16);
+}
+ 
+/* Image fills the top of the card, no padding gap around it */
+.wam-page .programme-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+ 
+.wam-page .programme-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+ 
+.wam-page .programme-card:hover .programme-img {
+  transform: scale(1.08);
+}
+ 
+/* Gradient scrim so the badge and title area stay legible over any photo */
+.wam-page .programme-image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11, 61, 46, 0.85) 0%,
+    rgba(11, 61, 46, 0.15) 45%,
+    rgba(11, 61, 46, 0) 70%
+  );
+  pointer-events: none;
+}
+ 
+/* Category accent strip along the top edge of the image */
+.wam-page .programme-image-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #157a4a, #1457a3);
+  z-index: 2;
+}
+ 
+.wam-page .programme-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+ 
+.wam-page .programme-body {
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+ 
+.wam-page .programme-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0d3a66;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+ 
+.wam-page .programme-tagline {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #157a4a;
+  margin: 0 0 12px;
+}
+ 
+.wam-page .programme-desc {
+  color: #4c6459;
+  font-size: 0.92rem;
+  margin: 0 0 16px;
+}
+ 
+.wam-page .programme-points {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+ 
+.wam-page .programme-points li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.88rem;
+  color: #142a22;
+}
+ 
+.wam-page .programme-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e3f5ea;
+  color: #157a4a;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.wam-page .programme-actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #eef2f0;
+}
+ 
+.wam-page .programme-actions .link-self-center {
+  color: #1457a3;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .wam-page .programme-card,
+  .wam-page .programme-img {
+    transition: none !important;
+  }
+  .wam-page .programme-card:hover {
+    transform: none;
+  }
+  .wam-page .programme-card:hover .programme-img {
+    transform: none;
+  }
+}
 
 /* Enforce Proper Fit and Aspect Ratio */
 .programme-img {

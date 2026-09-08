@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 
-// Updated import paths to go up one folder level:
-import wamo8Img from "../assets/wamo8.png";
-import wamo9Img from "../assets/wamo9.png";
-import wamo10Img from "../assets/wamo10.png";
+// Hero image import retained; pillar image imports removed since the
+// Strategic Pillars cards no longer display images.
 import wamo11Img from "../assets/wamo11.png";
 
 export default function About() {
@@ -16,9 +14,9 @@ export default function About() {
     { num: "02", title: "Children & Youth Support", desc: "Comprehensive counselling, mentorship, life-skills training, and psychosocial services for young people." },
     { num: "03", title: "Personal & Community Development", desc: "Empowering individuals through capacity development, skill-building, and localized resilience initiatives." },
     { num: "04", title: "Positive Societal Systems", desc: "Partnering with stakeholders and institutions to build responsive, equitable, and sustainable community systems." },
-    { num: "08", title: "wamo8", desc: "Description for strategic pillar wamo8.", img: wamo8Img },
-    { num: "09", title: "wamo9", desc: "Description for strategic pillar wamo9.", img: wamo9Img },
-    { num: "10", title: "wamo10", desc: "Description for strategic pillar wamo10.", img: wamo10Img },
+    { num: "08", title: "wamo8", desc: "Description for strategic pillar wamo8." },
+    { num: "09", title: "wamo9", desc: "Description for strategic pillar wamo9." },
+    { num: "10", title: "wamo10", desc: "Description for strategic pillar wamo10." },
   ];
 
   const values = [
@@ -45,27 +43,29 @@ export default function About() {
 
   return (
     <div className="wam-about">
-      {/* 1. HERO SECTION WITH WAMO11 COVER IMAGE */}
-      <section
-        className="about-hero"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${wamo11Img})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      {/* 1. HERO SECTION WITH IMAGE ON THE RIGHT */}
+      <section className="about-hero">
         <div className="container">
-          <div className="about-hero-inner">
-            <span className="about-badge">About WAM</span>
-            <h1 className="about-hero-title">Empowering Communities. Promoting Holistic Wellbeing.</h1>
-            <p className="about-hero-lead">
-              Wellness Approach Mentors (WAM) is a Kenyan NGO dedicated to supporting children, youth, and
-              vulnerable populations across health, psychosocial, and structural dimensions.WAM is committed to ensuring that all people have fair and meaningful opportunities to access
+          <div className="grid grid--min-lg grid--gap-lg" style={{ alignItems: "center" }}>
+            <div className="about-hero-inner">
+              <span className="about-badge">About WAM</span>
+              <h1 className="about-hero-title">Empowering Communities. Promoting Holistic Wellbeing.</h1>
+              <p className="about-hero-lead">
+                Wellness Approach Mentors (WAM) is a Kenyan NGO dedicated to supporting children, youth, and
+                vulnerable populations across health, psychosocial, and structural dimensions.WAM is committed to ensuring that all people have fair and meaningful opportunities to access
 wellness services and participate in development initiatives, regardless of their circumstances.
 We promote equality, reduce barriers to inclusion, and uphold high standards of quality,
 effectiveness, safety, and accountability in all our programmes and services.
-            </p>
+              </p>
+            </div>
+            <div className="about-hero-image-wrapper">
+              <img
+                src={wamo11Img}
+                alt="About WAM Hero"
+                className="about-hero-image"
+                style={{ width: "100%", height: "auto", borderRadius: "8px", objectFit: "cover" }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -135,13 +135,6 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
           <div className="grid grid--min-sm">
             {pillars.map((p) => (
               <div key={p.num} className="pillar-card">
-                {p.img && (
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    className="pillar-image"
-                  />
-                )}
                 <span className="pillar-number">{p.num}</span>
                 <h3 className="pillar-title">{p.title}</h3>
                 <p className="pillar-desc">{p.desc}</p>
@@ -155,8 +148,8 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-heading">Community Engagement — What Guides Us</h2>
-            <p className="section-intro">Guiding our principles and community engagements</p>
+            <h2 className="section-heading">Community Engagement</h2>
+            <p className="section-intro">What Guides Us</p>
           </div>
 
           <div className="grid grid--min-xs grid--gap-sm">
