@@ -982,9 +982,14 @@ export default function Services() {
               <button type="button" className="btn btn-outline" onClick={() => copyServiceDetails(selectedService)}>
                 Copy Details
               </button>
-              <Link to="/contact" className="btn btn-primary" onClick={() => setSelectedService(null)}>
-                Proceed to Referral Form
-              </Link>
+              {/* ✅ Correct Syntax */}
+<Link 
+  className="btn btn-primary" 
+  to="/contact" 
+  onClick={() => setSelectedService(null)}
+>
+  Request Service or Referral &rarr;
+</Link>
             </div>
           </div>
         </div>
