@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 
-// Hero image import retained; pillar image imports removed since the
-// Strategic Pillars cards no longer display images.
 import wamo11Img from "../assets/wamo11.png";
 
 export default function About() {
@@ -29,13 +27,13 @@ export default function About() {
 
   const leadershipData = {
     board: [
-      { role: "Board of Directors", count: "5 Members", desc: "Provides high-level technical oversight, fiduciary governance, policy direction, and institutional accountability." },
-      { role: "Executive Leadership", count: "Directorate", desc: "Drives organizational strategy, donor relations, overall management, and programmatic expansion." },
+      { id: "board-1", role: "Board of Directors", count: "5 Members", desc: "Provides high-level technical oversight, fiduciary governance, policy direction, and institutional accountability." },
+      { id: "board-2", role: "Executive Leadership", count: "Directorate", desc: "Drives organizational strategy, donor relations, overall management, and programmatic expansion." },
     ],
     operations: [
-      { role: "Programmes & Coordination", desc: "Oversees MLINDE, MENTOR, and WELLNESS field implementations." },
-      { role: "Finance & Operations", desc: "Manages financial compliance, reporting, human resources, and procurement." },
-      { role: "Community Field Network", desc: "Dedicated team of community health volunteers, peer educators, and field officers." },
+      { id: "ops-1", role: "Programmes & Coordination", desc: "Oversees MLINDE, MENTOR, and WELLNESS field implementations." },
+      { id: "ops-2", role: "Finance & Operations", desc: "Manages financial compliance, reporting, human resources, and procurement." },
+      { id: "ops-3", role: "Community Field Network", desc: "Dedicated team of community health volunteers, peer educators, and field officers." },
     ],
   };
 
@@ -43,7 +41,7 @@ export default function About() {
 
   return (
     <div className="wam-about">
-      {/* 1. HERO SECTION WITH IMAGE ON THE RIGHT */}
+      {/* 1. HERO SECTION */}
       <section className="about-hero">
         <div className="container">
           <div className="grid grid--min-lg grid--gap-lg" style={{ alignItems: "center" }}>
@@ -52,10 +50,10 @@ export default function About() {
               <h1 className="about-hero-title">Empowering Communities. Promoting Holistic Wellbeing.</h1>
               <p className="about-hero-lead">
                 Wellness Approach Mentors (WAM) is a Kenyan NGO dedicated to supporting children, youth, and
-                vulnerable populations across health, psychosocial, and structural dimensions.WAM is committed to ensuring that all people have fair and meaningful opportunities to access
-wellness services and participate in development initiatives, regardless of their circumstances.
-We promote equality, reduce barriers to inclusion, and uphold high standards of quality,
-effectiveness, safety, and accountability in all our programmes and services.
+                vulnerable populations across health, psychosocial, and structural dimensions. WAM is committed to ensuring that all people have fair and meaningful opportunities to access
+                wellness services and participate in development initiatives, regardless of their circumstances.
+                We promote equality, reduce barriers to inclusion, and uphold high standards of quality,
+                effectiveness, safety, and accountability in all our programmes and services.
               </p>
             </div>
             <div className="about-hero-image-wrapper">
@@ -106,17 +104,14 @@ effectiveness, safety, and accountability in all our programmes and services.
 
             <div className="mission-vision">
               <div className="statement-card">
-                <h3>OUR MISSION</h3>
-                <p>
-                  &ldquo;Transformed, Healthy and Resilient Communities.&rdquo;
-                </p>
+                <h3>OUR VISION</h3>
+                <p>&ldquo;Transformed, Healthy and Resilient Communities.&rdquo;</p>
               </div>
 
               <div className="statement-card statement-card--accent">
-                <h3>OUR VISION</h3>
+                <h3>OUR MISSION</h3>
                 <p>
-                  &ldquo;To Enhance Equitable Access to Quality Wellness Services for All, Contributing to
-Sustainable Health Outcomes and Healthier Communities.&rdquo;
+                  &ldquo;To Enhance Equitable Access to Quality Wellness Services for All, Contributing to Sustainable Health Outcomes and Healthier Communities.&rdquo;
                 </p>
               </div>
             </div>
@@ -153,8 +148,8 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
           </div>
 
           <div className="grid grid--min-xs grid--gap-sm">
-            {values.map((v, i) => (
-              <div key={i} className="value-card">
+            {values.map((v) => (
+              <div key={v.title} className="value-card">
                 <h4 className="value-title">{v.title}</h4>
                 <p className="value-desc">{v.desc}</p>
               </div>
@@ -173,6 +168,7 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
 
           <div className="toggle-row" role="tablist" aria-label="Governance view">
             <button
+              type="button"
               role="tab"
               aria-selected={activeTab === "board"}
               onClick={() => setActiveTab("board")}
@@ -181,6 +177,7 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
               Board & Leadership
             </button>
             <button
+              type="button"
               role="tab"
               aria-selected={activeTab === "ops"}
               onClick={() => setActiveTab("ops")}
@@ -191,8 +188,8 @@ Sustainable Health Outcomes and Healthier Communities.&rdquo;
           </div>
 
           <div className="gov-list">
-            {activeLeadership.map((item, idx) => (
-              <div key={idx} className="gov-card">
+            {activeLeadership.map((item) => (
+              <div key={item.id} className="gov-card">
                 <div className="gov-card-header">
                   <h3>{item.role}</h3>
                   {item.count && <span className="gov-count">{item.count}</span>}
