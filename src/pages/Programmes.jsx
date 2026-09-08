@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Programmes.css";
 
-// Relative path: move up from src/pages to src/assets
+// Relative paths to assets (Ensure filenames match exact case on Linux build servers)
 import wamo5 from "../assets/wamo5.png";
 import wamo11 from "../assets/wamo11.png";
 import wamo12 from "../assets/wamo12.png";
@@ -115,8 +115,7 @@ export default function Programmes() {
 
   return (
     <div className="wam-programmes">
-
-      {/* 1. HERO SECTION — dark background, image beside the text */}
+      {/* 1. HERO SECTION */}
       <section className="programmes-hero programmes-hero--split">
         <div className="container">
           <div className="programmes-hero-grid">
@@ -154,6 +153,7 @@ export default function Programmes() {
           <span className="filter-label">Browse by Programme:</span>
           <div className="filter-buttons" role="tablist" aria-label="Filter programmes">
             <button
+              type="button"
               role="tab"
               aria-selected={selectedProgramme === "all"}
               onClick={() => setSelectedProgramme("all")}
@@ -164,6 +164,7 @@ export default function Programmes() {
             {programmesData.map((p) => (
               <button
                 key={p.id}
+                type="button"
                 role="tab"
                 aria-selected={selectedProgramme === p.id}
                 onClick={() => setSelectedProgramme(p.id)}
@@ -189,7 +190,6 @@ export default function Programmes() {
           <div className="programmes-grid">
             {displayedProgrammes.map((p) => (
               <div key={p.id} id={p.id} className="programme-card">
-                
                 <div className="programme-image-wrapper">
                   <img
                     src={p.image}
@@ -216,8 +216,8 @@ export default function Programmes() {
                   <div className="programme-focus-box">
                     <h4 className="programme-focus-title">Key Focus &amp; Components:</h4>
                     <div className="programme-key-areas">
-                      {p.keyAreas.map((area, idx) => (
-                        <div key={idx} className="programme-key-area">
+                      {p.keyAreas.map((area) => (
+                        <div key={area} className="programme-key-area">
                           <span className="programme-key-area-check">✓</span> {area}
                         </div>
                       ))}
@@ -233,7 +233,6 @@ export default function Programmes() {
                     </Link>
                   </div>
                 </div>
-
               </div>
             ))}
           </div>
@@ -251,13 +250,13 @@ export default function Programmes() {
           </div>
 
           <div className="service-matrix-grid">
-            {serviceCategories.map((sec, i) => (
-              <div key={i} className="service-matrix-card">
+            {serviceCategories.map((sec) => (
+              <div key={sec.title} className="service-matrix-card">
                 <h3 className="service-card-title">{sec.title}</h3>
                 <p className="service-card-desc">{sec.description}</p>
                 <ul className="service-checklist">
-                  {sec.items.map((item, idx) => (
-                    <li key={idx} className="service-checklist-item">
+                  {sec.items.map((item) => (
+                    <li key={item} className="service-checklist-item">
                       <span className="service-checklist-icon">✓</span> {item}
                     </li>
                   ))}
@@ -281,7 +280,6 @@ export default function Programmes() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
