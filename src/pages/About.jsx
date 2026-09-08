@@ -11,10 +11,7 @@ export default function About() {
     { num: "01", title: "Healthcare & Linkages", desc: "Improving access to health information, direct services, referrals, and care pathways across local communities." },
     { num: "02", title: "Children & Youth Support", desc: "Comprehensive counselling, mentorship, life-skills training, and psychosocial services for young people." },
     { num: "03", title: "Personal & Community Development", desc: "Empowering individuals through capacity development, skill-building, and localized resilience initiatives." },
-    { num: "04", title: "Positive Societal Systems", desc: "Partnering with stakeholders and institutions to build responsive, equitable, and sustainable community systems." },
-    { num: "08", title: "wamo8", desc: "Description for strategic pillar wamo8." },
-    { num: "09", title: "wamo9", desc: "Description for strategic pillar wamo9." },
-    { num: "10", title: "wamo10", desc: "Description for strategic pillar wamo10." },
+    { num: "04", title: "Positive Societal Systems", desc: "Partnering with stakeholders and institutions to build responsive, equitable, and sustainable community systems." }
   ];
 
   const values = [
@@ -105,13 +102,13 @@ export default function About() {
             <div className="mission-vision">
               <div className="statement-card">
                 <h3>OUR VISION</h3>
-                <p>&ldquo;Transformed, Healthy and Resilient Communities.&rdquo;</p>
+                <p>“Transformed, Healthy and Resilient Communities.”</p>
               </div>
 
               <div className="statement-card statement-card--accent">
                 <h3>OUR MISSION</h3>
                 <p>
-                  &ldquo;To Enhance Equitable Access to Quality Wellness Services for All, Contributing to Sustainable Health Outcomes and Healthier Communities.&rdquo;
+                  “To Enhance Equitable Access to Quality Wellness Services for All, Contributing to Sustainable Health Outcomes and Healthier Communities.”
                 </p>
               </div>
             </div>
