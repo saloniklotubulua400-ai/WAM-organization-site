@@ -1,229 +1,228 @@
-/* ==========================================================================
-   WAM — Programmes Page (Clean & Minimal)
-   ========================================================================== */
-
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+/* ==================================================================
+   Programmes.css — Green theme (no blue anywhere)
+   ================================================================== */
 
 :root {
-  --color-green: #1c7a4c;
-  --color-green-dark: #14603a;
-  --color-blue: #1c5d99;
-  --color-teal: #12897f;
-  --color-navy: #0f2744;
-  --color-text: #1c2624;
-  --color-muted: #5c6b68;
-  --color-bg-alt: #f6f8f5;
-  --color-border: #e1e8e3;
-  --font-heading: "Fraunces", Georgia, serif;
-  --font-base: system-ui, -apple-system, sans-serif;
-  --radius: 12px;
+  --wam-green-900: #0e3a24;
+  --wam-green-700: #145c3a;
+  --wam-green-600: #1c7a4c;
+  --wam-green-500: #229461;
+  --wam-green-100: #eaf4ee;
+  --wam-green-50: #f5faf7;
+  --wam-ink: #16241c;
+  --wam-ink-soft: #43554b;
+  --wam-white: #ffffff;
+  --wam-border: rgba(14, 58, 36, 0.14);
+  --wam-shadow: rgba(14, 58, 36, 0.12);
 }
 
 .wam-programmes {
-  font-family: var(--font-base);
-  color: var(--color-text);
-  line-height: 1.6;
-  background-color: #ffffff;
+  color: var(--wam-ink);
+  background: var(--wam-white);
 }
 
-.wam-programmes * {
-  box-sizing: border-box;
-}
-
-.container {
-  max-width: 1140px;
+.wam-programmes .container {
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 24px;
 }
 
-.container--cta {
-  max-width: 680px;
-}
+/* ------------------------------------------------------------------
+   1. HERO
+------------------------------------------------------------------ */
 
-/* Headings & Section Styling */
-.section-header, .service-matrix-header {
-  text-align: center;
-  max-width: 650px;
-  margin: 0 auto 2.5rem;
-}
-
-.section-title, .service-matrix-title {
-  font-family: var(--font-heading);
-  color: var(--color-green);
-  font-size: 2rem;
-  margin: 0 0 0.5rem;
-}
-
-.section-subtitle, .service-matrix-subtitle {
-  color: var(--color-muted);
-  font-size: 1rem;
-  margin: 0;
-}
-
-/* 1. Hero */
-.programmes-hero--split {
-  background: var(--color-navy);
-  padding: 4rem 0;
-  color: #ffffff;
+.programmes-hero {
+  background: linear-gradient(135deg, var(--wam-green-900), var(--wam-green-700));
+  color: var(--wam-white);
+  padding: 88px 0 72px;
 }
 
 .programmes-hero-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
   align-items: center;
 }
 
-@media (min-width: 768px) {
-  .programmes-hero-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-  }
-}
-
 .programmes-eyebrow {
-  color: #7fd6a3;
-  font-weight: 600;
-  font-size: 0.85rem;
   display: inline-block;
-  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--wam-green-100);
+  margin-bottom: 14px;
 }
 
 .programmes-hero-title {
-  font-family: var(--font-heading);
-  font-size: 2.25rem;
-  line-height: 1.2;
-  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  line-height: 1.15;
+  font-weight: 800;
+  margin: 0 0 18px;
 }
 
 .programmes-hero-lead {
-  color: #cbd8e8;
-  font-size: 1rem;
-  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 52ch;
+}
+
+.programmes-hero-image-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(14, 58, 36, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .programmes-hero-image {
+  display: block;
   width: 100%;
-  border-radius: var(--radius);
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 4 / 3;
 }
 
-/* 2. Vision & Mission */
+/* ------------------------------------------------------------------
+   2. VISION & MISSION
+------------------------------------------------------------------ */
+
 .vision-mission-section {
-  padding: 3rem 0;
-  background-color: var(--color-bg-alt);
+  background: var(--wam-green-50);
+  padding: 56px 0;
 }
 
 .vision-mission-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
 .vm-card {
-  background: #ffffff;
-  padding: 1.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-green);
-}
-
-.vm-card:nth-child(2) {
-  border-left-color: var(--color-blue);
+  background: var(--wam-white);
+  border: 1px solid var(--wam-border);
+  border-radius: 16px;
+  padding: 28px 30px;
+  box-shadow: 0 10px 24px var(--wam-shadow);
 }
 
 .vm-card h3 {
-  font-family: var(--font-heading);
-  color: var(--color-green);
-  margin: 0 0 0.5rem;
-}
-
-.vm-card:nth-child(2) h3 {
-  color: var(--color-blue);
+  color: var(--wam-green-700);
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .vm-card p {
-  font-style: italic;
   margin: 0;
+  font-style: italic;
+  color: var(--wam-ink-soft);
+  line-height: 1.6;
 }
 
-/* 3. Filter Bar */
+/* ------------------------------------------------------------------
+   3. FILTER BAR
+------------------------------------------------------------------ */
+
 .filter-bar {
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  padding: 32px 0;
+  border-bottom: 1px solid var(--wam-border);
 }
 
 .filter-bar-inner {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
 }
 
 .filter-label {
   font-weight: 600;
-  font-size: 0.9rem;
+  color: var(--wam-ink);
+  font-size: 0.92rem;
 }
 
 .filter-buttons {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .filter-btn {
-  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--wam-border);
+  background: var(--wam-white);
+  color: var(--wam-ink);
   border-radius: 999px;
-  border: 1px solid var(--color-blue);
-  background: transparent;
-  color: var(--color-blue);
-  font-weight: 600;
-  font-size: 0.85rem;
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-.filter-btn--active, .filter-btn:hover {
-  background: var(--color-blue);
-  color: #ffffff;
+.filter-btn:hover {
+  background: var(--wam-green-100);
+  border-color: var(--wam-green-500);
 }
 
-/* 4. Programmes Grid */
+.filter-btn--active {
+  background: var(--wam-green-600);
+  border-color: var(--wam-green-600);
+  color: var(--wam-white);
+}
+
+/* ------------------------------------------------------------------
+   4. PROGRAMMES GRID
+------------------------------------------------------------------ */
+
 .programmes-list {
-  padding: 4rem 0;
-  background-color: var(--color-bg-alt);
+  padding: 64px 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 44px;
+}
+
+.section-title {
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--wam-green-900);
+  margin: 0 0 12px;
+}
+
+.section-subtitle {
+  color: var(--wam-ink-soft);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .programmes-grid {
   display: grid;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
 }
 
 .programme-card {
-  background: #ffffff;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
+  background: var(--wam-white);
+  border: 1px solid var(--wam-border);
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 14px 32px var(--wam-shadow);
   display: flex;
   flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-@media (min-width: 850px) {
-  .programme-card {
-    flex-direction: row;
-  }
-  .programme-image-wrapper {
-    width: 35%;
-  }
-  .programme-card-body {
-    width: 65%;
-  }
+.programme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(14, 58, 36, 0.2);
 }
 
 .programme-image-wrapper {
   position: relative;
-  min-height: 200px;
+  height: 210px;
 }
 
 .programme-card-image {
@@ -233,203 +232,336 @@
   display: block;
 }
 
-.programme-audience-badge {
+.programme-image-overlay {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  color: #ffffff;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 999px;
-  background: rgba(15, 39, 68, 0.85);
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 58, 36, 0) 40%, rgba(14, 58, 36, 0.65) 100%);
 }
 
-.programme-audience-badge--mlinde { background: var(--color-green); }
-.programme-audience-badge--mentor { background: var(--color-blue); }
-.programme-audience-badge--wellness { background: var(--color-teal); }
+.programme-audience-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  background: var(--wam-green-600);
+  color: var(--wam-white);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.programme-audience-badge--mlinde {
+  background: var(--wam-green-700);
+}
+
+.programme-audience-badge--mentor {
+  background: var(--wam-green-600);
+}
+
+.programme-audience-badge--wellness {
+  background: var(--wam-green-500);
+}
 
 .programme-card-body {
-  padding: 1.5rem;
+  padding: 26px 26px 28px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+}
+
+.programme-card-head {
+  margin-bottom: 12px;
 }
 
 .programme-title {
-  font-family: var(--font-heading);
-  color: var(--color-green);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--wam-green-900);
+  margin: 0 0 4px;
+}
+
+.programme-subtitle {
+  font-size: 0.92rem;
+  color: var(--wam-green-600);
+  font-weight: 600;
   margin: 0;
 }
 
-#mentor .programme-title { color: var(--color-blue); }
-#wellness .programme-title { color: var(--color-teal); }
-
-.programme-subtitle {
-  color: var(--color-blue);
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin: 0.25rem 0 0.75rem;
-}
-
 .programme-summary {
-  color: var(--color-muted);
-  font-size: 0.95rem;
-  margin: 0 0 1rem;
+  color: var(--wam-ink-soft);
+  line-height: 1.6;
+  margin: 0 0 18px;
 }
 
 .programme-focus-box {
-  background: var(--color-bg-alt);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  background: var(--wam-green-50);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
 }
 
 .programme-focus-title {
-  font-size: 0.85rem;
-  margin: 0 0 0.5rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--wam-green-700);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .programme-key-areas {
   list-style: none;
-  padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.35rem 0.75rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .programme-key-area {
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
-  font-size: 0.85rem;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--wam-ink);
 }
 
 .programme-key-area-check {
-  color: var(--color-green);
-  font-weight: bold;
+  color: var(--wam-green-600);
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .programme-footer {
   margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-border);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--wam-border);
+}
+
+.programme-goal {
+  font-size: 0.86rem;
+  color: var(--wam-ink-soft);
+}
+
+.programme-goal strong {
+  color: var(--wam-green-700);
 }
 
 .programme-cta {
-  color: var(--color-green);
+  color: var(--wam-green-600);
   font-weight: 700;
+  font-size: 0.88rem;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-/* 5. Service Matrix */
+.programme-cta:hover {
+  color: var(--wam-green-900);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------
+   5. SERVICES MATRIX
+------------------------------------------------------------------ */
+
 .service-matrix {
-  padding: 4rem 0;
+  background: var(--wam-green-50);
+  padding: 64px 0;
+}
+
+.service-matrix-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
+
+.service-matrix-title {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  color: var(--wam-green-900);
+  margin: 0 0 12px;
+}
+
+.service-matrix-subtitle {
+  color: var(--wam-ink-soft);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .service-matrix-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .service-matrix-card {
-  border: 1px solid var(--color-border);
-  border-top: 3px solid var(--color-green);
-  border-radius: var(--radius);
-  padding: 1.5rem;
+  background: var(--wam-white);
+  border: 1px solid var(--wam-border);
+  border-radius: 16px;
+  padding: 26px 24px;
+  box-shadow: 0 10px 24px var(--wam-shadow);
 }
 
-.service-matrix-card:nth-child(2) { border-top-color: var(--color-blue); }
-.service-matrix-card:nth-child(3) { border-top-color: var(--color-teal); }
-
 .service-card-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  margin: 0 0 0.5rem;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--wam-green-700);
+  margin: 0 0 8px;
 }
 
 .service-card-desc {
-  color: var(--color-muted);
-  font-size: 0.88rem;
-  margin: 0 0 1rem;
+  color: var(--wam-ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 16px;
 }
 
 .service-checklist {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .service-checklist-item {
   display: flex;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  margin-bottom: 0.4rem;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--wam-ink);
 }
 
 .service-checklist-icon {
-  color: var(--color-green);
-  font-weight: bold;
+  color: var(--wam-green-600);
+  font-weight: 700;
 }
 
-/* 6. Call To Action & Buttons */
+/* ------------------------------------------------------------------
+   6. CALL TO ACTION
+------------------------------------------------------------------ */
+
 .programmes-cta {
-  padding: 4rem 0;
-  background: var(--color-navy);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--wam-green-900), var(--wam-green-700));
+  color: var(--wam-white);
+  padding: 72px 0;
+}
+
+.container--cta {
   text-align: center;
+  max-width: 720px;
 }
 
 .cta-heading {
-  font-family: var(--font-heading);
-  font-size: 1.75rem;
-  margin: 0 0 0.75rem;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 800;
+  margin: 0 0 16px;
 }
 
 .cta-lead {
-  color: #cbd8e8;
-  margin: 0 0 1.5rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.65;
+  margin: 0 auto 28px;
 }
 
 .programmes-cta-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
 }
 
 .btn {
   display: inline-block;
-  padding: 0.6rem 1.25rem;
+  padding: 12px 26px;
   border-radius: 999px;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.92rem;
   text-decoration: none;
-  font-size: 0.9rem;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .btn-primary {
-  background: var(--color-green);
-  color: #ffffff;
+  background: var(--wam-green-500);
+  color: var(--wam-white);
+  border-color: var(--wam-green-500);
+}
+
+.btn-primary:hover {
+  background: var(--wam-white);
+  color: var(--wam-green-700);
+  border-color: var(--wam-white);
 }
 
 .btn-outline {
-  border: 1px solid #ffffff;
-  color: #ffffff;
+  background: transparent;
+  color: var(--wam-white);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
-/* Accessibility */
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--wam-white);
+}
+
+/* ------------------------------------------------------------------
+   Responsive
+------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .programmes-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vision-mission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .programme-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .programmes-hero {
+    padding: 64px 0 48px;
+  }
+
+  .filter-bar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion
+   (Note: every selector below is complete — no trailing/dangling
+   combinators, which is what caused the previous lightningcss build
+   error.)
+------------------------------------------------------------------ */
+
 @media (prefers-reduced-motion: reduce) {
   .wam-programmes .programme-card,
-  .wam-programmes .programme-card-image {
-    transition: none !important;
-    animation: none !important;
+  .wam-programmes .btn,
+  .wam-programmes .filter-btn {
+    transition: none;
+  }
+
+  .wam-programmes .programme-card:hover,
+  .wam-programmes .btn:hover {
+    transform: none;
   }
 }
