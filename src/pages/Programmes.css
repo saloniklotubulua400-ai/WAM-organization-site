@@ -124,9 +124,8 @@
   background: #ffffff;
   padding: 1.75rem;
   border-radius: var(--radius);
-  border-left: 4px solid var(--color-green);
   border: 1px solid var(--color-border);
-  border-left-width: 4px;
+  border-left: 4px solid var(--color-green);
 }
 
 .vm-card:nth-child(2) {
@@ -424,4 +423,13 @@
 .btn-outline {
   border: 1px solid #ffffff;
   color: #ffffff;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .wam-programmes .programme-card,
+  .wam-programmes .programme-card-image {
+    transition: none !important;
+    animation: none !important;
+  }
 }
