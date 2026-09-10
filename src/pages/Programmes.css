@@ -1,5 +1,5 @@
 /* ==================================================================
-   Programmes.css — Green theme (no blue anywhere)
+   Programmes.css — Green theme, white hero
    ================================================================== */
 
 :root {
@@ -28,13 +28,14 @@
 }
 
 /* ------------------------------------------------------------------
-   1. HERO
+   1. HERO — white background
 ------------------------------------------------------------------ */
 
 .programmes-hero {
-  background: linear-gradient(135deg, var(--wam-green-900), var(--wam-green-700));
-  color: var(--wam-white);
+  background: var(--wam-white);
+  color: var(--wam-ink);
   padding: 88px 0 72px;
+  border-bottom: 1px solid var(--wam-border);
 }
 
 .programmes-hero-grid {
@@ -49,8 +50,8 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--wam-green-100);
+  font-weight: 700;
+  color: var(--wam-green-700);
   margin-bottom: 14px;
 }
 
@@ -58,21 +59,22 @@
   font-size: clamp(2rem, 4vw, 2.9rem);
   line-height: 1.15;
   font-weight: 800;
+  color: var(--wam-green-700);
   margin: 0 0 18px;
 }
 
 .programmes-hero-lead {
   font-size: 1.05rem;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--wam-ink-soft);
   max-width: 52ch;
 }
 
 .programmes-hero-image-wrapper {
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(14, 58, 36, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 44px var(--wam-shadow);
+  border: 1px solid var(--wam-border);
 }
 
 .programmes-hero-image {
@@ -548,9 +550,6 @@
 
 /* ------------------------------------------------------------------
    Reduced motion
-   (Note: every selector below is complete — no trailing/dangling
-   combinators, which is what caused the previous lightningcss build
-   error.)
 ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
