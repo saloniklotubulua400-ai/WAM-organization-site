@@ -1,120 +1,160 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Impact.css";
 
 export default function Impact() {
+  // 1. TYPEWRITER EFFECT SETUP
+  const phrases = [
+    "Sustaining Care is Our Mission.",
+    "Bridging Gaps to Healthcare.",
+    "Empowering Communities Daily.",
+    "Transforming Referrals into Real Care."
+  ];
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentFullText = phrases[phraseIndex];
+    let typingSpeed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && displayedText === currentFullText) {
+      // Pause at the end of the phrase before deleting
+      typingSpeed = 2000;
+    } else if (isDeleting && displayedText === "") {
+      // Move to the next phrase after deleting
+      setIsDeleting(false);
+      setPhraseIndex((prev) => (prev + 1) % phrases.length);
+      typingSpeed = 500;
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setDisplayedText((prev) =>
+        isDeleting
+          ? currentFullText.substring(0, prev.length - 1)
+          : currentFullText.substring(0, prev.length + 1)
+      );
+
+      if (displayedText === currentFullText && !isDeleting) {
+        setIsDeleting(true);
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, phraseIndex]);
+
+  // 2. SHORTENED CARDS DATA
   const sections = [
     {
       number: "01",
       title: "Bridging the Gap Through Linkage to Care",
       body: [
-        "At Wellness Approach Mentors (WAM), we believe that reaching a person is only the beginning. Through community outreach, our mentors identify individuals who need health and social services and support them to navigate available services.",
-        "By using trusted community networks and follow-up approaches, we have helped strengthen linkages between communities and health facilities. Our approach reduces missed opportunities, encourages timely care-seeking, and ensures that people do not feel abandoned after referral.",
-        "Through empathy, continuous engagement, and practical support, WAM helps transform referrals into meaningful connections to care.",
+        "At Wellness Approach Mentors (WAM), reaching a person is only the beginning. Through targeted outreach, our mentors bridge critical gaps, connecting individuals to vital health and social services.",
+        "By maintaining trusted community networks and consistent follow-ups, we reduce missed opportunities, encourage timely care-seeking, and ensure no one feels abandoned after a referral.",
       ],
     },
     {
       number: "02",
       title: "Making Health Financing Understandable",
       body: [
-        "Health financing can be complicated, especially for vulnerable families who struggle to understand available options. WAM works with communities to simplify information about health financing, insurance, and available healthcare resources.",
-        "Through community education and mentorship, individuals are empowered to understand their rights, available financing mechanisms, and where to seek assistance. We believe financial barriers should not prevent people from accessing essential healthcare.",
-        "By combining accurate information with empathy and practical guidance, WAM helps communities make informed decisions and take greater control of their health and wellbeing.",
+        "Health financing can be overwhelming for vulnerable families. WAM simplifies complex information regarding insurance, healthcare options, and available resources.",
+        "Through mentorship and education, we empower individuals to understand their rights and access financial assistance, ensuring monetary barriers never block essential care.",
       ],
     },
     {
       number: "03",
       title: "Psychosocial Support That Begins With Listening",
       body: [
-        "Sometimes, the most powerful intervention is simply listening. WAM provides psychosocial support to individuals and communities experiencing emotional, social, and personal challenges. Our mentors create safe and respectful spaces where people can express themselves without fear of judgment.",
-        "Through empathetic conversations, basic counselling support, referrals, and follow-up, we help individuals regain hope and identify practical ways forward.",
-        "Our approach recognizes that health is more than the absence of disease. Emotional wellbeing, supportive relationships, dignity, and resilience are essential components of healthy and empowered communities.",
+        "Sometimes, the most powerful intervention is simply listening. WAM provides safe, non-judgmental spaces for individuals facing emotional and personal challenges.",
+        "Through empathetic conversations, basic counselling, and targeted referrals, we help people regain hope, dignity, and resilience as core pillars of wellbeing.",
       ],
     },
     {
       number: "04",
       title: "Taking Services Closer to Communities",
       body: [
-        "Distance, stigma, misinformation, and lack of awareness can prevent people from accessing essential services. WAM responds by taking information, mentorship, and community engagement closer to where people live and work.",
-        "Through outreach activities, our teams engage community members, listen to their concerns, identify barriers, and connect them with appropriate services. Rather than waiting for people to come forward, we proactively create opportunities for engagement.",
-        "This community-centered approach strengthens trust, improves awareness, and ensures that people who may otherwise remain invisible are reached, supported, and connected to care.",
+        "Distance, stigma, and lack of awareness often block essential services. WAM takes information and mentorship directly to where people live and work.",
+        "Rather than waiting for individuals to seek help, proactive outreach builds trust, breaks down barriers, and connects vulnerable populations to the care they deserve.",
       ],
     },
     {
       number: "05",
       title: "Empathy as a Tool for Transformation",
       body: [
-        "At WAM, empathy is more than a principle — it is a practical tool for creating change. Our mentors approach every individual with respect, patience, and understanding, recognizing that each person has a unique story and lived experience.",
-        "Instead of making assumptions, we listen first, understand the challenge, and work together to identify solutions. This approach has helped build trust between communities and service providers while encouraging people to seek support when they need it.",
-        "By putting people at the center of our work, WAM demonstrates that compassion and professionalism can work together to achieve lasting impact.",
+        "At WAM, empathy is a practical tool for transformation. We approach every individual with respect and patience, honoring their unique lived experiences.",
+        "By listening first and avoiding assumptions, we build strong trust between communities and service providers, encouraging people to seek support without fear.",
       ],
     },
     {
       number: "06",
       title: "Innovation for Better Community Engagement",
       body: [
-        "WAM embraces innovation to improve how communities access information, support, and services. We continuously explore practical approaches that make community engagement more responsive and accessible.",
-        "Through peer networks, digital communication, community feedback mechanisms, and creative outreach strategies, we create opportunities for people to participate in identifying and solving challenges affecting their wellbeing. Innovation for us is not simply about technology; it is about finding better ways of doing things.",
-        "By combining community knowledge with new ideas, WAM strengthens service linkages, improves communication, and supports communities to become active partners in their own development.",
+        "WAM embraces practical innovation to improve how communities access support. From peer networks to digital tools, we make engagement more responsive.",
+        "By combining community knowledge with creative strategies, we strengthen service linkages and help communities become active partners in their own growth.",
       ],
     },
     {
       number: "07",
       title: "Turning Referrals Into Real Connections",
       body: [
-        "A referral should never be the end of an intervention. WAM focuses on what happens after a person is referred to a service. Our mentors help individuals understand where to go, what to expect, and how to overcome practical barriers that may prevent them from completing the referral.",
-        "Where appropriate, follow-up helps identify challenges and reconnect individuals with services. This approach strengthens continuity of care and builds confidence among community members.",
-        "By focusing on the entire linkage journey, WAM helps ensure that referrals translate into actual access, support, and improved wellbeing.",
+        "A referral is never the end of an intervention. Our mentors guide individuals through the entire journey, helping them navigate practical barriers to complete their care.",
+        "Active follow-ups ensure that referrals translate into actual access, continuity of care, and sustained community wellbeing.",
       ],
     },
     {
       number: "08",
       title: "Community Voices Driving Solutions",
       body: [
-        "WAM believes communities should not simply receive interventions — they should help shape them. During outreach and engagement activities, our teams listen to community members and document the barriers affecting access to health and social services.",
-        "Their experiences provide valuable insights into what is working and what needs improvement. We use this feedback to strengthen our approaches, improve referrals, and advocate for responsive services.",
-        "By creating channels for community voices to influence decisions, WAM promotes participation, accountability, and ownership. The result is a model of development where solutions are informed by the people they are intended to serve.",
+        "Communities should not just receive interventions—they should help shape them. Our teams listen closely to local barriers and insights during outreach.",
+        "We use this feedback to refine our approaches and advocate for responsive services, ensuring our development model is truly community-driven.",
       ],
     },
     {
       number: "09",
       title: "Supporting People Beyond the Health Facility",
       body: [
-        "Many factors affecting health occur outside the health facility. Family relationships, financial difficulties, stigma, emotional distress, and lack of information can all influence whether someone seeks or continues care.",
-        "WAM therefore takes a holistic approach to support. Through mentorship, psychosocial support, community outreach, health financing information, and referrals, we address barriers from multiple angles. Our mentors work alongside individuals to understand their circumstances and identify realistic solutions.",
-        "This approach recognizes the whole person — not just the health condition — and strengthens the social support systems necessary for sustainable wellbeing.",
+        "Health is influenced by factors far beyond the clinic walls—from family dynamics to financial stress. WAM takes a holistic approach to address these overlapping barriers.",
+        "By working alongside individuals through mentorship and psychosocial support, we address the whole person to foster sustainable wellbeing.",
       ],
     },
     {
       number: "10",
       title: "Empowering Communities Through Health Information",
       body: [
-        "Access to accurate, clear, and actionable health information is a fundamental pillar of health equity. WAM delivers community-focused education to demystify complex medical pathways, preventive care, and wellness rights.",
-        "By translating health guidelines into practical, relatable guidance, we equip individuals to advocate for their health, dispel myths, and take early action against preventable conditions.",
+        "Access to accurate health information drives health equity. WAM delivers clear, community-focused education to demystify medical pathways and preventive care.",
+        "By translating guidelines into practical knowledge, we equip individuals to advocate for their health and take early action against preventable conditions.",
       ],
     },
   ];
 
   return (
     <div className="impact-page">
-      {/* IMPROVED HERO SECTION */}
+      {/* HERO WITH TYPEWRITER */}
       <section className="impact-hero">
         <div className="impact-container">
           <span className="hero-kicker">Our Measurable Real-World Footprint</span>
+          
           <h1 className="hero-title">
-            Reaching People is Just the Beginning — Sustaining Care is Our Mission.
+            Reaching People is Just the Beginning —{" "}
+            <span className="typewriter-text">
+              {displayedText}
+              <span className="typewriter-cursor">|</span>
+            </span>
           </h1>
+
           <p className="hero-lead">
             At Wellness Approach Mentors (WAM), true impact lives beyond initial contact. We bridge systemic gaps between communities and healthcare institutions through persistent follow-ups, empathetic psychosocial mentorship, and accessible health financing literacy.
           </p>
         </div>
       </section>
 
-      {/* CARD FORMATTED STORY LIST WITH GREEN FRAME */}
+      {/* STORY CARDS GRID */}
       <section className="story-list">
         <div className="impact-container story-grid">
           {sections.map((s) => (
-            <article key={s.number} className="story-card">
+            <article key={s.number} className="story-card" tabIndex="0">
               <div className="story-card-header">
                 <span className="story-number">{s.number}</span>
                 <h2 className="story-title">{s.title}</h2>
@@ -131,7 +171,7 @@ export default function Impact() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA SECTION */}
       <section className="impact-cta-section">
         <div className="impact-container">
           <h2 className="cta-title">Help us reach further.</h2>
