@@ -1,24 +1,69 @@
 import React, { useState, useMemo } from "react";
 import emailjs from "@emailjs/browser";
 import "./Contact.css";
+
 const MESSAGE_MAX_LENGTH = 600;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const HELP_DESK_EMAIL = "wamo2021@gmail.com";
+
+const INITIAL_FORM_DATA = {
+  name: "",
+  email: "",
+  phone: "",
+  inquiryType: "General Enquiry",
+  county: "Nairobi",
+  subject: "",
+  message: "",
+};
+
+// --------------------------------------------------
+// STATIC CONTENT
+// --------------------------------------------------
+const contactChannels = [
+  {
+    title: "Main Office & General Enquiries",
+    email: HELP_DESK_EMAIL,
+    phone: "+254 (0) 720 914 797",
+    details:
+      "For general organizational inquiries, public relations, and administrative support.",
+  },
+  {
+    title: "Programme & Referral Desk",
+    email: HELP_DESK_EMAIL,
+    phone: "+254 (0) 720 914 797",
+    details:
+      "Direct contact line for MLINDE, MENTOR, and WELLNESS clinical and psychosocial referrals.",
+  },
+  {
+    title: "Partnerships & Institutional Support",
+    email: HELP_DESK_EMAIL,
+    phone: "+254 (0) 720 914 797",
+    details:
+      "For donor agencies, county health departments, and NGO consortium discussions.",
+  },
+];
+
+const operatingCounties = [
+  { name: "Nairobi County", hub: "Nairobi Central Hub" },
+  { name: "Machakos County", hub: "Machakos Town Office" },
+  { name: "Kitui County", hub: "Kitui Field Desk" },
+  { name: "Makueni County", hub: "Makueni Community Desk" },
+];
+
+const officeHours = [
+  { day: "Monday – Friday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Saturday", hours: "9:00 AM – 1:00 PM" },
+  {
+    day: "Sunday & Public Holidays",
+    hours: "Closed (Emergency GBV/PEP line remains active)",
+  },
+];
 
 export default function Contact() {
   // --------------------------------------------------
   // FORM STATE
   // --------------------------------------------------
-  const initialFormData = {
-    name: "",
-    email: "",
-    phone: "",
-    inquiryType: "General Enquiry",
-    county: "Nairobi",
-    subject: "",
-    message: "",
-  };
-
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [touched, setTouched] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -88,69 +133,72 @@ export default function Contact() {
   const showFieldError = (field) => touched[field] && fieldErrors[field];
 
   // --------------------------------------------------
-  // HANDLE FORM SUBMISSION
+  // HANDLE FORM SUBMISSION (EmailJS)
+  // Sends one email to the WAM help desk. The visitor is not emailed.
   // --------------------------------------------------
-  
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  if (isSubmitting) return;
+    if (isSubmitting) return;
 
-  setTouched({
-    name: true,
-    email: true,
-    phone: true,
-    subject: true,
-    message: true,
-  });
+    // Mark every field as touched so any remaining errors surface.
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      subject: true,
+      message: true,
+    });
 
-  if (!isFormValid) {
-    setErrorMessage("Please fix the highlighted fields before sending.");
-    return;
-  }
+    if (!isFormValid) {
+      setErrorMessage("Please fix the highlighted fields before sending.");
+      return;
+    }
 
-  setIsSubmitting(true);
-  setErrorMessage("");
+    setIsSubmitting(true);
+    setErrorMessage("");
 
-  try {
-    const templateParams = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone.trim() || "Not provided",
-      inquiryType: formData.inquiryType,
-      county: formData.county,
-      subject: formData.subject.trim(),
-      message: formData.message.trim(),
-    };
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    await emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      templateParams,
-      {
-        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      }
-    );
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim();
 
-    setIsSubmitted(true);
-    setFormData(initialFormData);
-    setTouched({});
+    try {
+      // Send the enquiry to the WAM help desk.
+      await emailjs.send(
+        serviceId,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          to_email: HELP_DESK_EMAIL,
+          name: cleanName,
+          email: cleanEmail,
+          phone: formData.phone.trim() || "Not provided",
+          inquiryType: formData.inquiryType,
+          county: formData.county,
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        },
+        { publicKey }
+      );
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 4000);
-  } catch (error) {
-    console.error("EmailJS contact form error:", error);
+      setIsSubmitted(true);
+      setFormData(INITIAL_FORM_DATA);
+      setTouched({});
 
-    setErrorMessage(
-      "We could not send your message. Please check your connection and try again."
-    );
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 4000);
+    } catch (error) {
+      console.error("EmailJS contact form error:", error);
 
-
+      setErrorMessage(
+        "We could not send your message. Please check your connection and try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // --------------------------------------------------
   // COPY TO CLIPBOARD
@@ -164,52 +212,6 @@ const handleSubmit = async (event) => {
       // Clipboard API unavailable — the link itself still works.
     }
   };
-
-  // --------------------------------------------------
-  // CONTACT CHANNELS
-  // --------------------------------------------------
-  const contactChannels = [
-    {
-      title: "Main Office & General Enquiries",
-      email: "wamo2021@gmail.com",
-      phone: "+254 (0) 720 914 797",
-      details:
-        "For general organizational inquiries, public relations, and administrative support.",
-    },
-    {
-      title: "Programme & Referral Desk",
-      email: "wamo2021@gmail.com",
-      phone: "+254 (0) 720 914 797",
-      details:
-        "Direct contact line for MLINDE, MENTOR, and WELLNESS clinical and psychosocial referrals.",
-    },
-    {
-      title: "Partnerships & Institutional Support",
-      email: "wamo2021@gmail.com",
-      phone: "+254 (0) 720 914 797",
-      details:
-        "For donor agencies, county health departments, and NGO consortium discussions.",
-    },
-  ];
-
-  // --------------------------------------------------
-  // OPERATING COUNTIES
-  // --------------------------------------------------
-  const operatingCounties = [
-    { name: "Nairobi County", hub: "Nairobi Central Hub" },
-    { name: "Machakos County", hub: "Machakos Town Office" },
-    { name: "Kitui County", hub: "Kitui Field Desk" },
-    { name: "Makueni County", hub: "Makueni Community Desk" },
-  ];
-
-  // --------------------------------------------------
-  // OFFICE HOURS
-  // --------------------------------------------------
-  const officeHours = [
-    { day: "Monday – Friday", hours: "8:00 AM – 5:00 PM" },
-    { day: "Saturday", hours: "9:00 AM – 1:00 PM" },
-    { day: "Sunday & Public Holidays", hours: "Closed (Emergency GBV/PEP line remains active)" },
-  ];
 
   const messageCharsLeft = MESSAGE_MAX_LENGTH - formData.message.length;
 
@@ -375,9 +377,8 @@ const handleSubmit = async (event) => {
                   <div className="success-icon">✓</div>
                   <h3 className="success-alert-title">Message Sent Successfully!</h3>
                   <p className="success-alert-body">
-                    Thank you for reaching out. A representative from our{" "}
-                    <strong>{formData.inquiryType}</strong> team will review your inquiry
-                    shortly.
+                    Thank you for reaching out. A representative from our team will review your
+                    inquiry shortly.
                   </p>
                 </div>
               ) : (
