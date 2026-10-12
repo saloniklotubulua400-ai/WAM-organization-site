@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
+import emailjs from "@emailjs/browser";
 import "./Contact.css";
-
 const MESSAGE_MAX_LENGTH = 600;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -90,51 +90,67 @@ export default function Contact() {
   // --------------------------------------------------
   // HANDLE FORM SUBMISSION
   // --------------------------------------------------
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (isSubmitting) {
-      return;
-    }
+  if (isSubmitting) return;
 
-    // Mark every field as touched so any remaining errors surface.
-    setTouched({
-      name: true,
-      email: true,
-      phone: true,
-      subject: true,
-      message: true,
-    });
+  setTouched({
+    name: true,
+    email: true,
+    phone: true,
+    subject: true,
+    message: true,
+  });
 
-    if (!isFormValid) {
-      setErrorMessage("Please fix the highlighted fields before sending.");
-      return;
-    }
+  if (!isFormValid) {
+    setErrorMessage("Please fix the highlighted fields before sending.");
+    return;
+  }
 
-    setIsSubmitting(true);
-    setErrorMessage("");
+  setIsSubmitting(true);
+  setErrorMessage("");
 
-    // Simulate sending the message
-    setTimeout(() => {
-      try {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData(initialFormData);
-        setTouched({});
+  try {
+    const templateParams = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim() || "Not provided",
+      inquiryType: formData.inquiryType,
+      county: formData.county,
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    };
 
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 4000);
-      } catch (error) {
-        console.error("Contact form error:", error);
-
-        setIsSubmitting(false);
-        setErrorMessage(
-          "We could not process your message. Please try again."
-        );
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      templateParams,
+      {
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       }
-    }, 1000);
-  };
+    );
+
+    setIsSubmitted(true);
+    setFormData(initialFormData);
+    setTouched({});
+
+    setTimeout(() => {
+      setIsSubmitted(false);
+    }, 4000);
+  } catch (error) {
+    console.error("EmailJS contact form error:", error);
+
+    setErrorMessage(
+      "We could not send your message. Please check your connection and try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
 
   // --------------------------------------------------
   // COPY TO CLIPBOARD
