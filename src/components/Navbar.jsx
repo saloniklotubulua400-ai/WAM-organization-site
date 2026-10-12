@@ -1,24 +1,72 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import "./Navbar.css";
 
 // Import your logo image
 import wamLogo from "../assets/wam-logo.png";
 
+// --------------------------------------------------
+// SOCIAL MEDIA BUTTONS
+// Replace each href with WAM's actual page link.
+// --------------------------------------------------
+const socialLinks = [
+  {
+    id: "facebook",
+    name: "Facebook",
+    href: "https://facebook.com",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
+      </svg>
+    ),
+  },
+  {
+    id: "x",
+    name: "X",
+    href: "https://x.com",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+      </svg>
+    ),
+  },
+  {
+    id: "whatsapp",
+    name: "WhatsApp",
+    href: "https://wa.me/254720914797",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 0 0 1.333 4.993L2 22l5.233-1.237a9.982 9.982 0 0 0 4.779 1.221h.004c5.505 0 9.988-4.478 9.989-9.985A9.983 9.983 0 0 0 12.012 2zm5.838 14.51c-.244.686-1.437 1.309-1.986 1.365-.512.053-1.18.077-3.415-.845-2.858-1.178-4.697-4.086-4.84-4.276-.142-.191-1.162-1.547-1.162-2.95 0-1.403.734-2.093.994-2.38.261-.285.568-.356.757-.356.19 0 .38.002.546.01.177.008.415-.067.649.494.244.584.83 2.025.902 2.17.072.144.119.313.024.503-.095.191-.143.31-.285.476-.143.167-.3.373-.428.502-.143.143-.292.3-.125.586.167.285.74 1.22 1.587 1.974 1.088.97 2.006 1.272 2.292 1.415.285.143.452.119.618-.072.167-.19.713-.832.903-1.117.19-.285.38-.238.641-.143.261.095 1.662.784 1.947.927.285.143.475.214.546.333.072.12.072.69-.172 1.376z" />
+      </svg>
+    ),
+  },
+];
+
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   // Auth Modal States
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState("login"); // 'login' or 'signup'
-  
+
   // Form Input States
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const navigate = useNavigate();
@@ -63,22 +111,22 @@ export default function Navbar() {
       {/* 1. TOP UTILITY / SOCIAL NAVBAR */}
       <div className="top-utility-bar">
         <div className="container top-bar-container">
-          
-          {/* Left: Social Media Links */}
+          {/* Left: Social Media Buttons */}
           <div className="top-social-links">
             <span className="top-bar-label">Connect:</span>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
-            </a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-            </a>
-            <a href="https://wa.me/254720914797" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 0 0 1.333 4.993L2 22l5.233-1.237a9.982 9.982 0 0 0 4.779 1.221h.004c5.505 0 9.988-4.478 9.989-9.985A9.983 9.983 0 0 0 12.012 2zm5.838 14.51c-.244.686-1.437 1.309-1.986 1.365-.512.053-1.18.077-3.415-.845-2.858-1.178-4.697-4.086-4.84-4.276-.142-.191-1.162-1.547-1.162-2.95 0-1.403.734-2.093.994-2.38.261-.285.568-.356.757-.356.19 0 .38.002.546.01.177.008.415-.067.649.494.244.584.83 2.025.902 2.17.072.144.119.313.024.503-.095.191-.143.31-.285.476-.143.167-.3.373-.428.502-.143.143-.292.3-.125.586.167.285.74 1.22 1.587 1.974 1.088.97 2.006 1.272 2.292 1.415.285.143.452.119.618-.072.167-.19.713-.832.903-1.117.19-.285.38-.238.641-.143.261.095 1.662.784 1.947.927.285.143.475.214.546.333.072.12.072.69-.172 1.376z"/></svg>
-            </a>
+            {socialLinks.map((social) => (
+              <a
+                key={social.id}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`social-btn social-btn--${social.id}`}
+                aria-label={`Visit WAM on ${social.name}`}
+              >
+                {social.icon}
+                <span className="social-btn-label">{social.name}</span>
+              </a>
+            ))}
           </div>
 
           {/* Middle: Integrated Search Bar */}
@@ -91,7 +139,10 @@ export default function Navbar() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button type="submit" aria-label="Search">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
               </button>
             </form>
           </div>
@@ -105,28 +156,26 @@ export default function Navbar() {
               Sign Up
             </button>
           </div>
-
         </div>
       </div>
 
       {/* 2. MAIN NAVIGATION NAVBAR */}
       <nav className="main-navbar">
         <div className="container main-nav-container">
-          
           {/* BRAND LOGO WITH TEXT BELOW */}
           <Link to="/" className="nav-brand-wrapper" aria-label="WAM Organization Homepage">
-            <img 
-              src={wamLogo} 
-              alt="WAM Organization Official Crest" 
-              className="brand-logo-img" 
+            <img
+              src={wamLogo}
+              alt="WAM Organization Official Crest"
+              className="brand-logo-img"
             />
             <span className="brand-text">
               WAM<span className="brand-dot">.</span>
             </span>
           </Link>
 
-          <button 
-            className="mobile-toggle" 
+          <button
+            className="mobile-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle navigation"
           >
@@ -143,7 +192,7 @@ export default function Navbar() {
             <li><Link to="/impact" onClick={() => setIsMobileMenuOpen(false)}>Impact</Link></li>
             <li><Link to="/partnerships" onClick={() => setIsMobileMenuOpen(false)}>Partnerships</Link></li>
             <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
-            
+
             <li className="nav-cta-item">
               <Link to="/get-involved" className="btn-get-involved" onClick={() => setIsMobileMenuOpen(false)}>
                 Get Involved
@@ -166,20 +215,20 @@ export default function Navbar() {
             <button className="auth-close-btn" onClick={closeAuthModal} aria-label="Close modal">
               &times;
             </button>
-            
+
             <div className="auth-header">
               <h2>{authMode === "login" ? "Welcome Back" : "Create an Account"}</h2>
               <p>{authMode === "login" ? "Access your WAM portal" : "Join the WAM community today"}</p>
             </div>
 
             <div className="auth-tabs">
-              <button 
+              <button
                 className={`tab-btn ${authMode === "login" ? "active" : ""}`}
                 onClick={() => setAuthMode("login")}
               >
                 Log In
               </button>
-              <button 
+              <button
                 className={`tab-btn ${authMode === "signup" ? "active" : ""}`}
                 onClick={() => setAuthMode("signup")}
               >
